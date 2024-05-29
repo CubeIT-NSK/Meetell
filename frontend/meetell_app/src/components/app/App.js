@@ -1,13 +1,11 @@
 import './App.css';
 import {Fragment} from "react";
-import Header from "../appHeader/Header";
-import Home from "../appHome/Home";
+import Main from '../appMain/Main';
 
 function App() {
   return (
     <Fragment>
-      <Header />
-      <Home />
+      <Main />
     </Fragment>
   );
 }

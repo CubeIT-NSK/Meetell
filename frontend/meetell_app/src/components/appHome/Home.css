@@ -1,5 +1,4 @@
 .home_body {
-    margin-top: 30%;
     width: 100%;
     height: 60%;
     background-color: #E9EEF4;
@@ -53,9 +52,35 @@
     font-size: 18px;
     font-weight: 500;
     color: #0A0930;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 .home_search_result {
     width: 100%;
-    
+    padding-bottom: 100%;
+    background-blend-mode: multiply;
+    background: url("../../img/bg_search.svg") no-repeat;
+    background-size: 100%, 100%;
+    background-position: 0px 100px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    margin-top: 2%;
+}
+
+
+.home_search_result h2 {
+    margin: 0;
+    padding: 0;
+    padding-top: 30px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    color: #0A0930;
+}
+
+.home_search_result p {
+    font-size: 13px;
+    text-align: center;
+    color: #797984;
 }
