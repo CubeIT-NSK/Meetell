@@ -1,7 +1,7 @@
 .home_body {
     width: 100%;
     background-color: #E9EEF4;
-    border-radius: 15px;
+    border-radius: 15px 15px 0px 0px;
 }
 
 .home_stat {
@@ -34,10 +34,37 @@
     justify-content: space-between;
     font-size: 12px;
     line-height: 14px;
+    margin-bottom: 0;
 }
 
 .home_distanse_need {
     color: #797984;
+}
+
+.home_progress {
+    width: 100%;
+}
+
+.home_progress progress {
+    background-color: #523DD8;
+    height: 7px;
+    width: 92%;
+    margin: 4%;
+    margin-top: 1%;
+    border: 0;
+    border-radius: 60px;
+}
+
+.home_progress progress::-webkit-progress-bar {
+    background-color: #797984;
+    border: 0;
+    border-radius: 60px;
+}
+
+.home_progress progress::-webkit-progress-value {
+    background-color: #523DD8;
+    border: 0;
+    border-radius: 60px;
 }
 
 .home_history {
@@ -58,7 +85,8 @@
 .home_search_result {
     width: 100%;
     /* padding-bottom: 100%; */
-    height: 300px;
+    /* height: 300px; */
+    /* padding-bottom: 0%; */
     background-blend-mode: multiply;
     background: url("../../img/bg_search.svg") no-repeat;
     background-size: 100%, 100%;
