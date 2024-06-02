@@ -5,12 +5,9 @@ const Home = () => {
     const parrentRef = useRef();
     const childrenRef = useRef();
     useEffect(() => {
-        console.log(parrentRef);
-        console.log(childrenRef);
         let rectParrent = parrentRef.current.getBoundingClientRect();
         parrentRef.current.style.height = window.innerHeight - rectParrent.y + "px";
         let rectChildren = childrenRef.current.getBoundingClientRect();
-        console.log(rectChildren);
         childrenRef.current.style.height = window.innerHeight - rectChildren.y - 20 + "px";
     }, []);
     return (
