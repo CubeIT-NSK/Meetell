@@ -4,4 +4,4 @@ from rest_framework import serializers
 class FAQSerializer(serializers.ModelSerializer):
     class Meta:
         model = FAQ
-        fields = ['question', 'answer']
+        fields = ['id', 'question', 'answer']
