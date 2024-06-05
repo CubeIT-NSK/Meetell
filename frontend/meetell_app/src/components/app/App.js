@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import Main from '../appMain/Main';
 import Question from '../appQuestion/Question';
 import Header from "../appHeader/Header";
+import Footer from '../appFooter/Footer';
 
 import {
   BrowserRouter,
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path='/question' element={<Question />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </Fragment>
   );

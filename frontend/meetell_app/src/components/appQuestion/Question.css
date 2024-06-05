@@ -24,26 +24,47 @@
     justify-content: space-between;
 }
 
+.que_block_answ {
+    margin-top: 3%;
+    width: 94%;
+    display: flex;
+    background-color: #ffffff;
+    border-radius: 15px 15px 0px 0px;
+    justify-content: space-between;
+}
+
 .que_text {
     padding: 20px;
     padding-left: 10px;
     padding-right: 0;
 }
 
+
 .que_answ_button {
     background-color: #523DD8;
     color: #ffffff;
+    font-size: 18px;
+    font-weight: 500;
     margin: 10px;
     border-radius: 15px;
     padding: 10px;
+    border: none;
 }
 
-.que_answ {
+.que_answ_button_hidden {
     display: none;
+}
+
+.que_answ_show {
+    display: block;
     margin-top: 3px;
     margin-right: 6%;
     background-color: #ffffff;
     border-radius: 0px 0px 15px 15px;
     padding: 10px;
     color: #797984; 
+}
+
+.que_answ_hidden {
+    display: none;
 }
