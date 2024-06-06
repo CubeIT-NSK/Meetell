@@ -33,11 +33,21 @@
 }
 
 .filter_options {
-    position: absolute;
+    position: fixed;
     top: 0px;
-    width: 94%;
+    width: 100%;
+    margin-left: -3%;
     background-color: #ffffff;
     z-index: 2;
+    padding-top: 2%;
+    padding-right: 3%;
+    padding-left: 3%;
+}
+
+.filter_options p {
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 .filter_buttons {
@@ -46,16 +56,88 @@
     margin-bottom: 20px;
 }
 
-.reset_button, .close_button {
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    background-color: #007bff; /* Синий цвет кнопки */
-    color: white;
-    border-radius: 4px;
+.filter_header {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 94%;
+}
+
+.filter_close {
+    position: fixed;
+    top: 3%;
+    right: 2%;
 }
 
 .reset_button {
     background-color: #6c757d; /* Серый цвет кнопки */
 }
 
+.close_button {
+    border: none;
+    background: none;
+}
+
+.filter_city_select {
+    display: inline-block;
+    width: 100%;
+    padding: 10px 30px 10px 30px;
+    font-size: 15px;
+    color: #2c2c2c; /* Цвет текста */
+    border: 1px solid #e1e1e1; /* Цвет границы */
+    border-radius: 15px; /* Радиус скругления */
+    appearance: none; /* Убирает стандартный вид селекта */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="%232c2c2c" stroke-width="2" d="M6 9l6 6 6-6"/></svg>'); /* Стрелка */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    cursor: pointer;
+    text-align: center;
+    text-align-last: center;
+    margin: 0 auto;
+}
+
+.filter_city_select:focus {
+    border-color: #007bff; /* Цвет границы при фокусе */
+    outline: none;
+}
+
+.filter_city_select option {
+    padding: 10px;
+}
+
+.reset_button {
+    border: none;
+    background: #D6D6D6;
+    width: 94%;
+    padding: 12px;
+    border-radius: 15px;
+}
+
+.filter_date_trip {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 94%;
+}
+
+.filter_date_select {
+    display: inline-block;
+    width: 30%;
+    padding: 10px 30px 10px 10px;
+    font-size: 15px;
+    color: #2c2c2c; /* Цвет текста */
+    border: 1px solid #e1e1e1; /* Цвет границы */
+    border-radius: 15px; /* Радиус скругления */
+    appearance: none; /* Убирает стандартный вид селекта */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="%232c2c2c" stroke-width="2" d="M6 9l6 6 6-6"/></svg>'); /* Стрелка */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    cursor: pointer;
+    text-align: center;
+    text-align-last: center;
+}

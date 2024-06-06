@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import settings from '../../img/settings_trip.svg';
 import add from '../../img/add_trip.svg';
+import close from '../../img/filter_close.svg';
 import './Trip.css';
 
 function Trip() {
@@ -42,12 +43,61 @@ function Trip() {
                 </div>
                 {showFilters && (
                     <div ref={filterRef} className='filter_options'>
+                        <div className='filter_header'>
+                            <div className='filter_city'>
+                                <select className='filter_city_select'>
+                                    <option selected value="spb">Санкт-Петербург</option>
+                                    <option value="spb">Казань</option>
+                                    <option value="spb">Новосибирск</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className='filter_close'>
+                            <button onClick={toggleFilters} className='close_button'>
+                                <img src={close} alt='' />
+                            </button>
+                        </div>
+                        <p>Дата маршрута</p>
+                        <div className='filter_date_trip'>
+                            <select className='filter_date_select'>
+                                <option selected value="spb">11</option>
+                                <option value="spb">12</option>
+                                <option value="spb">13</option>
+                            </select>
+                            <select className='filter_date_select'>
+                                <option selected value="spb">сентябрь</option>
+                                <option value="spb">октябрь</option>
+                                <option value="spb">ноябрь</option>
+                            </select>
+                            <select className='filter_date_select'>
+                                <option selected value="spb">2024</option>
+                                <option value="spb">2025</option>
+                                <option value="spb">2026</option>
+                            </select>
+                        </div>
+                        <p>Время встречи</p>
+                        <div className='filter_date_trip'>
+                            <select className='filter_date_select'>
+                                <option selected value="spb">11</option>
+                                <option value="spb">12</option>
+                                <option value="spb">13</option>
+                            </select>
+                            <select className='filter_date_select'>
+                                <option selected value="spb">сентябрь</option>
+                                <option value="spb">октябрь</option>
+                                <option value="spb">ноябрь</option>
+                            </select>
+                            <select className='filter_date_select'>
+                                <option selected value="spb">2024</option>
+                                <option value="spb">2025</option>
+                                <option value="spb">2026</option>
+                            </select>
+                        </div>
+
+
                         <div className='filter_buttons'>
                             <button onClick={resetFilters} className='reset_button'>Сбросить</button>
-                            <button onClick={toggleFilters} className='close_button'>Закрыть фильтры</button>
                         </div>
-                        {/* Здесь добавьте ваши элементы фильтров */}
-                        <p>Фильтры</p>
                     </div>
                 )}
                 <div ref={childrenRef} className='home_search_result'>
