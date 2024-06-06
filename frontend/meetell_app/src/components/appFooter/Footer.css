@@ -26,3 +26,20 @@
     padding: 0;
     margin-top: 3px;
 }
+
+.footer_main.active {
+   color: #523DD8;
+}
+
+.footer_main.active svg g path {
+    fill: #523DD8;
+}
+
+.footer_trips.active {
+    color: #523DD8;
+}
+
+.footer_trips.active svg path {
+    fill: #523DD8;
+}
+
