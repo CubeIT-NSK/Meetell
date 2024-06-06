@@ -1,0 +1,57 @@
+.loaderScreen {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    padding-bottom: 45px;
+    background: rgb(6, 12, 34);
+    background: -moz-linear-gradient(
+      180deg,
+      rgba(6, 12, 34, 1) 0%,
+      rgba(45, 32, 133, 1) 48%,
+      rgba(6, 12, 34, 1) 100%
+    );
+    background: -webkit-linear-gradient(
+      180deg,
+      rgba(6, 12, 34, 1) 0%,
+      rgba(45, 32, 133, 1) 48%,
+      rgba(6, 12, 34, 1) 100%
+    );
+    background: linear-gradient(
+      180deg,
+      rgba(6, 12, 34, 1) 0%,
+      rgba(45, 32, 133, 1) 48%,
+      rgba(6, 12, 34, 1) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#060c22",endColorstr="#060c22",GradientType=1);
+  }
+  .loader {
+    position: absolute;
+    top: 50%;
+    
+    animation: rotate 1.5s infinite linear;
+    -webkit-animation: rotate 1.5s infinite linear;
+  }
+  @keyframes rotate {
+    0% {
+      transform: rotate(360deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+  @-webkit-keyframes rotate {
+    0% {
+      transform: rotate(360deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+  .loadText {
+    padding-bottom: 45px;
+    color: #adabc1;
+    font-size: 14px;
+    text-align: center;
+  }

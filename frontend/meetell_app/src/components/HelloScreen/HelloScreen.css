@@ -1,0 +1,8 @@
+.helloScreen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: center / cover no-repeat url("./assets/HelloScreen.svg");
+    height: 100vh;
+    width: 100%;
+  }
