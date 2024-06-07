@@ -125,7 +125,7 @@
 .filter_date_select {
     display: inline-block;
     width: 30%;
-    padding: 10px 30px 10px 10px;
+    padding: 10px;
     font-size: 15px;
     color: #2c2c2c; /* Цвет текста */
     border: 1px solid #e1e1e1; /* Цвет границы */
@@ -140,4 +140,52 @@
     cursor: pointer;
     text-align: center;
     text-align-last: center;
+}
+
+.filter_time_trip {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 94%;
+}
+
+.filter_time_select {
+    display: inline-block;
+    width: 47.5%;
+    padding: 10px;
+    font-size: 15px;
+    color: #797984; /* Цвет текста */
+    border: 1px solid #e1e1e1; /* Цвет границы */
+    border-radius: 15px; /* Радиус скругления */
+    appearance: none; /* Убирает стандартный вид селекта */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+    /* background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="%232c2c2c" stroke-width="2" d="M6 9l6 6 6-6"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center; */
+    cursor: pointer;
+    text-align: center;
+    text-align-last: center;
+}
+
+.filter_sex_trip {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 94%;
+}
+
+.filter_sex_btn label{
+    width: 100%;
+    display: inline-block;
+    background: #EAEAEA;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.filter_sex_btn input[type=checkbox] {
+	display: none;
+}
+
+.filter_sex_btn input[type=checkbox]:checked + label {
+	background: #CFDAFF;
 }

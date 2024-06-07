@@ -76,22 +76,32 @@ function Trip() {
                             </select>
                         </div>
                         <p>Время встречи</p>
-                        <div className='filter_date_trip'>
-                            <select className='filter_date_select'>
-                                <option selected value="spb">11</option>
-                                <option value="spb">12</option>
-                                <option value="spb">13</option>
+                        <div className='filter_time_trip'>
+                            <select className='filter_time_select'>
+                                <option selected value="spb">от 10:00</option>
+                                <option value="spb">от 10:30</option>
+                                <option value="spb">от 11:00</option>
                             </select>
-                            <select className='filter_date_select'>
-                                <option selected value="spb">сентябрь</option>
-                                <option value="spb">октябрь</option>
-                                <option value="spb">ноябрь</option>
+                            <select className='filter_time_select'>
+                                <option selected value="spb">до 20:00</option>
+                                <option value="spb">до 20:30</option>
+                                <option value="spb">до 21:00</option>
                             </select>
-                            <select className='filter_date_select'>
-                                <option selected value="spb">2024</option>
-                                <option value="spb">2025</option>
-                                <option value="spb">2026</option>
-                            </select>
+                        </div>
+                        <p>Компания</p>
+                        <div className='filter_sex_trip'>
+                            <div className='filter_sex_btn'>
+                                <input id='sex_men' type='checkbox' value='men' />
+                                <label for="sex_men">Мужская</label>
+                            </div>
+                            <div className='filter_sex_btn'>
+                                <input id='sex_women' type='checkbox' value='men' />
+                                <label for="sex_women">Женская</label>
+                            </div>
+                            <div className='filter_sex_btn'>
+                                <input id='sex_all' type='checkbox' value='men' />
+                                <label for="sex_all">Смешанная</label>
+                            </div>
                         </div>
 
 
