@@ -128,7 +128,7 @@
 
 .filter_date_select {
     display: inline-block;
-    width: 30%;
+    width: 32%;
     padding: 10px;
     font-size: 12px;
     color: #2c2c2c; /* Цвет текста */
@@ -154,7 +154,7 @@
 
 .filter_time_select {
     display: inline-block;
-    width: 47.5%;
+    width: 49%;
     padding: 10px;
     font-size: 12px;
     color: #797984; /* Цвет текста */
@@ -175,32 +175,45 @@
 .filter_sex_trip {
     display: inline-flex;
     justify-content: space-between;
-    width: 100vw;
+    align-items: center;
+    width: 100%;
     margin-right: 6%;
 }
 
 .filter_sex_btn {
-    width: 28%;
+    display: flex;
+    align-items: center;
+    width: 32%;
 }
 
 .filter_sex_btn label{
+    display: flex;
+    align-items: center;
     width: 100%;
     display: inline-block;
     background: #EAEAEA;
     color: #797984;
-    padding: 10px;
+    padding: 10px 3px;
     border-radius: 15px;
     text-align: center;
+    align-items: center;
     font-size: 12px;
+    transition: background-color 0.3s ease;
+}
+
+.filter_sex_btn label svg {
+    margin-right: 3px;
 }
 
 .filter_sex_btn input[type=checkbox] {
 	display: none;
 }
 
-.filter_sex_btn input[type=checkbox]:checked + label {
+.filter_sex_btn input[type=checkbox]:checked + label,
+.filter_sex_btn input[type=checkbox]:checked + label svg path{
 	background: #CFDAFF;
     color: #0912DB;
+    fill: #0912DB;
 }
 
 .filter_buttons {
