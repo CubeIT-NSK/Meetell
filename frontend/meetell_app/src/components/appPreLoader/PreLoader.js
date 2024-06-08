@@ -1,5 +1,6 @@
 import React from "react";
-import { default as download } from '../assets/load.svg'
+import { default as download } from '../../img/load.svg';
+import './PreLoader.css';
 
 
 

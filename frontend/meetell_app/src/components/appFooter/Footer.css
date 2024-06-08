@@ -16,6 +16,9 @@
     border-radius: 15px;
     font-size: 12px;
 }
+.footer_block.active {
+    display: none;
+}
 
 .no_underline_footer {
     text-decoration: none;

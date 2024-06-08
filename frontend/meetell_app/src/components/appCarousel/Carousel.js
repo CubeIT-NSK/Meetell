@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import "../App.css";
-import {default as rocket} from "../assets/rocketInSpace.svg";
-import handles from "../assets/handles.svg";
-import book from "../assets/book.svg";
+import "./Carousel.css";
+import {default as rocket} from "../../img/rocketInSpace.svg";
+import handles from "../../img/handles.svg";
+import book from "../../img/book.svg";
+import { Link } from "react-router-dom";
 
 
 const slidesData = [
@@ -70,7 +71,9 @@ const Carousel = () => {
   return (
     <div className="sliderBackground" style={style}>
       <div className="slider">
-        <button className="closeSlider" onClick={closeSlider}></button>
+      <Link to='/home'>
+      <button className="closeSlider"></button>
+      </Link>
         {slidesData.map((slide, index) => (
           <div
             key={slide.id}

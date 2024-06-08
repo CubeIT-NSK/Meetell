@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.css';
+import './HelloScreen.css';
 
 export default function HelloScreen() {
   return (
