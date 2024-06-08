@@ -45,7 +45,7 @@ function Trip() {
     };
 
     const today = new Date();
-    const years = [{"year" : today.getFullYear(), "selected": true},{"year" : today.getFullYear() + 1, "selected": false}]
+    const years = [{ "year": today.getFullYear(), "selected": true }, { "year": today.getFullYear() + 1, "selected": false }]
     console.log(years);
 
     return (
@@ -88,9 +88,12 @@ function Trip() {
                         <option value="spb">ноябрь</option>
                     </select>
                     <select className='filter_date_select' name='filter_year'>
-                    {years.map(item => ( 
-                        <option {item.selected === true ? selected: null} value={item}>{item.year}</option>
-                    ))}
+                        {years.map(item => (
+                            <option key={item.year} selected={item.selected} value={item.year}>
+                                {item.year}
+                            </option>
+                        ))}
+
                     </select>
                 </div>
                 <p>Время встречи</p>
