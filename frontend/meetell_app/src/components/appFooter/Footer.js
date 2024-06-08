@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import invite from '../../img/invite_footer.svg'
 import './Footer.css';
