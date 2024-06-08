@@ -62,9 +62,39 @@
     background-color: #ffffff;
     border-radius: 0px 0px 15px 15px;
     padding: 10px;
-    color: #797984; 
+    color: #797984;
 }
 
 .que_answ_hidden {
     display: none;
+}
+
+.server_wait {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    text-align: center;
+
+    animation: rotate 1.5s infinite linear;
+    -webkit-animation: rotate 1.5s infinite linear;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(360deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@-webkit-keyframes rotate {
+    0% {
+        transform: rotate(360deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
 }

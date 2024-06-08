@@ -44,6 +44,10 @@ function Trip() {
         console.log("Фильтры сброшены");
     };
 
+    const today = new Date();
+    const years = [{ "year": today.getFullYear(), "selected": true }, { "year": today.getFullYear() + 1, "selected": false }]
+    console.log(years);
+
     return (
         <div ref={parrentRef} className="trip_body">
             <div className={`content ${showFilters ? 'blur-content' : ''}`}>
@@ -83,10 +87,13 @@ function Trip() {
                         <option value="spb">октябрь</option>
                         <option value="spb">ноябрь</option>
                     </select>
-                    <select className='filter_date_select'>
-                        <option selected value="spb">2024</option>
-                        <option value="spb">2025</option>
-                        <option value="spb">2026</option>
+                    <select className='filter_date_select' name='filter_year'>
+                        {years.map(item => (
+                            <option key={item.year} selected={item.selected} value={item.year}>
+                                {item.year}
+                            </option>
+                        ))}
+
                     </select>
                 </div>
                 <p>Время встречи</p>

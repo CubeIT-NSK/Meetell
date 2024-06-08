@@ -3,6 +3,8 @@ from .models import FAQ
 from .serializers import FAQSerializer
 from django.http import JsonResponse
 
+import time
+
 @api_view(['GET'])
 def get_faq(request, format=None):
     faq = FAQ.objects.all()
