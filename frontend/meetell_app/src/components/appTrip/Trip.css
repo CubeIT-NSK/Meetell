@@ -236,11 +236,23 @@
 }
 
 .save_button {
+    display: block;
     border: none;
     background: #523DD8;
     color: #ffffff;
     width: 100%;
     padding: 12px;
     border-radius: 15px;
-    margin-top: 7px;
+    margin-top: 5px;
+}
+
+.fail_button {
+    display: block;
+    border: none;
+    background: #A8A8AC;
+    color: #ffffff;
+    width: 100%;
+    padding: 12px;
+    border-radius: 15px;
+    margin-top: 5px;
 }
