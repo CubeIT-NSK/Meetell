@@ -5,6 +5,15 @@
     padding-left: 3%;
     padding-right: 3%;
     border-radius: 15px 15px 0px 0px;
+    position: relative;
+}
+
+.blur-content {
+    filter: blur(5px);
+}
+
+.content {
+    transition: filter 0.5s ease-in-out;
 }
 
 .trip_filters {
@@ -29,4 +38,209 @@
 
 .trip_add span {
     margin-right: 5px;
+}
+
+.slide-down {
+    top: 0;
+}
+
+.slide-up {
+    top: -100%;
+}
+
+.filter_options {
+    position: fixed;
+    /* top: -100%; */
+    width: 94%;
+    margin-left: -3%;
+    background-color: #ffffff;
+    z-index: 2;
+    padding-top: 2%;
+    padding-right: 3%;
+    padding-left: 3%;
+    border-radius: 0px 0px 15px 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: top 0.8s ease-in-out;
+    filter: none;
+}
+
+.filter_options p {
+    margin: 0;
+    margin-top: 7px;
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+
+.filter_header {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.filter_close {
+    position: fixed;
+    top: 3%;
+    right: 2%;
+}
+
+.close_button {
+    border: none;
+    background: none;
+}
+
+.filter_city_select {
+    display: inline-block;
+    width: 100%;
+    padding: 10px 30px 10px 30px;
+    font-size: 13px;
+    color: #2c2c2c; /* Цвет текста */
+    border: 1px solid #e1e1e1; /* Цвет границы */
+    border-radius: 15px; /* Радиус скругления */
+    appearance: none; /* Убирает стандартный вид селекта */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="%232c2c2c" stroke-width="2" d="M6 9l6 6 6-6"/></svg>'); /* Стрелка */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    cursor: pointer;
+    text-align: center;
+    text-align-last: center;
+    margin: 0 auto;
+}
+
+.filter_city_select:focus {
+    border-color: #007bff; /* Цвет границы при фокусе */
+    outline: none;
+}
+
+.filter_city_select option {
+    padding: 10px;
+}
+
+.filter_date_trip {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.filter_date_select {
+    display: inline-block;
+    width: 32%;
+    padding: 10px;
+    font-size: 12px;
+    color: #2c2c2c; /* Цвет текста */
+    border: 1px solid #e1e1e1; /* Цвет границы */
+    border-radius: 15px; /* Радиус скругления */
+    appearance: none; /* Убирает стандартный вид селекта */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="%232c2c2c" stroke-width="2" d="M6 9l6 6 6-6"/></svg>'); /* Стрелка */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    cursor: pointer;
+    text-align: center;
+    text-align-last: center;
+}
+
+.filter_time_trip {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.filter_time_select {
+    display: inline-block;
+    width: 49%;
+    padding: 10px;
+    font-size: 12px;
+    color: #797984; /* Цвет текста */
+    border: 1px solid #e1e1e1; /* Цвет границы */
+    border-radius: 15px; /* Радиус скругления */
+    appearance: none; /* Убирает стандартный вид селекта */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+    /* background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="%232c2c2c" stroke-width="2" d="M6 9l6 6 6-6"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center; */
+    cursor: pointer;
+    text-align: center;
+    text-align-last: center;
+}
+
+.filter_sex_trip {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-right: 6%;
+}
+
+.filter_sex_btn {
+    display: flex;
+    align-items: center;
+    width: 32%;
+}
+
+.filter_sex_btn label{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    display: inline-block;
+    background: #EAEAEA;
+    color: #797984;
+    padding: 10px 3px;
+    border-radius: 15px;
+    text-align: center;
+    align-items: center;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+}
+
+.filter_sex_btn label svg {
+    margin-right: 3px;
+}
+
+.filter_sex_btn input[type=checkbox] {
+	display: none;
+}
+
+.filter_sex_btn input[type=checkbox]:checked + label,
+.filter_sex_btn input[type=checkbox]:checked + label svg path{
+	background: #CFDAFF;
+    color: #0912DB;
+    fill: #0912DB;
+}
+
+.filter_buttons {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+
+.reset_button {
+    border: none;
+    background: #D6D6D6;
+    color: #000000;
+    width: 100%;
+    padding: 12px;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.save_button {
+    border: none;
+    background: #523DD8;
+    color: #ffffff;
+    width: 100%;
+    padding: 12px;
+    border-radius: 15px;
+    margin-top: 7px;
 }
