@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+// import { Link, useLocation } from 'react-router-dom';
 import settings from '../../img/settings_trip.svg';
 import add from '../../img/add_trip.svg';
 import './Trip.css';
