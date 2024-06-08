@@ -10,6 +10,16 @@ function Trip() {
     const childrenRef = useRef();
     const filterRef = useRef(null);
 
+    const today = new Date();
+    const years = [today.getFullYear(), today.getFullYear() + 1];
+    const [selectedYear, setSelectedYear] = useState(today.getFullYear());
+    const [selectedMonth, setSelectedMonth] = useState(today.getMonth() + 1);
+    const [selectedDay, setSelectedDay] = useState(today.getDate());
+    const [selectedTimeSt, setselectedTimeSt] = useState(today.getHours() + ":00");
+    const [selectedTimeEn, setselectedTimeEn] = useState("23:30");
+    const [days, setDays] = useState([]);
+    const [times, setTimes] = useState([]);
+
     useEffect(() => {
         let rectParrent = parrentRef.current.getBoundingClientRect();
         parrentRef.current.style.height = window.innerHeight - rectParrent.y + "px";
@@ -44,9 +54,44 @@ function Trip() {
         console.log("Фильтры сброшены");
     };
 
-    const today = new Date();
-    const years = [{ "year": today.getFullYear(), "selected": true }, { "year": today.getFullYear() + 1, "selected": false }]
-    console.log(years);
+    useEffect(() => {
+        updateDays(selectedYear, selectedMonth);
+    }, [selectedYear, selectedMonth]);
+
+    const updateDays = (year, month) => {
+        const daysInMonth = new Date(year, month, 0).getDate(); // Получаем количество дней в месяце
+        const newDays = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+        setDays(newDays);
+    };
+
+    const handleYearChange = (e) => {
+        setSelectedYear(parseInt(e.target.value, 10));
+    };
+
+    const handleMonthChange = (e) => {
+        setSelectedMonth(parseInt(e.target.value, 10));
+    };
+
+    const handleDayChange = (e) => {
+        setSelectedDay(parseInt(e.target.value, 10));
+    };
+
+    const handleTimeStChange = (e) => {
+        setselectedTimeSt(e.target.value);
+    };
+
+    const handleTimeEnChange = (e) => {
+        setselectedTimeEn(e.target.value);
+    };
+
+    useEffect(() => {
+        updateTimes();
+    }, []);
+
+    const updateTimes = () => {
+        const times = Array.from({ length: 48 }, (_, i) => Math.floor(i / 2) + ":" + (i % 2 === 0 ? "00" : "30"));
+        setTimes(times);
+    };
 
     return (
         <div ref={parrentRef} className="trip_body">
@@ -77,20 +122,29 @@ function Trip() {
                 </div>
                 <p>Дата маршрута</p>
                 <div className='filter_date_trip'>
-                    <select className='filter_date_select'>
-                        <option selected value="spb">11</option>
-                        <option value="spb">12</option>
-                        <option value="spb">13</option>
+                    <select className='filter_date_select' onChange={handleDayChange} value={selectedDay}>
+                        {days.map(day => (
+                            <option key={day} value={day}>{day}</option>
+                        ))}
                     </select>
-                    <select className='filter_date_select'>
-                        <option selected value="spb">сентябрь</option>
-                        <option value="spb">октябрь</option>
-                        <option value="spb">ноябрь</option>
+                    <select className='filter_date_select' onChange={handleMonthChange} value={selectedMonth}>
+                        <option value={1}>Январь</option>
+                        <option value={2}>Февраль</option>
+                        <option value={3}>Март</option>
+                        <option value={4}>Апрель</option>
+                        <option value={5}>Май</option>
+                        <option value={6}>Июнь</option>
+                        <option value={7}>Июль</option>
+                        <option value={8}>Август</option>
+                        <option value={9}>Сентябрь</option>
+                        <option value={10}>Октябрь</option>
+                        <option value={11}>Ноябрь</option>
+                        <option value={12}>Декабрь</option>
                     </select>
-                    <select className='filter_date_select' name='filter_year'>
+                    <select className='filter_date_select' name='filter_year' onChange={handleYearChange} value={selectedYear}>
                         {years.map(item => (
-                            <option key={item.year} selected={item.selected} value={item.year}>
-                                {item.year}
+                            <option key={item} value={item}>
+                                {item}
                             </option>
                         ))}
 
@@ -98,15 +152,15 @@ function Trip() {
                 </div>
                 <p>Время встречи</p>
                 <div className='filter_time_trip'>
-                    <select className='filter_time_select'>
-                        <option selected value="spb">от 10:00</option>
-                        <option value="spb">от 10:30</option>
-                        <option value="spb">от 11:00</option>
+                    <select className='filter_time_select' onChange={handleTimeStChange} value={selectedTimeSt}>
+                        {times.map(time => (
+                            <option key={time} value={time}>от {time}</option>
+                        ))}
                     </select>
-                    <select className='filter_time_select'>
-                        <option selected value="spb">до 20:00</option>
-                        <option value="spb">до 20:30</option>
-                        <option value="spb">до 21:00</option>
+                    <select className='filter_time_select' onChange={handleTimeEnChange} value={selectedTimeEn}>
+                        {times.map(time => (
+                            <option key={time} value={time}>до {time}</option>
+                        ))}
                     </select>
                 </div>
                 <p>Компания</p>
