@@ -8,6 +8,14 @@
     position: relative;
 }
 
+.blur-content {
+    filter: blur(5px);
+}
+
+.content {
+    transition: filter 0.5s ease-in-out;
+}
+
 .trip_filters {
     display: inline-flex;
     justify-content: space-between;
@@ -32,45 +40,49 @@
     margin-right: 5px;
 }
 
+.slide-down {
+    top: 0;
+}
+
+.slide-up {
+    top: -100%;
+}
+
 .filter_options {
     position: fixed;
-    top: 0px;
-    width: 100%;
+    /* top: -100%; */
+    width: 94%;
     margin-left: -3%;
     background-color: #ffffff;
     z-index: 2;
     padding-top: 2%;
     padding-right: 3%;
     padding-left: 3%;
+    border-radius: 0px 0px 15px 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: top 0.8s ease-in-out;
+    filter: none;
 }
 
 .filter_options p {
     margin: 0;
-    margin-top: 10px;
+    margin-top: 7px;
     margin-bottom: 5px;
+    font-size: 13px;
 }
 
-.filter_buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
 
 .filter_header {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 94%;
+    width: 100%;
 }
 
 .filter_close {
     position: fixed;
     top: 3%;
     right: 2%;
-}
-
-.reset_button {
-    background-color: #6c757d; /* Серый цвет кнопки */
 }
 
 .close_button {
@@ -82,7 +94,7 @@
     display: inline-block;
     width: 100%;
     padding: 10px 30px 10px 30px;
-    font-size: 15px;
+    font-size: 13px;
     color: #2c2c2c; /* Цвет текста */
     border: 1px solid #e1e1e1; /* Цвет границы */
     border-radius: 15px; /* Радиус скругления */
@@ -108,25 +120,17 @@
     padding: 10px;
 }
 
-.reset_button {
-    border: none;
-    background: #D6D6D6;
-    width: 94%;
-    padding: 12px;
-    border-radius: 15px;
-}
-
 .filter_date_trip {
     display: inline-flex;
     justify-content: space-between;
-    width: 94%;
+    width: 100%;
 }
 
 .filter_date_select {
     display: inline-block;
     width: 30%;
     padding: 10px;
-    font-size: 15px;
+    font-size: 12px;
     color: #2c2c2c; /* Цвет текста */
     border: 1px solid #e1e1e1; /* Цвет границы */
     border-radius: 15px; /* Радиус скругления */
@@ -145,14 +149,14 @@
 .filter_time_trip {
     display: inline-flex;
     justify-content: space-between;
-    width: 94%;
+    width: 100%;
 }
 
 .filter_time_select {
     display: inline-block;
     width: 47.5%;
     padding: 10px;
-    font-size: 15px;
+    font-size: 12px;
     color: #797984; /* Цвет текста */
     border: 1px solid #e1e1e1; /* Цвет границы */
     border-radius: 15px; /* Радиус скругления */
@@ -171,15 +175,23 @@
 .filter_sex_trip {
     display: inline-flex;
     justify-content: space-between;
-    width: 94%;
+    width: 100vw;
+    margin-right: 6%;
+}
+
+.filter_sex_btn {
+    width: 28%;
 }
 
 .filter_sex_btn label{
     width: 100%;
     display: inline-block;
     background: #EAEAEA;
+    color: #797984;
     padding: 10px;
     border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
 }
 
 .filter_sex_btn input[type=checkbox] {
@@ -188,4 +200,34 @@
 
 .filter_sex_btn input[type=checkbox]:checked + label {
 	background: #CFDAFF;
+    color: #0912DB;
+}
+
+.filter_buttons {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+
+.reset_button {
+    border: none;
+    background: #D6D6D6;
+    color: #000000;
+    width: 100%;
+    padding: 12px;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.save_button {
+    border: none;
+    background: #523DD8;
+    color: #ffffff;
+    width: 100%;
+    padding: 12px;
+    border-radius: 15px;
+    margin-top: 7px;
 }
