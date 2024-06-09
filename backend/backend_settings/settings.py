@@ -127,6 +127,24 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-"http://127.0.0.1:3000", #For React Project
-"http://127.0.0.1:8000"  #For Django Project
+    "http://127.0.0.1:3000", #For React Project
+    "http://localhost:3000", #For React Project
+    "http://127.0.0.1:8000"  #For Django Project
+]
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "PUT",
+]
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
 ]

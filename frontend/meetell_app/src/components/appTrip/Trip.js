@@ -32,12 +32,43 @@ function Trip() {
     const [isAgeInCorrect, setIsAgeInCorrect] = useState(false);
     const [isAgeСorrect, setIsAgeСorrect] = useState(true);
 
+    const [selectedSex, setSelectedSex] = useState('');
+    const [selectedTimeTrip, setSelectedTimeTrip] = useState('');
+
+    const [searchResult, setSearchResult] = useState(null);
+
     useEffect(() => {
         let rectParrent = parrentRef.current.getBoundingClientRect();
         parrentRef.current.style.height = window.innerHeight - rectParrent.y + "px";
-        let rectChildren = childrenRef.current.getBoundingClientRect();
-        childrenRef.current.style.height = window.innerHeight - rectChildren.y - 20 + "px";
+
     }, []);
+
+    useEffect(() => {
+        if (!childrenRef.current) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    let rectChildren = childrenRef.current.getBoundingClientRect();
+                    childrenRef.current.style.height = window.innerHeight - rectChildren.y - 20 + "px";
+                    console.log("Элемент появился на экране");
+                }
+            },
+            {
+                root: null, 
+                rootMargin: '0px',
+                threshold: 1.0,
+            }
+        );
+        const currentRef = childrenRef.current;
+        observer.observe(childrenRef.current);
+
+        return () => {
+            if (currentRef) {
+                observer.unobserve(currentRef);
+            }
+        };
+    }, [searchResult]);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -63,7 +94,21 @@ function Trip() {
 
     const resetFilters = () => {
         // Логика для сброса фильтров
-        console.log("Фильтры сброшены");
+        setSelectedDay(today.getDate());
+        setSelectedMonth(today.getMonth() + 1);
+        setSelectedYear(today.getFullYear());
+        setselectedTimeSt(today.getHours() + ":00");
+        setselectedTimeEn("23:30");
+        setselectedAgeSt(0);
+        setselectedAgeEn(100);
+        setIsDataIncorrect(false);
+        setIsTimeInCorrect(false);
+        setIsAgeInCorrect(false);
+        setIsDataСorrect(true);
+        setIsTimeСorrect(true);
+        setIsAgeСorrect(true);
+        setSelectedSex('');
+        setSelectedTimeTrip('');
     };
 
     useEffect(() => {
@@ -78,27 +123,11 @@ function Trip() {
 
 
     const checkValuesDate = (year, month, day) => {
-        if (year === today.getFullYear()) {
-            if (month === today.getMonth() + 1) {
-                if (day < today.getDate()) {
-                    setIsDataIncorrect(true);
-                    setIsDataСorrect(false);
-                } else {
-                    setIsDataIncorrect(false);
-                    setIsDataСorrect(true);
-                }
+        const selectedDate = new Date(year, month - 1, day, 23, 59, 59);
+        const isDateInvalid = selectedDate <= today;
+        setIsDataIncorrect(isDateInvalid);
+        setIsDataСorrect(!isDateInvalid);
 
-            } else if (month < today.getMonth() + 1) {
-                setIsDataIncorrect(true);
-                setIsDataСorrect(false);
-            } else {
-                setIsDataIncorrect(false);
-                setIsDataСorrect(true);
-            }
-        } else {
-            setIsDataIncorrect(false);
-            setIsDataСorrect(true);
-        }
     };
 
     const checkValuesTime = (timeSt, timeEn) => {
@@ -168,6 +197,14 @@ function Trip() {
         setselectedAgeEn(e.target.value);
     };
 
+    const handleSexChange = (e) => {
+        setSelectedSex(e.target.value);
+    };
+
+    const handleTimeTripChange = (e) => {
+        setSelectedTimeTrip(e.target.value);
+    };
+
     useEffect(() => {
         updateTimes();
     }, []);
@@ -186,21 +223,68 @@ function Trip() {
         setAges(ages);
     };
 
+    const handleSave = () => {
+        const data = {
+            city: 'spb',
+            date: `${selectedYear}-${selectedMonth}-${selectedDay}`,
+            timeStart: selectedTimeSt,
+            timeEnd: selectedTimeEn,
+            ageStart: selectedAgeSt,
+            ageEnd: selectedAgeEn,
+            sex: selectedSex,
+            timeTrip: selectedTimeTrip,
+        };
+        console.log(data);
+        fetch('http://localhost:8000/trips', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.length === 0) {
+                    setSearchResult(null);
+                } else {
+                    setSearchResult(data);
+                }
+            })
+            .catch(error => {
+                console.error('There was an error saving the data:', error);
+            });
+    };
+
     return (
         <div ref={parrentRef} className="trip_body">
             <div className={`content ${showFilters ? 'blur-content' : ''}`}>
-                <div className='trip_search'>
-                    <div className='trip_filters'>
-                        <img src={settings} alt='' onClick={toggleFilters} style={{ cursor: 'pointer' }} />
-                        <button className='trip_add'>
-                            <span>Предложить маршрут</span>
-                            <img src={add} alt='' />
-                        </button>
-                    </div>
+                <div className='trip_filters'>
+                    <img src={settings} alt='' onClick={toggleFilters} style={{ cursor: 'pointer' }} />
+                    <button className='trip_add'>
+                        <span>Предложить маршрут</span>
+                        <img src={add} alt='' />
+                    </button>
                 </div>
-                <div ref={childrenRef} className='home_search_result'>
-                    <h2>По вашему запросу ничего не найдено</h2>
-                    <p>Измените данные фильтра</p>
+
+                <div className='trip_search'>
+                    {searchResult ? (
+                        searchResult.map(item => (
+                            <div key={item.id} className="search_result_item">
+                                <div className='result_item_left'>
+                                    <span className='result_item_id'>Маршрут №{item.id}</span>
+                                    <p>{item.date}</p>
+                                    <h4>{item.name}</h4>
+                                    <span className='result_item'>{item.range} км. {item.timeTrip} мин.</span>
+                                </div>
+                                <button className='result_item_button'>Подробнее</button>
+                            </div>
+                        ))
+                    ) : (
+                        <div ref={childrenRef} className="home_search_result">
+                            <h2>По вашему запросу ничего не найдено</h2>
+                            <p>Измените данные фильтра</p>
+                        </div>
+                    )}
                 </div>
             </div>
             <div ref={filterRef} className={`filter_options ${showFilters ? 'slide-down' : 'slide-up'}`}>
@@ -285,7 +369,12 @@ function Trip() {
                 <p>Компания</p>
                 <div className='filter_sex_trip'>
                     <div className='filter_sex_btn'>
-                        <input id='sex_men' type='checkbox' value='men' />
+                        <input
+                            id='sex_men'
+                            type='checkbox'
+                            value='men'
+                            checked={selectedSex === 'men'}
+                            onChange={handleSexChange} />
                         <label htmlFor="sex_men">
                             <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fillRule="evenodd" clipRule="evenodd" d="M10.1055 0.000703182C9.75999 0.017228 9.49325 0.310728 9.50978 0.656264C9.5263 1.0018 9.8198 1.26854 10.1653 1.25202H13.033L8.22549 6.05588C7.37922 5.39801 6.32038 5.00232 5.16861 5.00232C2.41448 5.00232 0.166992 7.24613 0.166992 10.0003C0.166992 12.7545 2.41448 15.0019 5.16861 15.0019C7.92274 15.0019 10.1653 12.7544 10.1653 10.0003C10.1653 8.84853 9.76964 7.78848 9.11178 6.9422L13.9156 2.13466V5.00232C13.9156 5.34785 14.1957 5.62799 14.5413 5.62799C14.8869 5.62799 15.167 5.34789 15.167 5.00232V0.624543C15.1664 0.280726 14.8882 0.00199235 14.5444 0.000703182H10.1653C10.1454 -0.000234394 10.1255 -0.000234394 10.1055 0.000703182ZM5.16861 6.24879C7.24737 6.24879 8.91403 7.92158 8.91403 10.0003C8.91403 12.079 7.24737 13.7506 5.16861 13.7506C3.08985 13.7506 1.41709 12.0791 1.41709 10.0003C1.41709 7.92154 3.08985 6.24879 5.16861 6.24879Z" fill="#0A0930" />
@@ -294,7 +383,12 @@ function Trip() {
                         </label>
                     </div>
                     <div className='filter_sex_btn'>
-                        <input id='sex_women' type='checkbox' value='men' />
+                        <input
+                            id='sex_women'
+                            type='checkbox'
+                            value='women'
+                            checked={selectedSex === 'women'}
+                            onChange={handleSexChange} />
                         <label htmlFor="sex_women">
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clipPath="url(#clip0_408_1958)">
@@ -310,7 +404,12 @@ function Trip() {
                         </label>
                     </div>
                     <div className='filter_sex_btn'>
-                        <input id='sex_all' type='checkbox' value='men' />
+                        <input
+                            id='sex_all'
+                            type='checkbox'
+                            value='all'
+                            checked={selectedSex === 'all'}
+                            onChange={handleSexChange} />
                         <label htmlFor="sex_all">
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clipPath="url(#clip0_408_1958)">
@@ -355,22 +454,37 @@ function Trip() {
                 <p>Время прогулки</p>
                 <div className='filter_sex_trip'>
                     <div className='filter_sex_btn'>
-                        <input id='under_60' type='checkbox' value='men' />
+                        <input
+                            id='under_60'
+                            type='checkbox'
+                            value='under_60'
+                            checked={selectedTimeTrip === 'under_60'}
+                            onChange={handleTimeTripChange} />
                         <label htmlFor="under_60">до 60 мин</label>
                     </div>
                     <div className='filter_sex_btn'>
-                        <input id='under_120' type='checkbox' value='men' />
+                        <input
+                            id='under_120'
+                            type='checkbox'
+                            value='under_120'
+                            checked={selectedTimeTrip === 'under_120'}
+                            onChange={handleTimeTripChange} />
                         <label htmlFor="under_120">до 120 мин</label>
                     </div>
                     <div className='filter_sex_btn'>
-                        <input id='upper_120' type='checkbox' value='men' />
+                        <input
+                            id='upper_120'
+                            type='checkbox'
+                            value='upper_120'
+                            checked={selectedTimeTrip === 'upper_120'}
+                            onChange={handleTimeTripChange} />
                         <label htmlFor="upper_120">от 120 мин</label>
                     </div>
                 </div>
                 <div className='filter_buttons'>
                     <button onClick={resetFilters} className='reset_button'>Сбросить</button>
                     {(isDataСorrect && isTimeСorrect && isAgeСorrect) && (
-                        <button className='save_button' id='save_settings'>Сохранить</button>
+                        <button className='save_button' onClick={handleSave}>Сохранить</button>
                     )}
                     {(isDataIncorrect || isTimeInCorrect || isAgeInCorrect) && (
                         <button className='fail_button' id='fail_settings'>Некорректные данные поиска</button>
