@@ -8,7 +8,7 @@ function Question() {
     useEffect(() => {
         let rectBody = bodyRef.current.getBoundingClientRect();
         bodyRef.current.style.height = window.innerHeight - rectBody.y + "px";
-        fetch('http://localhost:8000/faq')
+        fetch('http://192.168.1.103:8000/faq')
             .then((response) => response.json())
             .then((json) => setState(json));
     }, []);

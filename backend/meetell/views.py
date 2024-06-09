@@ -26,7 +26,6 @@ def get_faq(request, format=None):
     serializer = FAQSerializer(faq, many=True)
     response = JsonResponse(serializer.data, safe=False)
     response["Access-Control-Allow-Origin"] = "*"
-    time.sleep(10)
     return response
 
 @api_view(['POST'])
