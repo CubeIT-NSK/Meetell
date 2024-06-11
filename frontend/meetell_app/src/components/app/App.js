@@ -10,12 +10,35 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HelloScreen from '../appHelloScreen/HelloScreen.js';
 import Carousel from '../appCarousel/Carousel.js';
 import PreLoader from '../appPreLoader/PreLoader.js';
 
+import question from '../../img/question.svg'
+import rules from '../../img/rules.svg'
+import manual from '../../img/manual.svg'
+import smartphone from '../../img/smartphone.svg'
+
+const preloadImages = (imageUrls) => {
+  imageUrls.forEach((url) => {
+    const img = new Image();
+    img.src = url;
+  });
+};
+
 function App() {
+  useEffect(() => {
+    const imageUrls = [
+      question,
+      rules,
+      manual,
+      smartphone,
+    ];
+
+    preloadImages(imageUrls);
+  }, []);
+
   const [hello, setHello] = useState(true);
   const [loading, setLoading] = useState(true);
   if (hello) {
