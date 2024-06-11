@@ -20,7 +20,7 @@ const slidesData = [
   {
     id: 2,
     topText: "Улучшай самочувствие",
-    botText: "Доказано что прогулки положительно влияют на физическое и ментальное здоровье"
+    botText: "Доказано что прогулки положительно влияют\n\nна физическое и ментальное здоровье"
   }
 ];
 
@@ -60,12 +60,7 @@ const Carousel = () => {
   }, []);
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const [style, setStyle] = useState({});
-  function closeSlider () {
-    setStyle({
-      display: 'none'
-    });
-  } 
+  
   const handleNext = () => {
     setActiveIndex((prevIndex) => (prevIndex + 1) % slidesData.length);
   };
@@ -75,7 +70,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="sliderBackground" style={style} ref={parrentRef}>
+    <div className="sliderBackground" ref={parrentRef}>
       <div className="slider">
       <Link to='/home'>
       <button className="closeSlider"></button>
