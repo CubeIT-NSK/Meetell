@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Carousel.css";
 import {default as rocket} from "../../img/rocketInSpace.svg";
 import handles from "../../img/handles.svg";
@@ -53,6 +53,12 @@ const NavDots = ({ activeIndex, handleClick }) => (
 );
 
 const Carousel = () => {
+  const parrentRef = useRef();
+  useEffect(() => {
+    let rectParrent = parrentRef.current.getBoundingClientRect();
+    parrentRef.current.style.height = window.innerHeight - rectParrent.y + "px";
+  }, []);
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [style, setStyle] = useState({});
   function closeSlider () {
@@ -69,7 +75,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="sliderBackground" style={style}>
+    <div className="sliderBackground" style={style} ref={parrentRef}>
       <div className="slider">
       <Link to='/home'>
       <button className="closeSlider"></button>
@@ -87,8 +93,10 @@ const Carousel = () => {
            null
           }
             <NavDots activeIndex={activeIndex} handleClick={handleClick} />
+            <div className="carouselText">
             <h1 className="carouselTopText">{slide.topText}</h1>
             <p className="carouselBotText">{slide.botText}</p>
+            </div>
           </div>
         ))}
       </div>

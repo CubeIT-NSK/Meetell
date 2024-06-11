@@ -1,4 +1,5 @@
 .sliderBackground {
+  /* height: 100%; */
     background: rgb(14, 50, 126);
     background: -moz-linear-gradient(
       180deg,
@@ -43,9 +44,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0 30px 0 30px;
-    height: 520px;
-    width: 70%;
+    padding: 30px 30px 50px 30px;
     border-radius: 10px;
     text-align: center;
     color: #0A0930;
@@ -72,6 +71,11 @@
   }
   .nonactive-card {
     display: none;
+  }
+
+  .carouselSvg {
+    min-width: 70px;
+    max-width: 330px;
   }
   .navDots {
     display: flex;

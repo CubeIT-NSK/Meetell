@@ -31,17 +31,20 @@ function App() {
   return (
     <Fragment>
       <BrowserRouter>
+      
+      {/* <div className="glass"> */}
         <Header />
         <Routes>
           <Route path='/' element={
-            hello ? <HelloScreen id="helloscreen"/> :
-            loading ? <PreLoader/> : <Carousel/>
+            hello ? <HelloScreen /> :
+            loading ? <PreLoader /> : <Carousel />
           }/>
           <Route path="/home" element={<Main />} />
           <Route path='/question' element={<Question />} />
           <Route path='/trips' element={<Trip />} />
         </Routes>
         <Footer />
+        {/* </div> */}
       </BrowserRouter>
     </Fragment>
   );
