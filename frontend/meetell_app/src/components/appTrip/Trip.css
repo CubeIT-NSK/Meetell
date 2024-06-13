@@ -94,8 +94,8 @@
 
 .filter_city_select {
     display: inline-block;
-    width: 100%;
-    padding: 10px 30px 10px 30px;
+    padding: 0 34px 0 10px;
+    height: 35px;
     font-size: 13px;
     color: #2c2c2c; /* Цвет текста */
     border: 1px solid #e1e1e1; /* Цвет границы */

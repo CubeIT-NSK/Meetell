@@ -1,5 +1,4 @@
 import { Link, useLocation } from 'react-router-dom';
-
 import './Header.css';
 import account from '../../img/account.svg'
 
@@ -15,15 +14,23 @@ const Header = () => {
                     </svg>
                 </div>
             </Link>
-            <div className="header_text">Главная</div>
-            <div className="header_user">
-                <div className='first'>
-                    <span className="header_bold">1</span><br></br>Уровень
+            <div className='filter_city'>
+                        <select className='filter_city_select' value="spb">
+                            <option value="spb">Санкт-Петербург</option>
+                            <option value="kzn">Казань</option>
+                            <option value="nsk">Новосибирск</option>
+                        </select>
+                    </div>
+            <Link to='/profile'>
+                <div className="header_user">
+                    <div className='first'>
+                        <span className="header_bold">1</span><br></br>Уровень
+                    </div>
+                    <div className='second'>
+                        <img src={account} alt="user" />
+                    </div>
                 </div>
-                <div className='second'>
-                    <img src={account} alt="user" />
-                </div>
-            </div>
+            </Link>
         </div>
     )
 }

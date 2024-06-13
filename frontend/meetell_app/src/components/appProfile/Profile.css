@@ -1,0 +1,31 @@
+.avatar {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    z-index: -1;
+}
+
+.preview {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-bottom: 10px;
+}
+.ageAndSex {
+    background-color: rgba(207, 218, 255, 0.9);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 10px;
+    width: fit-content;
+    font-size: 20px;
+    color: #0912DB;
+}
+
+.profile_body {
+    background-color: #fff;
+    border-radius: 10px 10px 0 0;
+}

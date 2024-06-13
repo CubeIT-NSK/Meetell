@@ -1,9 +1,9 @@
 .que_body {
-    width: 100%;
     background-color: #E9EEF4;
     border-radius: 15px 15px 0px 0px;
     padding-left: 3%;
     padding-right: 3%;
+    margin-top: 13px;
 }
 
 .que_body h3 {
@@ -70,9 +70,9 @@
 }
 
 .server_wait {
-    width: 100%;
     position: absolute;
     top: 50%;
+    right: 45%;
     text-align: center;
 
     animation: rotate 1.5s infinite linear;

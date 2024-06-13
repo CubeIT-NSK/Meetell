@@ -16,3 +16,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.glass:not() {
+  background-color: rgba(93, 117, 164, 0.8);
+  filter: blur(2px);
+}

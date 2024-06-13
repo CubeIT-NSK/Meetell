@@ -41,8 +41,3 @@
   text-decoration: none;
   color: #ffffff
 }
-
-.glass {
-  background-color: rgba(93, 117, 164, 0.8);
-  filter: blur(2px);
-}
