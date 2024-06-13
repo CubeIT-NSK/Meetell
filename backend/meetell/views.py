@@ -17,6 +17,7 @@ routes_novosibirsk = [
     "Зеленые зоны Новосибирска",
     "Романтический вечер у Оперного театра",
     "Архитектурные достопримечательности",
+    "Архитектурные достопримечательности Новосибирска в тихом центре города. Старинные здания, Достижения прошлых столетий в сфере строительства",
     "Культурное наследие Новосибирска"
 ]
 
@@ -26,30 +27,27 @@ def get_faq(request, format=None):
     serializer = FAQSerializer(faq, many=True)
     response = JsonResponse(serializer.data, safe=False)
     response["Access-Control-Allow-Origin"] = "*"
-    time.sleep(10)
     return response
 
 @api_view(['POST'])
 def get_trips(request, format=None):
     data = request.data
-    if random.randint(0, 1) == 1:
-        start_date = datetime.datetime.strptime(f"{data['date']} {data['timeStart']}", '%Y-%m-%d %H:%M')
-        end_date = datetime.datetime.strptime(f"{data['date']} {data['timeEnd']}", '%Y-%m-%d %H:%M')
-        len_trips = random.randint(1, 10)
-        trips = []
-        for i in range(len_trips):
-            len_trip = random.randint(1, 10)
-            time_trip = len_trip * 6
-            trips.append({
-                'id' : f"000{i+1}",
-                'name' : random.choice(routes_novosibirsk),
-                'range' : len_trip,
-                'timeTrip' : time_trip,
-                'date' : random_date(start_date, end_date)
-            })
-        response = JsonResponse(trips, safe=False)
-    else:
-        response = JsonResponse([], safe=False)
+    start_date = datetime.datetime.strptime(f"{data['date']} {data['timeStart']}", '%Y-%m-%d %H:%M')
+    end_date = datetime.datetime.strptime(f"{data['date']} {data['timeEnd']}", '%Y-%m-%d %H:%M')
+    len_trips = random.randint(1, 10)
+    trips = []
+    for i in range(len_trips):
+        len_trip = random.randint(1, 10)
+        time_trip = len_trip * 6
+        trips.append({
+            'id' : f"000{i+1}",
+            'name' : random.choice(routes_novosibirsk),
+            'range' : len_trip,
+            'timeTrip' : time_trip,
+            'date' : random_date(start_date, end_date)
+        })
+    response = JsonResponse(trips, safe=False)
+
     response["Access-Control-Allow-Origin"] = "*"
     return response
 

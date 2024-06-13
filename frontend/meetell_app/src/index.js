@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './components/app/App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
 
 // Обновление высоты блоков
 document.addEventListener("DOMContentLoaded", function(event) { 
@@ -14,7 +15,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
 

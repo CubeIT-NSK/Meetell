@@ -97,14 +97,19 @@
     padding: 0 34px 0 10px;
     height: 35px;
     font-size: 13px;
-    color: #2c2c2c; /* Цвет текста */
-    border: 1px solid #e1e1e1; /* Цвет границы */
-    border-radius: 15px; /* Радиус скругления */
-    appearance: none; /* Убирает стандартный вид селекта */
+    color: #2c2c2c;
+    /* Цвет текста */
+    border: 1px solid #e1e1e1;
+    /* Цвет границы */
+    border-radius: 15px;
+    /* Радиус скругления */
+    appearance: none;
+    /* Убирает стандартный вид селекта */
     -webkit-appearance: none;
     -moz-appearance: none;
     background-color: #fff;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="%232c2c2c" stroke-width="2" d="M6 9l6 6 6-6"/></svg>'); /* Стрелка */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="%232c2c2c" stroke-width="2" d="M6 9l6 6 6-6"/></svg>');
+    /* Стрелка */
     background-repeat: no-repeat;
     background-position: right 10px center;
     cursor: pointer;
@@ -114,7 +119,8 @@
 }
 
 .filter_city_select:focus {
-    border-color: #007bff; /* Цвет границы при фокусе */
+    border-color: #007bff;
+    /* Цвет границы при фокусе */
     outline: none;
 }
 
@@ -133,14 +139,19 @@
     width: 32%;
     padding: 10px;
     font-size: 12px;
-    color: #2c2c2c; /* Цвет текста */
-    border: 1px solid #e1e1e1; /* Цвет границы */
-    border-radius: 15px; /* Радиус скругления */
-    appearance: none; /* Убирает стандартный вид селекта */
+    color: #2c2c2c;
+    /* Цвет текста */
+    border: 1px solid #e1e1e1;
+    /* Цвет границы */
+    border-radius: 15px;
+    /* Радиус скругления */
+    appearance: none;
+    /* Убирает стандартный вид селекта */
     -webkit-appearance: none;
     -moz-appearance: none;
     background-color: #fff;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="%232c2c2c" stroke-width="2" d="M6 9l6 6 6-6"/></svg>'); /* Стрелка */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="%232c2c2c" stroke-width="2" d="M6 9l6 6 6-6"/></svg>');
+    /* Стрелка */
     background-repeat: no-repeat;
     background-position: right 10px center;
     cursor: pointer;
@@ -159,10 +170,14 @@
     width: 49%;
     padding: 10px;
     font-size: 12px;
-    color: #797984; /* Цвет текста */
-    border: 1px solid #e1e1e1; /* Цвет границы */
-    border-radius: 15px; /* Радиус скругления */
-    appearance: none; /* Убирает стандартный вид селекта */
+    color: #797984;
+    /* Цвет текста */
+    border: 1px solid #e1e1e1;
+    /* Цвет границы */
+    border-radius: 15px;
+    /* Радиус скругления */
+    appearance: none;
+    /* Убирает стандартный вид селекта */
     -webkit-appearance: none;
     -moz-appearance: none;
     background-color: #fff;
@@ -188,7 +203,7 @@
     width: 32%;
 }
 
-.filter_sex_btn label{
+.filter_sex_btn label {
     display: flex;
     align-items: center;
     width: 100%;
@@ -208,12 +223,12 @@
 }
 
 .filter_sex_btn input[type=checkbox] {
-	display: none;
+    display: none;
 }
 
-.filter_sex_btn input[type=checkbox]:checked + label,
-.filter_sex_btn input[type=checkbox]:checked + label svg path{
-	background: #CFDAFF;
+.filter_sex_btn input[type=checkbox]:checked+label,
+.filter_sex_btn input[type=checkbox]:checked+label svg path {
+    background: #CFDAFF;
     color: #0912DB;
     fill: #0912DB;
 }
@@ -296,9 +311,10 @@
     font-size: 15px;
     font-weight: 400;
     margin-bottom: 5px;
+    padding-right: 10px;
 }
 
-.result_item_button {
+.trip_about_button {
     padding: 0;
     border: none;
     border-radius: 15px;
@@ -308,6 +324,98 @@
     padding: 10px;
 }
 
-.search_result_item:last-child{
+.search_result_item:last-child {
     margin-bottom: 80px;
+}
+
+.route_info_slide_in {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 15px 15px 0px 0px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(100%);
+    animation: slideIn 0.5s forwards;
+}
+
+.route_info_content {
+    display: block;
+    padding: 10px;
+    width: 100%;
+}
+
+.close_button {
+    display: block;
+    margin-top: 10px;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(1000px);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.route_header {
+    display: flex;
+    margin-right: 30px;
+    margin-left: 10px;
+}
+
+.route_info_id {
+    font-size: 10px;
+    font-weight: 400;
+    color: #797984;
+    text-align: center;
+}
+
+.route_info_date {
+    font-size: 13px;
+    font-weight: 400;
+    color: #0A0930;
+    text-align: center;
+}
+
+.route_info_content h4 {
+    font-size: 15px;
+    font-weight: 400;
+    color: #0A0930;
+    text-align: center;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.route_info_blocks {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+    align-items: center;
+    text-align: center;
+    color: #0A0930;
+}
+
+.route_info_block {
+    padding: 10px;
+    background: #E9EEF4;
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    font-size: 20px;
+}
+
+.route_info_ages {
+    background: #CFDAFF;
+    color: #0912DB;
+}
+
+.route_info_small {
+    font-size: 12px;
+    color: #797984;
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-// import { Link, useLocation } from 'react-router-dom';
+import back from '../../img/back.svg';
 import settings from '../../img/settings_trip.svg';
 import add from '../../img/add_trip.svg';
 import './Trip.css';
@@ -9,6 +9,7 @@ function Trip() {
     const parrentRef = useRef();
     const childrenRef = useRef();
     const filterRef = useRef(null);
+    const tripRef = useRef(null)
 
     const today = new Date();
     const years = [today.getFullYear(), today.getFullYear() + 1];
@@ -36,11 +37,11 @@ function Trip() {
     const [selectedTimeTrip, setSelectedTimeTrip] = useState('');
 
     const [searchResult, setSearchResult] = useState(null);
+    const [selectedRoute, setSelectedRoute] = useState(null);
 
     useEffect(() => {
         let rectParrent = parrentRef.current.getBoundingClientRect();
         parrentRef.current.style.height = window.innerHeight - rectParrent.y + "px";
-
     }, []);
 
     useEffect(() => {
@@ -51,11 +52,10 @@ function Trip() {
                 if (entry.isIntersecting) {
                     let rectChildren = childrenRef.current.getBoundingClientRect();
                     childrenRef.current.style.height = window.innerHeight - rectChildren.y - 20 + "px";
-                    console.log("Элемент появился на экране");
                 }
             },
             {
-                root: null, 
+                root: null,
                 rootMargin: '0px',
                 threshold: 1.0,
             }
@@ -69,6 +69,35 @@ function Trip() {
             }
         };
     }, [searchResult]);
+
+    useEffect(() => {
+        if (!tripRef.current) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    let rectParrent = parrentRef.current.getBoundingClientRect();
+                    tripRef.current.style.height = window.innerHeight - rectParrent.y + "px";
+                    tripRef.current.style.top = rectParrent.y + "px"
+                    // tripRef.current.style.height = window.innerHeight - rectParrent.y + "px";
+                    console.log("Элемент появился на экране");
+                }
+            },
+            {
+                root: null,
+                rootMargin: '0px',
+                threshold: 1.0,
+            }
+        );
+        const currentRef = tripRef.current;
+        observer.observe(tripRef.current);
+
+        return () => {
+            if (currentRef) {
+                observer.unobserve(currentRef);
+            }
+        };
+    }, [selectedRoute]);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -223,6 +252,14 @@ function Trip() {
         setAges(ages);
     };
 
+    const handleButtonClick = (route) => {
+        setSelectedRoute(route);
+    };
+
+    const handleCloseClick = () => {
+        setSelectedRoute(null);
+    };
+
     const handleSave = () => {
         const data = {
             city: 'spb',
@@ -235,7 +272,7 @@ function Trip() {
             timeTrip: selectedTimeTrip,
         };
         console.log(data);
-        fetch('http://localhost:8000/trips', {
+        fetch('http://192.168.1.103:8000/trips', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -276,7 +313,7 @@ function Trip() {
                                     <h4>{item.name}</h4>
                                     <span className='result_item'>{item.range} км. {item.timeTrip} мин.</span>
                                 </div>
-                                <button className='result_item_button'>Подробнее</button>
+                                <button className='trip_about_button' onClick={() => handleButtonClick(item)}>Подробнее</button>
                             </div>
                         ))
                     ) : (
@@ -491,6 +528,27 @@ function Trip() {
                     )}
                 </div>
             </div>
+            {selectedRoute && (
+                <div ref={tripRef} className="route_info_slide_in">
+                    <div className='route_header'>
+                        <div className='route_close'>
+                            <button className="close_button" onClick={handleCloseClick}>
+                                <img src={back} alt=''/>
+                            </button>
+                        </div>
+                        <div className="route_info_content">
+                            <p className='route_info_id'>Маршрут №{selectedRoute.id}</p>
+                            <p className='route_info_date'>{selectedRoute.date}</p>
+                            <h4>{selectedRoute.name}</h4>
+                        </div>
+                    </div>
+                    <div className='route_info_blocks'>
+                        <div className='route_info_block route_info_range'>{selectedRoute.range} <span className='route_info_small'>км.</span></div>
+                        <div className='route_info_block route_info_ages'>18-30</div>
+                        <div className='route_info_block route_info_time'>{selectedRoute.timeTrip} <span className='route_info_small'>мин.</span></div>
+                    </div>
+                </div>
+            )}
         </div >
     );
 }

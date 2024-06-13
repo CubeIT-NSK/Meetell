@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "manage.py",
             "console": "integratedTerminal",
-            "args": "runserver"
+            "args": ["runserver", "0:8000"]
         }
     ]
 }

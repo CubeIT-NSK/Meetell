@@ -6,18 +6,41 @@ import Header from "../appHeader/Header";
 import Footer from '../appFooter/Footer';
 import Trip from '../appTrip/Trip';
 import {
-  BrowserRouter,
   Routes,
   Route,
+  useLocation,
 } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HelloScreen from '../appHelloScreen/HelloScreen.js';
 import Carousel from '../appCarousel/Carousel.js';
 import PreLoader from '../appPreLoader/PreLoader.js';
-import InProgress from '../appInProgress/InProgress.js';
 import Profile from '../appProfile/Profile.js'
+import Page404 from '../appPage404/Page404'
+
+import question from '../../img/question.svg'
+import rules from '../../img/rules.svg'
+import manual from '../../img/manual.svg'
+import smartphone from '../../img/smartphone.svg'
+
+const preloadImages = (imageUrls) => {
+  imageUrls.forEach((url) => {
+    const img = new Image();
+    img.src = url;
+  });
+};
 
 function App() {
+  useEffect(() => {
+    const imageUrls = [
+      question,
+      rules,
+      manual,
+      smartphone,
+    ];
+
+    preloadImages(imageUrls);
+  }, []);
+
   const [hello, setHello] = useState(true);
   const [loading, setLoading] = useState(true);
   if (hello) {
@@ -30,10 +53,11 @@ function App() {
       }
     }, 2000);
   }
+  const location = useLocation();
+  console.log(location);
   return (
     <Fragment>
-      <BrowserRouter>
-      
+     
        <Header />
        <Routes>
           <Route path='/' element={
@@ -42,12 +66,11 @@ function App() {
           }/>
           <Route path="/home" element={<Main />} />
           <Route path='/question' element={<Question />} />
-          <Route path='/rules' element={<InProgress />} />
           <Route path='/trips' element={<Trip />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path='/*' element={<Page404 />} />
         </Routes>
-        <Footer />
-      </BrowserRouter>
+        {(location.pathname !== '/profile') && <Footer />}
     </Fragment>
   );
 }

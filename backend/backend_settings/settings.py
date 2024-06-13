@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-whxaode^9+)4-+-#2)!d6%!ax(&&&@e$5n+72p7inu^$=do0le
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.103']
 
 
 # Application definition
@@ -128,7 +128,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000", #For React Project
-    "http://localhost:3000", #For React Project
+    "http://localhost:3000",
+    "http://192.168.1.103:3000", 
     "http://127.0.0.1:8000"  #For Django Project
 ]
 CORS_ALLOW_METHODS = [

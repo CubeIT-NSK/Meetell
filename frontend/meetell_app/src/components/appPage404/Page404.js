@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from 'react-router-dom';
-import './InProgress.css';
+import './Page404.css';
 import development from "../../img/development.svg";
 
 export default function InProgress() {

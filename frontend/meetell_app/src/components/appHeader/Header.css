@@ -1,10 +1,16 @@
 .header_block {
-  margin-top: 15px;
+  padding-top: 15px;
+  padding-bottom: 10px;
   display: inline-flex;
   width: 100%;
   justify-content: space-between;
   align-items: center;
   font-size: 15px;
+  background: rgb(23,37,99);
+  background: -moz-linear-gradient(180deg, rgba(23,37,99,0.8) 0%, rgba(23,37,99,0) 100%);
+  background: -webkit-linear-gradient(180deg, rgba(23,37,99,0.8) 0%, rgba(23,37,99,0) 100%);
+  background: linear-gradient(180deg, rgba(23,37,99,0.8) 0%, rgba(23,37,99,0) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#172563",endColorstr="#172563",GradientType=1);
 }
 .header_block.active {
   display: none;
