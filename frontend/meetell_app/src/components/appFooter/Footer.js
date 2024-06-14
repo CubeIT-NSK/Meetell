@@ -1,10 +1,17 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useFooter } from './FooterContext';
 import invite from '../../img/invite_footer.svg'
 import './Footer.css';
 
 function Footer() {
     const location = useLocation();
+
+    const { isFooterVisible } = useFooter();
+
+    if (!isFooterVisible) {
+      return null;
+    }
 
     return (
         <div className={`footer_block ${location.pathname === '/' ? 'active' : ''}`}>

@@ -4,6 +4,7 @@ import Main from '../appMain/Main';
 import Question from '../appQuestion/Question';
 import Header from "../appHeader/Header";
 import Footer from '../appFooter/Footer';
+import { FooterProvider } from '../appFooter/FooterContext';
 import Trip from '../appTrip/Trip';
 import {
   Routes,
@@ -57,13 +58,13 @@ function App() {
   console.log(location);
   return (
     <Fragment>
-     
-       <Header />
-       <Routes>
+      <FooterProvider>
+        <Header />
+        <Routes>
           <Route path='/' element={
             hello ? <HelloScreen /> :
-            loading ? <PreLoader /> : <Carousel />
-          }/>
+              loading ? <PreLoader /> : <Carousel />
+          } />
           <Route path="/home" element={<Main />} />
           <Route path='/question' element={<Question />} />
           <Route path='/trips' element={<Trip />} />
@@ -71,6 +72,7 @@ function App() {
           <Route path='/*' element={<Page404 />} />
         </Routes>
         {(location.pathname !== '/profile') && <Footer />}
+      </FooterProvider>
     </Fragment>
   );
 }
