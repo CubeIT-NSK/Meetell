@@ -1,114 +1,112 @@
 .home_body {
-    width: 100%;
-    background-color: #E9EEF4;
-    border-radius: 15px 15px 0px 0px;
+  width: 100%;
+  background-color: #e9eef4;
+  border-radius: 15px 15px 0px 0px;
 }
 
 .home_stat {
-    position: relative;
-    width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
-    background-color: #ffffff;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    border-radius: 15px;
-    z-index: 1;
-    top: -50px;
-    box-shadow: 10px 5px 5px rgba(43, 44, 46, 0.2);
+  position: relative;
+  width: 60%;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-right: 10px;
+  padding-left: 10px;
+  border-radius: 10px;
+  z-index: 1;
+  top: -50px;
+  box-shadow: 10px 5px 5px rgba(43, 44, 46, 0.2);
 }
 
 .home_level {
-    text-align: center;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 24px;
-    word-spacing: 10px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+  word-spacing: 10px;
+  padding-bottom: 15px;
 }
 
 .home_done {
-    margin: 4%;
-    margin-top: 8%;
-    width: 92%;
-    display: inline-flex;
-    justify-content: space-between;
-    font-size: 12px;
-    line-height: 14px;
-    margin-bottom: 0;
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  font-size: 12px;
+  line-height: 14px;
+  padding-bottom: 5px;
 }
 
 .home_distanse_need {
-    color: #797984;
+  color: #797984;
 }
 
 .home_progress {
-    width: 100%;
+  width: 100%;
+  display: flex;
 }
 
 .home_progress progress {
-    background-color: #523DD8;
-    height: 7px;
-    width: 92%;
-    margin: 4%;
-    margin-top: 1%;
-    border: 0;
-    border-radius: 60px;
+  background-color: #523dd8;
+  height: 7px;
+  width: 100%;
+  border: 0;
+  border-radius: 60px;
 }
 
 .home_progress progress::-webkit-progress-bar {
-    background-color: #797984;
-    border: 0;
-    border-radius: 60px;
+  background-color: #797984;
+  border: 0;
+  border-radius: 60px;
 }
 
 .home_progress progress::-webkit-progress-value {
-    background-color: #523DD8;
-    border: 0;
-    border-radius: 60px;
+  background-color: #523dd8;
+  border: 0;
+  border-radius: 60px;
 }
 
 .home_history {
-    position: relative;
-    top: -40px;
-    padding-left: 3%;
-    padding-right: 3%;
+  position: relative;
+  top: -40px;
+  padding-left: 3%;
+  padding-right: 3%;
 }
 
 .home_history h3 {
-    font-size: 18px;
-    font-weight: 500;
-    color: #0A0930;
-    margin-bottom: 0;
-    padding-bottom: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #0a0930;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .home_search_result {
-    width: 100%;
-    /* padding-bottom: 100%; */
-    /* height: 300px; */
-    /* padding-bottom: 0%; */
-    background-blend-mode: multiply;
-    background: url("../../img/bg_search.svg") no-repeat;
-    background-size: 100%, 100%;
-    background-position: bottom;
-    background-color: #ffffff;
-    border-radius: 15px;
-    margin-top: 2%;
+  width: 100%;
+  /* padding-bottom: 100%; */
+  /* height: 300px; */
+  /* padding-bottom: 0%; */
+  background-blend-mode: multiply;
+  background: url("../../img/bg_search.svg") no-repeat;
+  background-size: 100%, 100%;
+  background-position: bottom;
+  background-color: #ffffff;
+  border-radius: 15px;
+  margin-top: 2%;
 }
 
-
 .home_search_result h2 {
-    margin: 0;
-    padding: 0;
-    padding-top: 30px;
-    font-size: 20px;
-    font-weight: 600;
-    text-align: center;
-    color: #0A0930;
+  margin: 0;
+  padding: 0;
+  padding-top: 30px;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  color: #0a0930;
 }
 
 .home_search_result p {
-    font-size: 13px;
-    text-align: center;
-    color: #797984;
+  font-size: 13px;
+  text-align: center;
+  color: #797984;
 }

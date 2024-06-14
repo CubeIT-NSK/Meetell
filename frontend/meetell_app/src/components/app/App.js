@@ -55,7 +55,6 @@ function App() {
     }, 2000);
   }
   const location = useLocation();
-  console.log(location);
   return (
     <Fragment>
       <FooterProvider>

@@ -26,11 +26,10 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 10px 20px;
+    padding: calc((100vw - 320px) / (480 - 320) * (10 - 8) + 8px) calc((100vw - 320px) / (480 - 320) * (20 - 16) + 16px);
     margin-right: 10px;
-    margin-top: 257px;
     border-radius: 10px;
-    font-size: 20px;
+    font-size: calc((100vw - 320px) / (480 - 320) * (20 - 13) + 13px);
     font-weight: 300;
     color: #0912DB;
 }
@@ -43,6 +42,7 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e9eef4",endColorstr="#f5f5f5",GradientType=1);
     border-radius: 10px 10px 0 0;
     padding: 0 10px;
+    margin-top: calc((100vw - 320px) / (480 - 320) * (200 - 80) + 80px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -50,14 +50,14 @@
 
 .profile_name {
     color: #0A0930;
-    font-size: 25px;
+    font-size: calc((100vw - 320px) / (480 - 320) * (20 - 15) + 15px);
     font-weight: 400;
     padding-top: 15px;
     padding-bottom: 5px;
 }
 
 .telegram_username {
-    font-size: 15px;
+    font-size: calc((100vw - 320px) / (480 - 320) * (15 - 13) + 13px);;
     font-weight: 500;
     color: #797984;
     padding-bottom: 15px;
@@ -72,12 +72,12 @@
     padding-bottom: 15px;
 }
 .route_info_block_profile {
-    padding: 10px;
+    padding: calc((100vw - 320px) / (480 - 320) * (10 - 8) + 8px);;
     background: #fff;
     border-radius: 10px;
     text-align: center;
     width: 100%;
-    font-size: 20px;
+    font-size: calc((100vw - 320px) / (480 - 320) * (20 - 15) + 15px);;
 }
 .route_info_ages {
     background: #CFDAFF;
@@ -91,12 +91,14 @@
 }
 
 .profile_stat {
-    width: 100%;
+    width: -webkit-fill-available;
     background-color: #ffffff;
-    padding-top: 34px;
-    padding-bottom: 34px;
+    padding-top: calc((100vw - 320px) / (480 - 320) * (34 - 18) + 18px);;
+    padding-bottom: calc((100vw - 320px) / (480 - 320) * (34 - 18) + 18px);;
     border-radius: 15px;
     box-shadow: 10px 5px 5px rgba(43, 44, 46, 0.2);
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 .friends_block {
