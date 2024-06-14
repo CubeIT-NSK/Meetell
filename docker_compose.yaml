@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  backend:
+    build: 
+      context: .
+      dockerfile: docker/python/Dockerfile
+    container_name: backend
+    command: gunicorn backend_settings.wsgi:application --bind 0.0.0.0:8000 -w 2
+    expose:
+      - 8000
+    restart: unless-stopped
+
+  frontend:
+    build: 
+      context: .
+      dockerfile: docker/react/Dockerfile
+    restart: unless-stopped
+    expose:
+      - 3000
+    command: serve -s /var/www/it-prod.pro/frontend/src/app/build -l 3000
+    depends_on:
+      - backend
+
+  nginx:
+    restart: unless-stopped
+    image: nginx:latest
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - frontend
