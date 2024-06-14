@@ -8,7 +8,7 @@ function Footer() {
 
     return (
         <div className={`footer_block ${location.pathname === '/' ? 'active' : ''}`}>
-            <Link to='/' className="no_underline_footer">
+            <Link to='/home' className="no_underline_footer">
                 <div className={`footer_main ${location.pathname === '/home' ? 'active' : ''}`}>
                     <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_2137_274)">
@@ -34,7 +34,7 @@ function Footer() {
                     <p>Маршруты</p>
                 </div>
             </Link>
-            <Link to='/' className="no_underline_footer">
+            <Link to='*' className="no_underline_footer">
                 <div className='footer_invite'>
                     <img src={invite} alt='' />
                     <p>Пригласить</p>

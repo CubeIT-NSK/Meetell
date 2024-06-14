@@ -6,16 +6,16 @@ import account from '../../img/account.svg';
 import pencil from '../../img/pencil.svg';
 
 export default function Profile() {
-    const parrentRef = useRef();
+    // const parrentRef = useRef();
     const childrenRef = useRef();
     useEffect(() => {
-        let rectParrent = parrentRef.current.getBoundingClientRect();
-        parrentRef.current.style.height = window.innerHeight - rectParrent.y + "px";
+        // let rectParrent = parrentRef.current.getBoundingClientRect();
+        // parrentRef.current.style.height = window.innerHeight - rectParrent.y + "px";
         let rectChildren = childrenRef.current.getBoundingClientRect();
         childrenRef.current.style.height = window.innerHeight - rectChildren.y + "px";
     }, []);
     return (
-        <div ref={parrentRef} className="profile">
+        <div className="profile">
             <div className="preview">
             <div className="ton"></div>
             <img className="avatar" src={avatar} alt="" />
@@ -43,7 +43,7 @@ export default function Profile() {
                         <div className='home_distanse_need'>Осталось 295 км</div>
                     </div>
                     <div className='home_progress'>
-                        <progress value={0.2} />
+                        <progress className='home_progress' value={0.2} />
                     </div>
                 </div>
                 <div className="friends_block">
