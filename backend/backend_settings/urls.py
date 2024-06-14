@@ -19,6 +19,6 @@ from django.urls import path
 from meetell import views
 
 urlpatterns = [
-    path('faq', views.get_faq),
-    path('trips', views.get_trips),
+    path('api/faq', views.get_faq),
+    path('api/trips', views.get_trips),
 ]

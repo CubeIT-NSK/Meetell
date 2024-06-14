@@ -1,0 +1,9 @@
+FROM python:3.11.7
+COPY ./backend /var/www/it-prod.pro/backend
+WORKDIR /var/www/it-prod.pro/backend
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+RUN pip install -r requirements.txt
+RUN python manage.py collectstatic
