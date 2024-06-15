@@ -4,14 +4,14 @@ FROM node:20.12.2
 COPY ./frontend/meetell_app /var/www/it-prod.pro/frontend/
 WORKDIR /var/www/it-prod.pro/frontend/
 
-COPY ./package.json .
-COPY ./package-lock.json .
+COPY ./frontend/meetell_app/package.json /var/www/it-prod.pro/frontend/
+COPY ./frontend/meetell_app/package-lock.json /var/www/it-prod.pro/frontend/
 
 RUN npm install -g serve
 RUN npm install
 
 # copy react project
-COPY . .
+# COPY . .
 
 # build react project
 RUN npm run build

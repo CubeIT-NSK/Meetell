@@ -282,7 +282,7 @@ function Trip() {
             timeTrip: selectedTimeTrip,
         };
         console.log(data);
-        fetch('http://192.168.1.103:8000/trips', {
+        fetch('api/trips', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
