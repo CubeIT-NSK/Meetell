@@ -18,7 +18,7 @@ services:
     restart: unless-stopped
     expose:
       - 3000
-    command: serve -s /var/www/it-prod.pro/frontend/build -l 3000
+    command: serve -s /var/www/meetell.ru/frontend/build -l 3000
     depends_on:
       - backend
 
@@ -30,6 +30,8 @@ services:
       - 443:443
     volumes:
       - ./docker/nginx/:/etc/nginx/conf.d/
+      - /etc/letsencrypt/live/meetell.ru/fullchain.pem:/etc/nginx/cert.pem
+      - /etc/letsencrypt/live/meetell.ru/privkey.pem:/etc/nginx/key.pem
     depends_on:
       - frontend
 
