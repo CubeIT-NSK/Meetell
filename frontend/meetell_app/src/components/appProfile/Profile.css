@@ -4,6 +4,7 @@
     flex-direction: column;
     align-items: flex-end;
     padding-bottom: 10px;
+    margin-top: calc((100vw - 320px) / (425 - 320) * (180 - 60) + 60px);
 }
 .ton {
     position: absolute;
@@ -26,12 +27,27 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: calc((100vw - 320px) / (480 - 320) * (10 - 8) + 8px) calc((100vw - 320px) / (480 - 320) * (20 - 16) + 16px);
+    padding: calc((100vw - 320px) / (425 - 320) * (10 - 8) + 8px) calc((100vw - 320px) / (425 - 320) * (20 - 16) + 16px);
     margin-right: 10px;
     border-radius: 10px;
-    font-size: calc((100vw - 320px) / (480 - 320) * (20 - 13) + 13px);
+    font-size: calc((100vw - 320px) / (425 - 320) * (20 - 13) + 13px);
     font-weight: 300;
     color: #0912DB;
+}
+
+.sex {
+    display: flex;
+    align-items: center;
+}
+
+.camera {
+    background-color: rgba(207, 218, 255, 1);
+    margin-right: 10px;
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+    height: 50px;
+    cursor: pointer;
 }
 
 .profile_body {
@@ -41,26 +57,28 @@
     background: linear-gradient(180deg, rgba(233,238,244,1) 0%, rgba(245,245,245,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e9eef4",endColorstr="#f5f5f5",GradientType=1);
     border-radius: 10px 10px 0 0;
-    padding: 0 10px;
-    margin-top: calc((100vw - 320px) / (480 - 320) * (200 - 80) + 80px);
+    padding: 15px 10px 0 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 15px;
 }
-
+.name_block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
 .profile_name {
     color: #0A0930;
-    font-size: calc((100vw - 320px) / (480 - 320) * (20 - 15) + 15px);
+    font-size: calc((100vw - 320px) / (425 - 320) * (25 - 15) + 15px);
     font-weight: 400;
-    padding-top: 15px;
-    padding-bottom: 5px;
 }
 
 .telegram_username {
-    font-size: calc((100vw - 320px) / (480 - 320) * (15 - 13) + 13px);;
+    font-size: calc((100vw - 320px) / (425 - 320) * (15 - 13) + 13px);;
     font-weight: 500;
     color: #797984;
-    padding-bottom: 15px;
 }
 
 .profile_route_info_blocks {
@@ -72,12 +90,12 @@
     padding-bottom: 15px;
 }
 .route_info_block_profile {
-    padding: calc((100vw - 320px) / (480 - 320) * (10 - 8) + 8px);;
+    padding: calc((100vw - 320px) / (425 - 320) * (10 - 8) + 8px);;
     background: #fff;
     border-radius: 10px;
     text-align: center;
     width: 100%;
-    font-size: calc((100vw - 320px) / (480 - 320) * (20 - 15) + 15px);;
+    font-size: calc((100vw - 320px) / (425 - 320) * (20 - 15) + 15px);;
 }
 .route_info_ages {
     background: #CFDAFF;
@@ -93,8 +111,8 @@
 .profile_stat {
     width: -webkit-fill-available;
     background-color: #ffffff;
-    padding-top: calc((100vw - 320px) / (480 - 320) * (34 - 18) + 18px);;
-    padding-bottom: calc((100vw - 320px) / (480 - 320) * (34 - 18) + 18px);;
+    padding-top: calc((100vw - 320px) / (425 - 320) * (34 - 18) + 18px);;
+    padding-bottom: calc((100vw - 320px) / (425 - 320) * (34 - 18) + 18px);;
     border-radius: 15px;
     box-shadow: 10px 5px 5px rgba(43, 44, 46, 0.2);
     padding-right: 10px;
@@ -153,4 +171,143 @@
     border-radius: 10px;
     background-color: #523DD8;
     width: calc(100% - 20px);
+    cursor: pointer;
+}
+
+.telegram {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.back {
+    position: absolute;
+    left: 10px;
+    cursor: pointer;
+}
+
+.input_block {
+    display: flex;
+    width: 100%;
+    gap: 5px;
+}
+
+.input_names {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.input_name {
+    font-size: 13px;
+    color: #0A0930;
+    width: 100%;
+}
+
+.inputs {
+    display: grid;
+    grid-template-columns:  1fr 2.2fr;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.you_name {
+    border: none;
+    border-radius: 10px;
+    padding: 12px 10px;
+}
+input::placeholder {
+    font-size: 13px;
+    color: #797984;
+}
+
+.filter_date_trip_profile {
+    display: flex;
+    gap: 10px;
+}
+.filter_date_select_profile {
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    padding: 10px 18px 10px 5px;
+    font-size: 13px;
+    color: #2c2c2c;
+    appearance: none;
+    /* Убирает стандартный вид селекта */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="%232c2c2c" stroke-width="2" d="M6 9l6 6 6-6"/></svg>');
+    /* Стрелка */
+    background-repeat: no-repeat;
+    background-position: right 5px center;
+    cursor: pointer;
+    text-align: center;
+    text-align-last: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.change_sex {
+    display: flex;
+    gap: 5px;
+}
+
+.button_sex {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgba(207, 218, 255, 0.5);
+}
+.button_sex:focus {
+    background-color: rgba(207, 218, 255, 1);
+    padding: 5px;
+}
+
+.button_sex:focus path{
+    width: 30px;
+    height: 30px;
+    fill: rgba(82, 61, 216, 1);
+}
+
+.button_sex:focus svg {
+    width: 30px;
+    height: 30px;
+}
+.sex_icon {
+    fill: rgba(82, 61, 216, 0.5);
+}
+
+.ps {
+    font-size: 10px;
+    color: #797984;
+}
+.ps span {
+    text-decoration: underline;
+}
+
+.bottom_button {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    bottom: 20px;
+    padding: 0 10px;
+}
+
+.save_profile_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    background-color: #523DD8;
+    padding: 10px 0;
+    cursor: pointer;
 }

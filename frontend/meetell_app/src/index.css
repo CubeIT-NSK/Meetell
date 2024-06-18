@@ -10,6 +10,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-image: url("img/bg.svg");
   background-size: 100%;
+  overflow: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 code {
@@ -20,4 +26,8 @@ code {
 .glass:not() {
   background-color: rgba(93, 117, 164, 0.8);
   filter: blur(2px);
+}
+
+input, select {
+  outline: none;
 }
