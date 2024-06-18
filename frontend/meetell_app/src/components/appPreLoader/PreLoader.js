@@ -10,7 +10,7 @@ export default function PreLoader() {
       if (window.Telegram && window.Telegram.WebApp) {
         const webApp = window.Telegram.WebApp;
         let rectParrent = parrentRef.current.getBoundingClientRect();
-        parrentRef.current.style.height = webApp.viewportHeight - rectParrent.y + "px";
+        parrentRef.current.style.height = webApp.viewportStableHeight - rectParrent.y + "px";
       }
     })
 
