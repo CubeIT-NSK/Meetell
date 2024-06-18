@@ -32,3 +32,11 @@ services:
       - ./docker/nginx/:/etc/nginx/conf.d/
     depends_on:
       - frontend
+
+  bot:
+    build: 
+      context: .
+      dockerfile: docker/python/DockerFile
+    container_name: bot
+    command: python3 manage.py bot
+    restart: unless-stopped
