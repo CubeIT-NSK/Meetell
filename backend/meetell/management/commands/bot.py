@@ -21,5 +21,5 @@ class Command(BaseCommand):
 async def command_start_handler(message: Message) -> None:
     """Answer to /start"""
     builder = InlineKeyboardBuilder()
-    builder.button(text="MeeTell App", web_app=WebAppInfo(url="http://192.168.1.103:3000"))
-    await message.answer(text="Привет", reply_markup=builder.as_markup())
+    builder.button(text="MeeTell App", web_app=WebAppInfo(url="https://meetell.ru"))
+    await message.answer(text="MeeTell", reply_markup=builder.as_markup())
