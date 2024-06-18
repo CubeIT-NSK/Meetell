@@ -1,11 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import './HelloScreen.css';
+import { loadTelegramWebApp } from '../telegram/telegram';
 
 export default function HelloScreen() {
   const parrentRef = useRef();
   useEffect(() => {
-    let rectParrent = parrentRef.current.getBoundingClientRect();
-    parrentRef.current.style.height = window.innerHeight - rectParrent.y + "px";
+    loadTelegramWebApp().then(() => {
+      if (window.Telegram && window.Telegram.WebApp) {
+        const webApp = window.Telegram.WebApp;
+        let rectParrent = parrentRef.current.getBoundingClientRect();
+        parrentRef.current.style.height = webApp.viewportHeight - rectParrent.y + "px";
+      }
+    })
   }, []);
 
   return (

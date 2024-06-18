@@ -1,27 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './components/app/App';
-import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import { loadTelegramWebApp } from './components/telegram/telegram';
 
-// Обновление высоты блоков
-document.addEventListener("DOMContentLoaded", function(event) { 
-  document.body.style.height = window.innerHeight + "px";
-  var root_div = document.getElementById('root');
-  root_div.style.height = window.innerHeight + "px";
-});
+const Main = () => {
+
+  useEffect(() => {
+    loadTelegramWebApp()
+      .then(() => {
+        console.log('Telegram Web App script loaded successfully');
+        if (window.Telegram && window.Telegram.WebApp) {
+          window.Telegram.WebApp.ready();
+          window.Telegram.WebApp.expand();
+          window.Telegram.WebApp.setHeaderColor("#172563");
+          setTimeout(() => {
+            document.body.style.overflow = 'hidden'; 
+            document.body.style.height = window.Telegram.WebApp.viewportHeight + 'px'; 
+          }, 1000);
+          console.log('Telegram WebApp expanded');
+        } else {
+          console.error('Telegram WebApp not available');
+          document.body.style.overflow = ''; 
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  return (
+    <React.StrictMode>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </React.StrictMode>
+  );
+};
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>
+  <Main />,
+  document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
