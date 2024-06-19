@@ -298,7 +298,7 @@ function Trip() {
                 }
             })
             .catch(error => {
-                console.error('There was an error saving the data:', error);
+                setSearchResult(null);
             });
     };
 
