@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import './Profile.css';
 import '../appTrip/Trip.css';
-import avatar from "../../img/profileIMG.svg";
 import account from '../../img/account.svg';
 import pencil from '../../img/pencil.svg';
 import back from '../../img/back.svg';
@@ -9,10 +8,55 @@ import camera from '../../img/camera.svg';
 import { ReactComponent as Male } from '../../img/sex_male.svg';
 import { ReactComponent as Female } from '../../img/sex_female.svg';
 
+// Загрузка файла
+function FileUploader({ onFileSelect }) {
+    const fileInputRef = useRef(null);
+
+    const handleFileUpload = (event) => {
+        const file = event.target.files[0]; 
+        console.log('Выбранный файл:', file);
+        onFileSelect(file);
+    };
+
+    const fileButtonClick = () => {
+        fileInputRef.current.click();
+    };
+
+    return (
+        <form method="post" encType="multipart/form-data">
+                        <input
+                        type="file"
+                        name="myVacationPhoto"
+                        accept="image/*"
+                        onChange={handleFileUpload}
+                        ref={fileInputRef}
+                        style={{ display: 'none' }} // Скрыть input
+                        />
+                        <button className="camera" onClick={fileButtonClick}>
+                            <img src={camera} alt="Загрузить фото"/>
+                        </button>
+                    </form>
+    );
+}
+
+// Показ файла
+function FileDisplay({ file, defaultImage }) {
+    return (
+            <img 
+                className="avatar" 
+                src={file ? URL.createObjectURL(file) : null} 
+                alt="avatar" 
+                style={{ 
+                        width: '100%',
+                        height: '100%',
+                        display: (file === null) ? 'none' : 'block'
+                }} 
+            />
+    );
+}
 
 export default function Profile() {
 
-    const fileInputRef = useRef(null);
     const editButton = [
         'Заполнить анкету',
         'Редактировать',
@@ -25,13 +69,19 @@ export default function Profile() {
     const [selectedDay, setSelectedDay] = useState('');
     const [selectedMonth, setSelectedMonth] = useState('');
     const [selectedYear, setSelectedYear] = useState('');
-    const [isDataIncorrect, setIsDataIncorrect] = useState(false);
     const [isDataСorrect, setIsDataСorrect] = useState(false);
     const [fullYears, setFullYears] = useState(null);
     const [styleAgeAndSex, setStyleAgeAndSex] = useState({ display: 'none' });
     const [selectedSex, setSelectedSex] = useState(null);
     const [maleOpacity, setMaleOpacity] = useState('50%');
     const [femaleOpacity, setFemaleOpacity] = useState('50%');
+    const [selectedFile, setSelectedFile] = useState(null);
+    const defaultImage = {account};
+
+// Для передачи файла с загрузки 
+    const handleFileSelect = (file) => {
+        setSelectedFile(file);
+    };
 
 // Не ебу мне это надо или нет, спиздил у тебя Никит для высоты блока
     const childrenRef = useRef(null);
@@ -69,7 +119,6 @@ export default function Profile() {
 // Кнопка назад
     const handleCloseClick = () => {
         setSelectedRoute(true);
-        setEdit('Редактировать')
     };
 
 //Добавление имени
@@ -81,7 +130,7 @@ export default function Profile() {
         }
     }, [name]);
 
-// Корректная дата рождения 
+// Корректная дата рождения и обязательный выбор для даты и пола
 
     useEffect(() => {
         if (fullYears === null) {
@@ -113,10 +162,8 @@ export default function Profile() {
         const currentDate = new Date();
         const selectedDate = new Date(year, month - 1, day);
         if (selectedDate > currentDate || getAge(selectedDate) > 120) {
-            setIsDataIncorrect(true);
             setIsDataСorrect(false);
         } else {
-            setIsDataIncorrect(false);
             setIsDataСorrect(true);
             setFullYears(getAge(selectedDate));
         }
@@ -130,33 +177,23 @@ export default function Profile() {
     };
     
     const handleButtonClick = () => {
+        
         if (!selectedRoute) {
             validateDate(selectedMonth, selectedDay, selectedYear);
-            if (!isDataСorrect) {
+            if (!isDataСorrect || selectedSex === null) {
                 alert('Пожалуйста, заполните все поля корректно.');
                 return
-        } else {
-                setIsDataIncorrect(false);
+            } else {
                 setIsDataСorrect(true);
+                setEdit(editButton[1])
             } 
         } 
         if (!selectedRoute) {
             setSelectedRoute(true)
         } else {
             setSelectedRoute(false)
-            setEdit(editButton[1])
         }
         setName(inputValue);
-    };
-
-// Загрузка файла
-    const handleFileUpload = (event) => {
-        const file = event.target.files[0]; // Получаем первый выбранный файл
-        console.log('Выбранный файл:', file);
-    }
-
-    const downloadFile = () => {
-        fileInputRef.current.click();
     };
 
 // Выбор пола в редактировании профиля и передача его значения
@@ -166,9 +203,11 @@ export default function Profile() {
             if (sex === 'male') {
                 setMaleOpacity('100%');
                 setFemaleOpacity('50%');
-              } else {
+              } else if (sex === 'female') {
                 setMaleOpacity('50%');
                 setFemaleOpacity('100%');
+              } else if (sex === null) {
+                
               }
         };
 
@@ -192,7 +231,7 @@ export default function Profile() {
         <div className="profile">
             <div className="preview">
                 <div className="ton"></div>
-                <img className="avatar" src={avatar} alt="" />
+                <FileDisplay file={selectedFile} defaultImage={defaultImage} />
                 {selectedRoute ?
                     <div className="ageAndSex" style={styleAgeAndSex}>
                         <p className="age">
@@ -209,19 +248,7 @@ export default function Profile() {
                         )}
                     </div> 
                 :
-                    <form method="post" encType="multipart/form-data">
-                        <input
-                        type="file"
-                        name="myVacationPhoto"
-                        accept="image/*"
-                        onChange={handleFileUpload}
-                        ref={fileInputRef}
-                        style={{ display: 'none' }} // Скрыть input
-                        />
-                        <button className="camera" onClick={downloadFile}>
-                            <img src={camera} />
-                        </button>
-                    </form>
+                    <FileUploader onFileSelect={handleFileSelect} />
                 }
             </div>
             {selectedRoute ? 
@@ -270,7 +297,7 @@ export default function Profile() {
                 :
                 <div ref={childrenRef} className="profile_body">
                     <div className="telegram">
-                        <img src={back} className="back" onClick={handleCloseClick}/>
+                        <img src={back} className="back" alt="Назад" onClick={handleCloseClick}/>
                         <p className="telegram_username">@tg_username</p>
                     </div>
                     <div className="input_block">
