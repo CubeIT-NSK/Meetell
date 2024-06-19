@@ -5,7 +5,6 @@ import Question from '../appQuestion/Question';
 import Header from "../appHeader/Header";
 import Footer from '../appFooter/Footer';
 import { FooterProvider } from '../appFooter/FooterContext';
-import { StoreProvider } from '../store/Store';
 import Trip from '../appTrip/Trip';
 import {
   Routes,
@@ -58,7 +57,6 @@ function App() {
   const location = useLocation();
   return (
     <Fragment>
-      <StoreProvider>
         <FooterProvider>
           <Header />
           <Routes>
@@ -74,7 +72,6 @@ function App() {
           </Routes>
           {(location.pathname !== '/profile') && <Footer />}
         </FooterProvider>
-      </StoreProvider>
     </Fragment>
   );
 }

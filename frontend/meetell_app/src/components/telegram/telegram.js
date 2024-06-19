@@ -9,6 +9,13 @@ export const loadTelegramWebApp = () => {
         document.body.style.height = window.Telegram.WebApp.viewportHeight + 'px';
         document.body.style.overflow = 'hidden';
         window.Telegram.WebApp.setHeaderColor("#172563");
+        if (window.Telegram.WebApp.initDataUnsafe.user) {
+          localStorage.setItem('username', window.Telegram.WebApp.initDataUnsafe.user.username);
+          localStorage.setItem('user_id', window.Telegram.WebApp.initDataUnsafe.user.id);
+        } else {
+          localStorage.setItem('username', 'user666');
+          localStorage.setItem('user_id', 666);
+        }
         resolve();
       } else {
         reject(new Error('Telegram WebApp not available'));
