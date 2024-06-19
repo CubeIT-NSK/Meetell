@@ -1,18 +1,31 @@
 import React, { useEffect, useRef } from 'react';
 import './HelloScreen.css';
 import { loadTelegramWebApp } from '../telegram/telegram';
+import { useStore } from '../store/Store';
 
 export default function HelloScreen() {
+  const { setItem } = useStore();
   const parrentRef = useRef();
+
   useEffect(() => {
     loadTelegramWebApp().then(() => {
       if (window.Telegram && window.Telegram.WebApp) {
         const webApp = window.Telegram.WebApp;
         let rectParrent = parrentRef.current.getBoundingClientRect();
         parrentRef.current.style.height = webApp.viewportStableHeight - rectParrent.y + "px";
+        if (window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user && window.Telegram.WebApp.initDataUnsafe.user.username) {
+          setItem('user', window.Telegram.WebApp.initDataUnsafe.user.username);
+        } else {
+          setItem('user', "@lexa");
+        }
+        // ЕБАНЫЙ КОСТЫЛЬ
+        document.body.style.zoom = 1.001;
+        setTimeout(() => {
+          document.body.style.zoom = 1;
+        }, 1000);
       }
     })
-  }, []);
+  }, [setItem]);
 
   return (
     <div className="helloScreen" ref={parrentRef}>

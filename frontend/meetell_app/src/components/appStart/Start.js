@@ -5,11 +5,14 @@ import question from '../../img/question.svg'
 import rules from '../../img/rules.svg'
 import manual from '../../img/manual.svg'
 import smartphone from '../../img/smartphone.svg'
+import { useStore } from '../store/Store';
 
 const Start = () => {
+    const { getItem } = useStore();
+    let user = getItem('user');
     return (
         <div className="start_body">
-            <div className="start_hello">Привет, @НикТГ</div>
+            <div className="start_hello">Привет, {user}</div>
                 <div className="start_menu">
                     <Link to='/question' className="no-underline">
                         <div className="start_btn_question">
