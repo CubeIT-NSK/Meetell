@@ -13,11 +13,13 @@ export default function HelloScreen() {
         const webApp = window.Telegram.WebApp;
         let rectParrent = parrentRef.current.getBoundingClientRect();
         parrentRef.current.style.height = webApp.viewportStableHeight - rectParrent.y + "px";
-        if (window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user && window.Telegram.WebApp.initDataUnsafe.user.username) {
-          setItem('user', window.Telegram.WebApp.initDataUnsafe.user.username);
-        } else {
-          setItem('user', "@lexa");
-        }
+        // if (webApp.initDataUnsafe && webApp.initDataUnsafe.user && webApp.initDataUnsafe.user.username) {
+        //   // setItem('user', window.Telegram.WebApp.initDataUnsafe.user.username);
+        //   console.log(webApp.initDataUnsafe.user);
+        //   setItem('user', "@lexa_yes");
+        // } else {
+        //   setItem('user', "@lexa");
+        // }
         // ЕБАНЫЙ КОСТЫЛЬ
         document.body.style.zoom = 1.001;
         setTimeout(() => {
