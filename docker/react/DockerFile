@@ -1,11 +1,11 @@
 # pull official base image
 FROM node:20.12.2
 
-COPY ./frontend/meetell_app /var/www/it-prod.pro/frontend/
-WORKDIR /var/www/it-prod.pro/frontend/
+COPY ./frontend/meetell_app /var/www/meetell.ru/frontend/
+WORKDIR /var/www/meetell.ru/frontend/
 
-COPY ./frontend/meetell_app/package.json /var/www/it-prod.pro/frontend/
-COPY ./frontend/meetell_app/package-lock.json /var/www/it-prod.pro/frontend/
+COPY ./frontend/meetell_app/package.json /var/www/meetell.ru/frontend/
+COPY ./frontend/meetell_app/package-lock.json /var/www/meetell.ru/frontend/
 
 RUN npm install -g serve
 RUN npm install
