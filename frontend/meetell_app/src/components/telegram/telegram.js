@@ -5,6 +5,9 @@ export const loadTelegramWebApp = () => {
     script.async = true;
     script.onload = () => {
       if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.expand()
+        document.body.style.height = window.Telegram.WebApp.viewportHeight + 'px';
+        document.body.style.overflow = 'hidden';
         window.Telegram.WebApp.setHeaderColor("#172563");
         resolve();
       } else {

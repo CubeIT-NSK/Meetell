@@ -35,20 +35,12 @@ export const StoreProvider = ({ children }) => {
     dispatch({ type: SET_ITEM, key, value });
   };
 
-  const removeItem = (key) => {
-    dispatch({ type: REMOVE_ITEM, key });
-  };
-
-  const clearStore = () => {
-    dispatch({ type: CLEAR_STORE });
-  };
-
   const getItem = (key) => {
     return state[key];
   };
 
   return (
-    <StoreContext.Provider value={{ state, setItem, removeItem, clearStore, getItem }}>
+    <StoreContext.Provider value={{ state, setItem, getItem }}>
       {children}
     </StoreContext.Provider>
   );
