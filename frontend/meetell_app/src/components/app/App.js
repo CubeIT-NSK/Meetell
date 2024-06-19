@@ -5,6 +5,7 @@ import Question from '../appQuestion/Question';
 import Header from "../appHeader/Header";
 import Footer from '../appFooter/Footer';
 import { FooterProvider } from '../appFooter/FooterContext';
+import { StoreProvider } from '../store/Store';
 import Trip from '../appTrip/Trip';
 import {
   Routes,
