@@ -4,7 +4,7 @@ import { loadTelegramWebApp } from '../telegram/telegram';
 import { useStore } from '../store/Store';
 
 export default function HelloScreen() {
-  const { setItem } = useStore();
+  const { setItem, getItem } = useStore();
   const parrentRef = useRef();
 
   useEffect(() => {
@@ -13,21 +13,23 @@ export default function HelloScreen() {
         const webApp = window.Telegram.WebApp;
         let rectParrent = parrentRef.current.getBoundingClientRect();
         parrentRef.current.style.height = webApp.viewportStableHeight - rectParrent.y + "px";
-        // if (webApp.initDataUnsafe && webApp.initDataUnsafe.user && webApp.initDataUnsafe.user.username) {
-        //   // setItem('user', window.Telegram.WebApp.initDataUnsafe.user.username);
-        //   console.log(webApp.initDataUnsafe.user);
-        //   setItem('user', "@lexa_yes");
-        // } else {
-        //   setItem('user', "@lexa");
-        // }
+        if (webApp.initDataUnsafe && webApp.initDataUnsafe.user && webApp.initDataUnsafe.user.username) {
+          // setItem('user', window.Telegram.WebApp.initDataUnsafe.user.username);
+          setItem('user', "@" + webApp.initDataUnsafe.user.username);
+        } else {
+          setItem('user', "@lexa");
+        }
         // ЕБАНЫЙ КОСТЫЛЬ
         document.body.style.zoom = 1.001;
         setTimeout(() => {
           document.body.style.zoom = 1;
         }, 1000);
+
+        let user = getItem('user')
+        console.log("Username : " + user);
       }
     })
-  }, [setItem]);
+  }, [setItem, getItem]);
 
   return (
     <div className="helloScreen" ref={parrentRef}>
