@@ -1,9 +1,12 @@
 import React, { useEffect, useRef } from 'react';
+import { useFooter } from '../appFooter/FooterContext';
 import './Home.css';
 
 const Home = () => {
     const parrentRef = useRef();
     const childrenRef = useRef();
+    const { setFooterVisible } = useFooter();
+    setFooterVisible(true);
     let user_info = JSON.parse(localStorage.getItem('user_info'));
     let remain_dist = user_info.level.max_distance - user_info.distance;
     useEffect(() => {

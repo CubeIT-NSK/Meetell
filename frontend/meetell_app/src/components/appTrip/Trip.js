@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-
+import { useNavigate } from "react-router-dom";
 import { useFooter } from '../appFooter/FooterContext';
 
 import back from '../../img/back.svg';
@@ -15,6 +15,7 @@ function Trip() {
     const childrenRef = useRef();
     const filterRef = useRef(null);
     const tripRef = useRef(null);
+    const navigate = useNavigate();
 
     const today = new Date();
     const years = [today.getFullYear(), today.getFullYear() + 1];
@@ -302,6 +303,19 @@ function Trip() {
             });
     };
 
+    let user_info = localStorage.getItem('user_info');
+    user_info = JSON.parse(user_info);
+    let registr = null;
+    if (user_info.birthday) {
+        registr = true;
+    } else {
+        registr = false;
+    }
+
+    const handleRegistrButton = () => {
+        navigate('/profile');
+    }
+
     return (
         <div ref={parrentRef} className="trip_body">
             <div className={`content ${showFilters ? 'blur-content' : ''}${selectedRoute ? 'block_none' : ''}`}>
@@ -580,9 +594,18 @@ function Trip() {
                                 </div>
                             </div>
                         </div>
-                        <div className='route_button_chat'>
-                            <button className='button_chat'>Перейти в чат</button>
-                        </div>
+                        {registr && (
+                            <div className='route_button_chat'>
+                                <button className='button_chat'>Перейти в чат</button>
+                            </div>
+                        )}
+                        {!registr && (
+                            <div className='route_button_chat'>
+                                <button className='button_registr' onClick={handleRegistrButton}>Заполнить профиль</button>
+                                <p className='route_register_text'>Заполните небольшую анкету чтобы мы могли предлагать вам только подходящие маршруты.</p>
+                            </div>
+                            
+                        )}
                         <div className='route_share'>
                             Поделиться маршрутом
                         </div>
