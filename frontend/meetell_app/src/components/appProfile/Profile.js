@@ -310,25 +310,26 @@ export default function Profile() {
 
     // Горизонтальная прокрутка
     useEffect(() => {
-        var modifier = null;
-        document.getElementById("horizontal-scroller").addEventListener('wheel', function (event) {
-            if (event.deltaMode === event.DOM_DELTA_PIXEL) {
-                modifier = 1;
-                // иные режимы возможны в Firefox
-            } else if (event.deltaMode === event.DOM_DELTA_LINE) {
-                modifier = parseInt(getComputedStyle(this).lineHeight);
-            } else if (event.deltaMode === event.DOM_DELTA_PAGE) {
-                modifier = this.clientHeight;
-            }
-            if (event.deltaY !== 0) {
-                // замена вертикальной прокрутки горизонтальной
-                this.scrollLeft += modifier * event.deltaY;
-                event.preventDefault();
-            }
-        });
-    }, []);
+        if (selectedRoute) {
+            document.getElementById("horizontal-scroller").addEventListener('wheel', function(event) {
+                if (event.deltaMode === event.DOM_DELTA_PIXEL) {
+                    var modifier = 1;
+                    // иные режимы возможны в Firefox
+                } else if (event.deltaMode === event.DOM_DELTA_LINE) {
+                  var modifier = parseInt(getComputedStyle(this).lineHeight);
+                    } else if (event.deltaMode === event.DOM_DELTA_PAGE) {
+                    var modifier = this.clientHeight;
+                    }
+                
+                if (event.deltaY !== 0) {
+                    // замена вертикальной прокрутки горизонтальной
+                    this.scrollLeft += modifier * event.deltaY;
+                    event.preventDefault();
+                }
     
-    const user_photo = JSON.parse(localStorage.getItem('user_photo'));
+            })};
+    }, [selectedRoute]);
+
     return (
         <div className="profile">
             <div className="preview">

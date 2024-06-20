@@ -9,8 +9,6 @@ import add from '../../img/add_trip.svg';
 import phone from '../../img/trip_page.svg';
 import account from '../../img/account.svg';
 import share from '../../img/share.svg';
-import { ReactComponent as Male } from '../../img/sex_male.svg';
-import { ReactComponent as Female } from '../../img/sex_female.svg';
 import './Trip.css';
 
 
