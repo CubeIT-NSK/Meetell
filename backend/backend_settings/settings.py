@@ -24,6 +24,7 @@ SECRET_KEY = 'django-insecure-whxaode^9+)4-+-#2)!d6%!ax(&&&@e$5n+72p7inu^$=do0le
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+DEBUG = False
 
 ALLOWED_HOSTS = ['meetell.ru', 'localhost']
 

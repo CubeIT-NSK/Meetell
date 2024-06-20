@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { default as download } from '../../img/load.svg';
 import './PreLoader.css';
 import { loadTelegramWebApp } from "../telegram/telegram";
+import { loadTelegramWebApp } from "../telegram/telegram";
 
 export default function PreLoader() {
   const parrentRef = useRef();
@@ -13,7 +14,7 @@ export default function PreLoader() {
         parrentRef.current.style.height = webApp.viewportStableHeight - rectParrent.y + "px";
       }
     })
-
+    
   }, []);
 
   useEffect(() => {

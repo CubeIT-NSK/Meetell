@@ -299,6 +299,21 @@ input::placeholder {
     padding: 0 10px;
 }
 
+.update_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #0912DB;
+    border: none;
+    border-radius: 10px;
+    background-color: #CFDAFF;
+    padding: 10px 0;
+    font-size: 12px;
+    font-weight: 300;
+    margin-bottom: 5px;
+}
+
 .save_profile_button {
     display: flex;
     align-items: center;

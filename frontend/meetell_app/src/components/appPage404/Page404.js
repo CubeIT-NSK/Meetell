@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from "react";
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Page404.css';
 import development from "../../img/development.svg";
 
 export default function InProgress() {
+    const navigate = useNavigate();
     const parrentRef = useRef();
     useEffect(() => {
         let rectParrent = parrentRef.current.getBoundingClientRect();
@@ -14,9 +15,7 @@ export default function InProgress() {
         <div className="glassDevelopment" ref={parrentRef}>
             <div className="developmentCard">
                 <div className="closeBlock">
-                    <Link to='/home'>
-                        <button className="closeDevelopment"></button>
-                    </Link>
+                        <button className="closeDevelopment" onClick={() => navigate(-1)}></button>
                 </div>
                 <div className="inCard">
                     <img className="developmentSvg" src={development} alt="" />

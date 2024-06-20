@@ -31,6 +31,9 @@ const preloadImages = (imageUrls) => {
 };
 
 function App() {
+
+  const userName = 'lexa_minimum';
+
   useEffect(() => {
     const imageUrls = [
       question,
@@ -67,21 +70,22 @@ function App() {
   const location = useLocation();
   return (
     <Fragment>
-        <FooterProvider>
-          <Header />
-          <Routes>
-            <Route path='/' element={
-              hello ? <HelloScreen /> :
-                loading ? <PreLoader /> : <Carousel />
-            } />
-            <Route path="/home" element={<Main />} />
-            <Route path='/question' element={<Question />} />
-            <Route path='/trips' element={<Trip />} />
-            <Route path='/profile' element={<Profile />} />
-            <Route path='/*' element={<Page404 />} />
-          </Routes>
-          {(location.pathname !== '/profile') && <Footer />}
-        </FooterProvider>
+      <FooterProvider>
+        <Header />
+        <Routes>
+          <Route path='/' element={
+            hello ? <HelloScreen /> :
+              loading ? <PreLoader /> : <Carousel />
+          } />
+          <Route path="/home" element={<Main />} />
+          <Route path='/question' element={<Question />} />
+          <Route path='/trips' element={<Trip />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path={`/profile/${userName}`} element={<Profile />} />
+          <Route path='/*' element={<Page404 />} />
+        </Routes>
+        {!location.pathname.startsWith('/profile') && <Footer />}
+      </FooterProvider>
     </Fragment>
   );
 }

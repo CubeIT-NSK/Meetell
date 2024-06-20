@@ -1,6 +1,8 @@
 FROM python:3.11.7
 COPY ./backend /var/www/meetell.ru/backend
 WORKDIR /var/www/meetell.ru/backend
+COPY ./backend /var/www/meetell.ru/backend
+WORKDIR /var/www/meetell.ru/backend
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1

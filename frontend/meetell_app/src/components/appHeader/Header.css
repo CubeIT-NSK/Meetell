@@ -19,6 +19,7 @@
 .header_logo {
   margin-left: 10px;
   width: 83.46px;
+  cursor: pointer;
 }
 
 .header_text {
