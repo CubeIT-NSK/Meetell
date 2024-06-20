@@ -319,7 +319,7 @@ export default function Profile() {
         <div className="profile">
             <div className="preview">
                 <div className="ton"></div>
-                {user_photo.photo ?
+                {user_photo && user_photo.photo ?
                     <FileDisplay file={user_photo.photo} /> :
                     null
                 }
