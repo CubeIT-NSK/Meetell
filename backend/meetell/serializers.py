@@ -1,5 +1,6 @@
-from .models import FAQ, User, Level
+from .models import FAQ, User, Level, PhotoUser
 from rest_framework import serializers
+from datetime import datetime
 
 class FAQSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,8 +12,35 @@ class LevelSerializer(serializers.ModelSerializer):
         model = Level
         fields = ['id', 'name', 'max_distance']
 
+class CustomDateField(serializers.DateField):
+    def to_representation(self, value):
+        if isinstance(value, datetime):
+            value = value.date()
+        return super().to_representation(value)
+
 class UserSerializer(serializers.ModelSerializer):
     level = LevelSerializer(many=False, read_only=True)
+    birthday = CustomDateField(required=False, allow_null=True, format="%Y-%m-%d", input_formats=["%Y-%m-%d"])
     class Meta:
         model = User
-        fields = ['tg_id', 'user_name', 'level', 'distance', 'birthday', 'sex', 'ratting']
+        fields = "__all__"
+
+class PhotoUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PhotoUser
+        fields = ['user', 'photo']
+
+    def create(self, validated_data):
+        user = validated_data.get('user')
+        photo = validated_data.get('photo')
+
+        # Пытаемся найти существующую запись PhotoUser для данного user
+        photo_user, created = PhotoUser.objects.update_or_create(user=user, defaults={'photo': photo})
+
+        return photo_user
+
+    def update(self, instance, validated_data):
+        instance.user = validated_data.get('user', instance.user)
+        instance.photo = validated_data.get('photo', instance.photo)
+        instance.save()
+        return instance

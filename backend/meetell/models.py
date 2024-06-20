@@ -25,8 +25,11 @@ class User(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
     birthday = models.DateField(default=None, blank=True, null=True)
     sex = models.CharField(max_length=1, choices=SexSelection.choices, default=None)
-    # photo
     ratting = models.FloatField(default=0.0)
+
+class PhotoUser(models.Model):
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    photo = models.TextField()
 
 class Friend(models.Model):
     first_friend = models.ForeignKey('User', on_delete=models.CASCADE, related_name="first")

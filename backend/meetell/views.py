@@ -1,6 +1,7 @@
 from rest_framework.decorators import api_view
-from .models import FAQ, User, SexSelection
-from .serializers import FAQSerializer, UserSerializer
+from rest_framework import status
+from .models import FAQ, User, SexSelection, PhotoUser
+from .serializers import FAQSerializer, UserSerializer, PhotoUserSerializer
 from django.http import JsonResponse
 from django.core.exceptions import BadRequest
 
@@ -77,6 +78,58 @@ def get_user(request, format=None):
     else:
         raise BadRequest('Invalid request.')
 
+@api_view(['POST'])
+def update_user(request, format=None):
+    data = request.data
+    user = User.objects.get(pk = data['user_id'])
+    user.birthday = datetime.datetime.strptime(data['birthday'], '%Y-%m-%d')
+    if data['sex'] == 'male':
+        user.sex = SexSelection.MEN
+    else:
+        user.sex = SexSelection.WOMEN
+    user.name = data['name']
+    user.save()
+    serializer = UserSerializer(user)
+    response = JsonResponse(serializer.data, safe=False)
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
+
+@api_view(['POST', 'GET'])
+def photo_user(request, format=None):
+    if request.method == 'POST':
+        data = request.data
+        user_id = data.get('user_id')
+        photo = data.get('file')
+
+        if not user_id or not photo:
+            return JsonResponse({'error': 'User ID and file are required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = User.objects.get(tg_id=user_id)
+        except User.DoesNotExist:
+            return JsonResponse({'error': 'User does not exist.'}, status=status.HTTP_404_NOT_FOUND)
+
+        photo_user, created = PhotoUser.objects.update_or_create(user=user, defaults={'photo': photo})
+
+        serializer = PhotoUserSerializer(photo_user)
+        if created:
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return JsonResponse(serializer.data, status=status.HTTP_200_OK)
+
+    elif request.method == 'GET':
+        try:
+            user_id = int(request.query_params.get('id'))
+        except ValueError:
+            return JsonResponse({'error': 'User ID and file are required.'}, status=status.HTTP_400_BAD_REQUEST)
+        if user_id:
+            photo_users = PhotoUser.objects.get(user__tg_id=user_id)
+            serializer = PhotoUserSerializer(photo_users)
+            return JsonResponse(serializer.data)
+        else:
+            return JsonResponse({'error': 'User ID and file are required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        
 
 def random_date(start_date, end_date):
     """

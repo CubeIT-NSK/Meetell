@@ -14,7 +14,35 @@ function FileUploader({ onFileSelect }) {
     const fileInputRef = useRef(null);
 
     const handleFileUpload = (event) => {
+        const user_info = JSON.parse(localStorage.getItem('user_info'));
         let file = event.target.files[0];
+        if (file.size> 2100000) {
+            alert("Слишком большой размер фото");
+            return
+        }
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            const data = {
+                'user_id': user_info.tg_id,
+                'file': reader.result
+            }
+            fetch('api/photo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    localStorage.setItem('user_photo', JSON.stringify(data));
+                    window.location.reload()
+                })
+                .catch(error => {
+
+                });
+        };
         console.log('Выбранный файл:', file);
         onFileSelect(file);
     };
@@ -24,7 +52,8 @@ function FileUploader({ onFileSelect }) {
     };
 
     return (
-        <form method="post" encType="multipart/form-data">
+        // <form method="post" encType="multipart/form-data">
+        <div>
             <input
                 type="file"
                 name="myVacationPhoto"
@@ -36,7 +65,8 @@ function FileUploader({ onFileSelect }) {
             <button className="camera" onClick={fileButtonClick}>
                 <img src={camera} alt="Загрузить фото" />
             </button>
-        </form>
+        </div>
+        // </form>
     );
 }
 
@@ -45,11 +75,10 @@ function FileDisplay({ file, defaultImage }) {
     return (
         <img
             className="avatar"
-            src={file ? URL.createObjectURL(file) : defaultImage}
+            src={file ? file : defaultImage}
             alt="avatar"
             style={{
                 width: '100%',
-                height: '100%',
             }}
         />
     );
@@ -57,7 +86,18 @@ function FileDisplay({ file, defaultImage }) {
 
 export default function Profile() {
 
-    const user = 'user';
+    const user_info = JSON.parse(localStorage.getItem('user_info'));
+    let day = 1;
+    let month = 1;
+    let year = 2024;
+    let remain_dist = user_info.level.max_distance - user_info.distance;
+    if (user_info.birthday) {
+        let year_month_day = user_info.birthday.split('-');
+        year = parseInt(year_month_day[0]);
+        month = parseInt(year_month_day[1]);
+        day = parseInt(year_month_day[2]);
+    }
+
     const location = useLocation();
     const editButton = [
         'Заполнить анкету',
@@ -66,19 +106,20 @@ export default function Profile() {
     const [edit, setEdit] = useState(editButton[0]);
     const [selectedRoute, setSelectedRoute] = useState(true);
     const [style, setStyle] = useState({ display: 'none' });
-    const [name, setName] = useState('');
-    const [inputValue, setInputValue] = useState('');
-    const [selectedDay, setSelectedDay] = useState('');
-    const [selectedMonth, setSelectedMonth] = useState('');
-    const [selectedYear, setSelectedYear] = useState('');
-    const [isDataСorrect, setIsDataСorrect] = useState(false);
+    const [name, setName] = useState(user_info.name);
+    const [inputValue, setInputValue] = useState(user_info.name);
+    const [selectedDay, setSelectedDay] = useState(day);
+    const [selectedMonth, setSelectedMonth] = useState(month);
+    const [selectedYear, setSelectedYear] = useState(year);
+    const [isDataСorrect, setIsDataСorrect] = useState(true);
     const [fullYears, setFullYears] = useState(null);
     const [styleAgeAndSex, setStyleAgeAndSex] = useState({ display: 'none' });
     const [selectedSex, setSelectedSex] = useState(false);
     const [maleOpacity, setMaleOpacity] = useState('50%');
     const [femaleOpacity, setFemaleOpacity] = useState('50%');
     const [selectedFile, setSelectedFile] = useState(null);
-    const [upDate, setUpDate] = useState(false)
+    const [upDate, setUpDate] = useState(false);
+    const [saveInfo, setSaveInfo] = useState(false);
 
     // Для передачи файла с загрузки 
     const handleFileSelect = (file) => {
@@ -174,21 +215,52 @@ export default function Profile() {
     };
 
     const handleButtonClick = () => {
-        if (!selectedRoute) {
-            validateDate(selectedMonth, selectedDay, selectedYear);
-            if (!(isDataСorrect && selectedSex)) {
-                alert('Пожалуйста, заполните все поля корректно.');
-                return
-            } else {
-                setIsDataСorrect(true);
-                setUpDate(true);
-                setEdit(editButton[1])
-            }
-        }
         if (selectedRoute) {
             setSelectedRoute(false)
         }
-        setName(inputValue);
+    };
+
+    const handleButtonClickSave = () => {
+        if (!saveInfo) {
+            if (!selectedRoute) {
+                validateDate(selectedMonth, selectedDay, selectedYear);
+                if (!(isDataСorrect && selectedSex)) {
+                    alert('Пожалуйста, заполните все поля корректно.');
+                    return
+                } else {
+                    setIsDataСorrect(true);
+                    setUpDate(true);
+                    setEdit(editButton[1])
+                }
+            }
+
+            setName(inputValue);
+            const data = {
+                user_id: user_info.tg_id,
+                name: inputValue,
+                birthday: `${selectedYear}-${selectedMonth}-${selectedDay}`,
+                sex: selectedSex,
+            };
+            console.log(data);
+            fetch('api/profile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    localStorage.setItem('user_info', JSON.stringify(data));
+                    setSaveInfo(true);
+                    if (selectedRoute) {
+                        setSelectedRoute(false)
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
     };
 
     // Выбор пола в редактировании профиля и передача его значения
@@ -222,31 +294,33 @@ export default function Profile() {
         }
     };
 
-// Горизонтальная прокрутка
+    // Горизонтальная прокрутка
     useEffect(() => {
-    document.getElementById("horizontal-scroller").addEventListener('wheel', function(event) {
-    if (event.deltaMode === event.DOM_DELTA_PIXEL) {
-        var modifier = 1;
-        // иные режимы возможны в Firefox
-    } else if (event.deltaMode === event.DOM_DELTA_LINE) {
-        var modifier = parseInt(getComputedStyle(this).lineHeight);
-    } else if (event.deltaMode === event.DOM_DELTA_PAGE) {
-        var modifier = this.clientHeight;
-    }
-    if (event.deltaY !== 0) {
-        // замена вертикальной прокрутки горизонтальной
-        this.scrollLeft += modifier * event.deltaY;
-        event.preventDefault();
-    }
-    });
-}, []);
-
+        var modifier = null;
+        document.getElementById("horizontal-scroller").addEventListener('wheel', function (event) {
+            if (event.deltaMode === event.DOM_DELTA_PIXEL) {
+                modifier = 1;
+                // иные режимы возможны в Firefox
+            } else if (event.deltaMode === event.DOM_DELTA_LINE) {
+                modifier = parseInt(getComputedStyle(this).lineHeight);
+            } else if (event.deltaMode === event.DOM_DELTA_PAGE) {
+                modifier = this.clientHeight;
+            }
+            if (event.deltaY !== 0) {
+                // замена вертикальной прокрутки горизонтальной
+                this.scrollLeft += modifier * event.deltaY;
+                event.preventDefault();
+            }
+        });
+    }, []);
+    
+    const user_photo = JSON.parse(localStorage.getItem('user_photo'));
     return (
         <div className="profile">
             <div className="preview">
                 <div className="ton"></div>
-                {selectedFile ?
-                    <FileDisplay file={selectedFile} /> :
+                {user_photo.photo ?
+                    <FileDisplay file={user_photo.photo} /> :
                     null
                 }
                 {selectedRoute ?
@@ -272,103 +346,31 @@ export default function Profile() {
                 <div ref={childrenRef} className="profile_body">
                     <div className="name_block">
                         <h1 id="profileName" className="profile_name" style={style}>{name}</h1>
-                        <p className="telegram_username">{user}</p>
+                        <p className="telegram_username">@{user_info.user_name}</p>
                     </div>
                     <div className='profile_route_info_blocks'>
                         <div className='route_info_block_profile route_info_range'>599 <span className='route_info_small'>кол.</span></div>
-                        <div className='route_info_block_profile route_info_ages'>1 285 <span className='route_info_small span_small'>км.</span></div>
+                        <div className='route_info_block_profile route_info_ages'>{user_info.distance} <span className='route_info_small span_small'>км.</span></div>
                         <div className='route_info_block_profile route_info_time'>156 <span className='route_info_small'>ч.</span></div>
                     </div>
                     <div className='profile_stat'>
-                        <div className='home_level'>128 Уровень</div>
+                        <div className='home_level'>{user_info.level.name}</div>
                         <div className='home_done'>
-                            <div className='home_distanse_user'>1 285 км</div>
-                            <div className='home_distanse_need'>Осталось 295 км</div>
+                            <div className='home_distanse_user'>{user_info.distance} км</div>
+                            <div className='home_distanse_need'>Осталось {remain_dist} км</div>
                         </div>
                         <div className='home_progress'>
                             <progress className='home_progress' value={0.2} defaultValue={0} />
                         </div>
                     </div>
-                        {!(location.pathname !== '/profile') && location.pathname.startsWith('/profile') ?
-                            <p className="friends_text">Ваши друзья:</p>
+                    {!(location.pathname !== '/profile') && location.pathname.startsWith('/profile') ?
+                        <p className="friends_text">Ваши друзья:</p>
                         :
-                            <p className="friends_text">Друзья:</p>
-                        }
+                        <p className="friends_text">Друзья:</p>
+                    }
                     <div className="friends_block" id="horizontal-scroller">
                         <div className="friends">
-                            <Link to={`/profile/${user}`} >
-                                <div className="friend" id="#">
-                                    <img className="friend_avatar" src={account} alt="avatar"></img>
-                                    <div className="friend_level">123</div>
-                                </div>
-                            </Link>
-                            <Link to={`/profile/${user}`} >
-                                <div className="friend" id="#">
-                                    <img className="friend_avatar" src={account} alt="avatar"></img>
-                                    <div className="friend_level">123</div>
-                                </div>
-                            </Link>
-                            <Link to={`/profile/${user}`} >
-                                <div className="friend" id="#">
-                                    <img className="friend_avatar" src={account} alt="avatar"></img>
-                                    <div className="friend_level">123</div>
-                                </div>
-                            </Link>
-                            <Link to={`/profile/${user}`} >
-                                <div className="friend" id="#">
-                                    <img className="friend_avatar" src={account} alt="avatar"></img>
-                                    <div className="friend_level">123</div>
-                                </div>
-                            </Link>
-                            <Link to={`/profile/${user}`} >
-                                <div className="friend" id="#">
-                                    <img className="friend_avatar" src={account} alt="avatar"></img>
-                                    <div className="friend_level">123</div>
-                                </div>
-                            </Link>
-                            <Link to={`/profile/${user}`} >
-                                <div className="friend" id="#">
-                                    <img className="friend_avatar" src={account} alt="avatar"></img>
-                                    <div className="friend_level">123</div>
-                                </div>
-                            </Link>
-                            <Link to={`/profile/${user}`} >
-                                <div className="friend" id="#">
-                                    <img className="friend_avatar" src={account} alt="avatar"></img>
-                                    <div className="friend_level">123</div>
-                                </div>
-                            </Link>
-                            <Link to={`/profile/${user}`} >
-                                <div className="friend" id="#">
-                                    <img className="friend_avatar" src={account} alt="avatar"></img>
-                                    <div className="friend_level">123</div>
-                                </div>
-                            </Link>
-                            <Link to={`/profile/${user}`} >
-                                <div className="friend" id="#">
-                                    <img className="friend_avatar" src={account} alt="avatar"></img>
-                                    <div className="friend_level">123</div>
-                                </div>
-                            </Link>
-                            <Link to={`/profile/${user}`} >
-                                <div className="friend" id="#">
-                                    <img className="friend_avatar" src={account} alt="avatar"></img>
-                                    <div className="friend_level">123</div>
-                                </div>
-                            </Link>
-                            <Link to={`/profile/${user}`} >
-                                <div className="friend" id="#">
-                                    <img className="friend_avatar" src={account} alt="avatar"></img>
-                                    <div className="friend_level">123</div>
-                                </div>
-                            </Link>
-                            <Link to={`/profile/${user}`} >
-                                <div className="friend" id="#">
-                                    <img className="friend_avatar" src={account} alt="avatar"></img>
-                                    <div className="friend_level">123</div>
-                                </div>
-                            </Link>
-                            <Link to={`/profile/${user}`} >
+                            <Link to={`/profile/${user_info.tg_id}`} >
                                 <div className="friend" id="#">
                                     <img className="friend_avatar" src={account} alt="avatar"></img>
                                     <div className="friend_level">123</div>
@@ -377,19 +379,19 @@ export default function Profile() {
                         </div>
                     </div>
                     {!(location.pathname !== '/profile') && location.pathname.startsWith('/profile') ?
-                    <button className="edit_button" onClick={handleButtonClick}>
-                        {edit}
-                        <img src={pencil} alt="edit"></img>
-                    </button>
-                    :
-                    null
+                        <button className="edit_button" onClick={handleButtonClick}>
+                            {edit}
+                            <img src={pencil} alt="edit"></img>
+                        </button>
+                        :
+                        null
                     }
                 </div>
                 :
                 <div ref={childrenRef} className="profile_body">
                     <div className="telegram">
                         <BackButton setSelectedRoute={setSelectedRoute} />
-                        <p className="telegram_username">@tg_username</p>
+                        <p className="telegram_username">@{user_info.user_name}</p>
                     </div>
                     <div className="input_block">
                         <div className="inputs">
@@ -470,7 +472,7 @@ export default function Profile() {
                     <p className="ps">* - важные пункты, чтобы участвовать в маршрутах по конкретным возрастным и гендерным группам.</p>
                     <div className="bottom_button">
                         <div className="update_button" style={{ display: upDate ? 'flex' : 'none' }}>Данные обновлены</div>
-                        <button className="save_profile_button" style={{ backgroundColor: upDate ? '#AFAFB5' : '#523DD8' }} onClick={handleButtonClick}>
+                        <button className="save_profile_button" style={{ backgroundColor: upDate ? '#AFAFB5' : '#523DD8' }} onClick={handleButtonClickSave}>
                             Сохранить
                             <img src={pencil} alt="edit"></img>
                         </button>

@@ -13,7 +13,7 @@ export default function PreLoader() {
         parrentRef.current.style.height = webApp.viewportStableHeight - rectParrent.y + "px";
       }
     })
-    
+
   }, []);
 
   useEffect(() => {
@@ -23,6 +23,11 @@ export default function PreLoader() {
       .then((response) => response.json())
       .then((json) => {
         localStorage.setItem('user_info', JSON.stringify(json));
+      });
+    fetch('api/photo?id=' + user_id)
+      .then((response) => response.json())
+      .then((json) => {
+        localStorage.setItem('user_photo', JSON.stringify(json));
       });
   }, [])
 

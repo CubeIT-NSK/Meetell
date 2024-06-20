@@ -53,3 +53,9 @@
 .header_bold {
   font-weight: 900;
 }
+
+.account_photo {
+  width: 25px;
+  height: 25px;
+  border-radius: 25px;
+}
