@@ -16,6 +16,16 @@ export default function PreLoader() {
 
   }, []);
 
+  useEffect(() => {
+    let user_id = localStorage.getItem('user_id');
+    let user_name = localStorage.getItem('username');
+    fetch('api/user?id=' + user_id + "&username=" + user_name)
+      .then((response) => response.json())
+      .then((json) => {
+        localStorage.setItem('user_info', JSON.stringify(json));
+      });
+  }, [])
+
   const phrases = [
     ["Ищем для вас новые маршруты", <br></br>, "Это может занять какое-то время"],
     ["Чем больше маршрутов вы проходите,", <br></br>, "тем выше ваш уровень"],

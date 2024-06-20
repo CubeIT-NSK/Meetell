@@ -1,7 +1,8 @@
 from rest_framework.decorators import api_view
-from .models import FAQ
-from .serializers import FAQSerializer
+from .models import FAQ, User, SexSelection
+from .serializers import FAQSerializer, UserSerializer
 from django.http import JsonResponse
+from django.core.exceptions import BadRequest
 
 import time
 import random
@@ -50,6 +51,31 @@ def get_trips(request, format=None):
 
     response["Access-Control-Allow-Origin"] = "*"
     return response
+
+@api_view(['GET'])
+def get_user(request, format=None):
+    if 'id' in request.query_params:
+        try:
+            user_id = int(request.query_params['id'])
+            user_name = request.query_params['username']
+            try:
+                user = User.objects.get(pk = user_id)
+            except User.DoesNotExist:
+                user = User.objects.create(
+                    tg_id = user_id,
+                    user_name = user_name,
+                    sex = SexSelection.ALL
+                )
+                user.save()
+
+            serializer = UserSerializer(user, many=False)
+            response = JsonResponse(serializer.data, safe=False)
+            response["Access-Control-Allow-Origin"] = "*"
+            return response
+        except ValueError: 
+            raise BadRequest('Invalid request.')
+    else:
+        raise BadRequest('Invalid request.')
 
 
 def random_date(start_date, end_date):

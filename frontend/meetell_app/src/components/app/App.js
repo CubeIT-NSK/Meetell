@@ -42,6 +42,16 @@ function App() {
     preloadImages(imageUrls);
   }, []);
 
+  useEffect(() => {
+    let user_id = localStorage.getItem('user_id');
+    let user_name = localStorage.getItem('username');
+    fetch('api/user?id=' + user_id + "&username=" + user_name)
+      .then((response) => response.json())
+      .then((json) => {
+        localStorage.setItem('user_info', JSON.stringify(json));
+      });
+  }, [])
+
   const [hello, setHello] = useState(true);
   const [loading, setLoading] = useState(true);
   if (hello) {

@@ -1,0 +1,18 @@
+[
+    {
+        "model": "meetell.level",
+        "pk": 1,
+        "fields": {
+            "name": "1 Уровень",
+            "max_distance": 1
+        }
+    },
+    {
+        "model": "meetell.level",
+        "pk": 2,
+        "fields": {
+            "name": "2 Уровень",
+            "max_distance": 5
+        }
+    }
+]

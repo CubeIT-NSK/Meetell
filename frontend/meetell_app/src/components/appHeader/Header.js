@@ -4,7 +4,8 @@ import account from '../../img/account.svg'
 
 const Header = () => {
     const location = useLocation();
-
+    let user_info = localStorage.getItem('user_info');
+    user_info = JSON.parse(user_info);
     return (
         <div className={`header_block ${location.pathname === '/' ? 'active' : ''}`}>
             <Link to='/home'>
@@ -15,16 +16,16 @@ const Header = () => {
                 </div>
             </Link>
             <div className='filter_city'>
-                        <select className='filter_city_select' value="spb">
-                            <option value="spb">Санкт-Петербург</option>
-                            <option value="kzn">Казань</option>
-                            <option value="nsk">Новосибирск</option>
-                        </select>
-                    </div>
+                <select className='filter_city_select' value="spb">
+                    <option value="spb">Санкт-Петербург</option>
+                    <option value="kzn">Казань</option>
+                    <option value="nsk">Новосибирск</option>
+                </select>
+            </div>
             <Link to='/profile'>
                 <div className="header_user">
                     <div className='first'>
-                        <span className="header_bold">1</span><br></br>Уровень
+                        <span className="header_bold">{user_info.level.id}</span><br />Уровень
                     </div>
                     <div className='second'>
                         <img src={account} alt="user" />

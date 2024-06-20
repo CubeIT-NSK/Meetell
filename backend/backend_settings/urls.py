@@ -21,4 +21,5 @@ from meetell import views
 urlpatterns = [
     path('api/faq', views.get_faq),
     path('api/trips', views.get_trips),
+    path('api/user', views.get_user),
 ]
