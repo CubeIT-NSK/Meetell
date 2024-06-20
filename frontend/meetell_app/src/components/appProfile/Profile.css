@@ -121,11 +121,19 @@
 
 .friends_block {
     padding-top: 15px;
+    padding-bottom: 15px;
     width: 100%;
     display: flex;
     gap: 10px;
     flex-direction: column;
     align-items: flex-start;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+}
+.friends_block::-webkit-scrollbar {
+    display: none;
 }
 .friends_text {
     font-size: 13px;
@@ -135,7 +143,6 @@
     display: flex;
     gap: 10px;
 }
-
 .friend {
     width: 32px;
     height: 32px;

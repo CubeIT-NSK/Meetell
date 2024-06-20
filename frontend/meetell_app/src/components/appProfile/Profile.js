@@ -57,7 +57,7 @@ function FileDisplay({ file, defaultImage }) {
 
 export default function Profile() {
 
-    const userName = 'lexa_minimum';
+    const user = 'user';
     const location = useLocation();
     const editButton = [
         'Заполнить анкету',
@@ -222,6 +222,25 @@ export default function Profile() {
         }
     };
 
+// Горизонтальная прокрутка
+    useEffect(() => {
+    document.getElementById("horizontal-scroller").addEventListener('wheel', function(event) {
+    if (event.deltaMode === event.DOM_DELTA_PIXEL) {
+        var modifier = 1;
+        // иные режимы возможны в Firefox
+    } else if (event.deltaMode === event.DOM_DELTA_LINE) {
+        var modifier = parseInt(getComputedStyle(this).lineHeight);
+    } else if (event.deltaMode === event.DOM_DELTA_PAGE) {
+        var modifier = this.clientHeight;
+    }
+    if (event.deltaY !== 0) {
+        // замена вертикальной прокрутки горизонтальной
+        this.scrollLeft += modifier * event.deltaY;
+        event.preventDefault();
+    }
+    });
+}, []);
+
     return (
         <div className="profile">
             <div className="preview">
@@ -253,7 +272,7 @@ export default function Profile() {
                 <div ref={childrenRef} className="profile_body">
                     <div className="name_block">
                         <h1 id="profileName" className="profile_name" style={style}>{name}</h1>
-                        <p className="telegram_username">{userName}</p>
+                        <p className="telegram_username">{user}</p>
                     </div>
                     <div className='profile_route_info_blocks'>
                         <div className='route_info_block_profile route_info_range'>599 <span className='route_info_small'>кол.</span></div>
@@ -270,27 +289,91 @@ export default function Profile() {
                             <progress className='home_progress' value={0.2} defaultValue={0} />
                         </div>
                     </div>
-                    <div className="friends_block">
                         {!(location.pathname !== '/profile') && location.pathname.startsWith('/profile') ?
                             <p className="friends_text">Ваши друзья:</p>
                         :
                             <p className="friends_text">Друзья:</p>
                         }
+                    <div className="friends_block" id="horizontal-scroller">
                         <div className="friends">
-                            <Link to={`/profile/${userName}`} >
+                            <Link to={`/profile/${user}`} >
                                 <div className="friend" id="#">
                                     <img className="friend_avatar" src={account} alt="avatar"></img>
                                     <div className="friend_level">123</div>
                                 </div>
                             </Link>
-                            <div className="friend" id="#">
-                                <img className="friend_avatar" src={account} alt="avatar"></img>
-                                <div className="friend_level">4</div>
-                            </div>
-                            <div className="friend" id="#">
-                                <img className="friend_avatar" src={account} alt="avatar"></img>
-                                <div className="friend_level">45</div>
-                            </div>
+                            <Link to={`/profile/${user}`} >
+                                <div className="friend" id="#">
+                                    <img className="friend_avatar" src={account} alt="avatar"></img>
+                                    <div className="friend_level">123</div>
+                                </div>
+                            </Link>
+                            <Link to={`/profile/${user}`} >
+                                <div className="friend" id="#">
+                                    <img className="friend_avatar" src={account} alt="avatar"></img>
+                                    <div className="friend_level">123</div>
+                                </div>
+                            </Link>
+                            <Link to={`/profile/${user}`} >
+                                <div className="friend" id="#">
+                                    <img className="friend_avatar" src={account} alt="avatar"></img>
+                                    <div className="friend_level">123</div>
+                                </div>
+                            </Link>
+                            <Link to={`/profile/${user}`} >
+                                <div className="friend" id="#">
+                                    <img className="friend_avatar" src={account} alt="avatar"></img>
+                                    <div className="friend_level">123</div>
+                                </div>
+                            </Link>
+                            <Link to={`/profile/${user}`} >
+                                <div className="friend" id="#">
+                                    <img className="friend_avatar" src={account} alt="avatar"></img>
+                                    <div className="friend_level">123</div>
+                                </div>
+                            </Link>
+                            <Link to={`/profile/${user}`} >
+                                <div className="friend" id="#">
+                                    <img className="friend_avatar" src={account} alt="avatar"></img>
+                                    <div className="friend_level">123</div>
+                                </div>
+                            </Link>
+                            <Link to={`/profile/${user}`} >
+                                <div className="friend" id="#">
+                                    <img className="friend_avatar" src={account} alt="avatar"></img>
+                                    <div className="friend_level">123</div>
+                                </div>
+                            </Link>
+                            <Link to={`/profile/${user}`} >
+                                <div className="friend" id="#">
+                                    <img className="friend_avatar" src={account} alt="avatar"></img>
+                                    <div className="friend_level">123</div>
+                                </div>
+                            </Link>
+                            <Link to={`/profile/${user}`} >
+                                <div className="friend" id="#">
+                                    <img className="friend_avatar" src={account} alt="avatar"></img>
+                                    <div className="friend_level">123</div>
+                                </div>
+                            </Link>
+                            <Link to={`/profile/${user}`} >
+                                <div className="friend" id="#">
+                                    <img className="friend_avatar" src={account} alt="avatar"></img>
+                                    <div className="friend_level">123</div>
+                                </div>
+                            </Link>
+                            <Link to={`/profile/${user}`} >
+                                <div className="friend" id="#">
+                                    <img className="friend_avatar" src={account} alt="avatar"></img>
+                                    <div className="friend_level">123</div>
+                                </div>
+                            </Link>
+                            <Link to={`/profile/${user}`} >
+                                <div className="friend" id="#">
+                                    <img className="friend_avatar" src={account} alt="avatar"></img>
+                                    <div className="friend_level">123</div>
+                                </div>
+                            </Link>
                         </div>
                     </div>
                     {!(location.pathname !== '/profile') && location.pathname.startsWith('/profile') ?

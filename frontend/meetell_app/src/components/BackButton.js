@@ -1,11 +1,16 @@
 import React from "react";
+import { useLocation } from 'react-router-dom';
 import './appProfile/Profile.css';
 
-export default function Back({ setSelectedRoute, className, style }) {
-    
+export default function BackButton({ setSelectedRoute, className, style }) {
+
+    const location = useLocation();
     // Кнопка назад
     const handleCloseClick = () => {
-        setSelectedRoute(true);
+        !(location.pathname !== '/profile') && location.pathname.startsWith('/profile') ? 
+        setSelectedRoute(true)
+        :
+        window.history.back();
     };
     return (
         <svg
