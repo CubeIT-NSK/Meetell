@@ -1,12 +1,16 @@
 import { Link, useLocation } from 'react-router-dom';
+import BackButton from '../BackButton.js'
 import './Header.css';
 import account from '../../img/account.svg'
 
-const Header = () => {
+const Header = ({ setSelectedRoute }) => {
     const location = useLocation();
 
     return (
         <div className={`header_block ${location.pathname === '/' ? 'active' : ''}`}>
+            { location.pathname !== '/profile' && location.pathname.startsWith('/profile') ?
+            <BackButton setSelectedRoute={setSelectedRoute} className={'header_logo'} style={{fill: '#fff'}} />
+            :
             <Link to='/home'>
                 <div className="header_logo">
                     <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -14,6 +18,7 @@ const Header = () => {
                     </svg>
                 </div>
             </Link>
+            }
             <div className='filter_city'>
                         <select className='filter_city_select' value="spb">
                             <option value="spb">Санкт-Петербург</option>

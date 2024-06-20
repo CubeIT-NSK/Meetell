@@ -31,6 +31,9 @@ const preloadImages = (imageUrls) => {
 };
 
 function App() {
+
+  const userName = 'lexa_minimum';
+
   useEffect(() => {
     const imageUrls = [
       question,
@@ -68,9 +71,10 @@ function App() {
           <Route path='/question' element={<Question />} />
           <Route path='/trips' element={<Trip />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path={`/profile/${userName}`} element={<Profile />} />
           <Route path='/*' element={<Page404 />} />
         </Routes>
-        {(location.pathname !== '/profile') && <Footer />}
+        {!location.pathname.startsWith('/profile') && <Footer />}
       </FooterProvider>
     </Fragment>
   );

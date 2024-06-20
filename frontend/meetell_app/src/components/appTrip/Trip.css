@@ -105,7 +105,7 @@
     /* Цвет текста */
     border: 1px solid #e1e1e1;
     /* Цвет границы */
-    border-radius: 15px;
+    border-radius: 10px;
     /* Радиус скругления */
     appearance: none;
     /* Убирает стандартный вид селекта */
