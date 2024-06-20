@@ -7,7 +7,10 @@ import settings from '../../img/settings_trip.svg';
 import add from '../../img/add_trip.svg';
 import phone from '../../img/trip_page.svg';
 import account from '../../img/account.svg';
+import share from '../../img/share.svg';
 import './Trip.css';
+
+
 
 function Trip() {
     const [showFilters, setShowFilters] = useState(false);
@@ -607,6 +610,7 @@ function Trip() {
                             
                         )}
                         <div className='route_share'>
+                            <img src={share} />
                             Поделиться маршрутом
                         </div>
                     </div>
