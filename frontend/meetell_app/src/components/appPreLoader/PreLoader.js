@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import { default as download } from '../../img/load.svg';
 import './PreLoader.css';
 import { loadTelegramWebApp } from "../telegram/telegram";
-import { loadTelegramWebApp } from "../telegram/telegram";
 
 export default function PreLoader() {
   const parrentRef = useRef();
