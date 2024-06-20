@@ -17,7 +17,6 @@ import Carousel from '../appCarousel/Carousel.js';
 import PreLoader from '../appPreLoader/PreLoader.js';
 import Profile from '../appProfile/Profile.js'
 import Page404 from '../appPage404/Page404'
-
 import question from '../../img/question.svg'
 import rules from '../../img/rules.svg'
 import manual from '../../img/manual.svg'
@@ -32,8 +31,7 @@ const preloadImages = (imageUrls) => {
 
 function App() {
 
-  const userName = 'lexa_minimum';
-
+  const user = 'user';
   useEffect(() => {
     const imageUrls = [
       question,
@@ -71,7 +69,7 @@ function App() {
           <Route path='/question' element={<Question />} />
           <Route path='/trips' element={<Trip />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path={`/profile/${userName}`} element={<Profile />} />
+          <Route path={`/profile/${user}`} element={<Profile />} />
           <Route path='/*' element={<Page404 />} />
         </Routes>
         {!location.pathname.startsWith('/profile') && <Footer />}

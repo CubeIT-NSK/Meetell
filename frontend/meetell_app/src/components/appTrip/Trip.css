@@ -8,7 +8,12 @@
     position: relative;
     overflow: hidden;
     overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE и Edge */
+    scrollbar-width: none;  /* Firefox */
 }
+.trip_body::-webkit-scrollbar {
+    display: none;
+  }
 
 .blur-content {
     filter: blur(5px);

@@ -3,13 +3,13 @@ import BackButton from '../BackButton.js'
 import './Header.css';
 import account from '../../img/account.svg'
 
-const Header = ({ setSelectedRoute }) => {
+const Header = () => {
     const location = useLocation();
 
     return (
         <div className={`header_block ${location.pathname === '/' ? 'active' : ''}`}>
             { location.pathname !== '/profile' && location.pathname.startsWith('/profile') ?
-            <BackButton setSelectedRoute={setSelectedRoute} className={'header_logo'} style={{fill: '#fff'}} />
+            <BackButton className={'header_logo'} style={{fill: '#fff'}} />
             :
             <Link to='/home'>
                 <div className="header_logo">

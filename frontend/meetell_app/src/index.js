@@ -5,7 +5,6 @@ import App from './components/app/App';
 import { BrowserRouter } from 'react-router-dom';
 
 const Main = () => {
-
   return (
     <React.StrictMode>
       <BrowserRouter>
@@ -16,7 +15,4 @@ const Main = () => {
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <Main />,
-  document.getElementById('root')
-);
+root.render(<Main />);
