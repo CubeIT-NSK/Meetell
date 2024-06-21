@@ -421,8 +421,18 @@
 }
 
 .route_info_ages {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     background: #CFDAFF;
     color: #0912DB;
+    justify-content: center;
+}
+
+.route_info_sex {
+    display: flex;
+    align-items: center;
+    gap: 2px;
 }
 
 .route_info_small {

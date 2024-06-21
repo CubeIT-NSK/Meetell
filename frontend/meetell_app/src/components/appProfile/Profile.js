@@ -86,16 +86,36 @@ function FileDisplay({ file, defaultImage }) {
 
 export default function Profile() {
 
+    const getAge = (birthday) => {
+        const today = new Date();
+        const diff = today - birthday;
+        const ageDate = new Date(diff);
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+    };
+
     const user_info = JSON.parse(localStorage.getItem('user_info'));
     let day = 1;
     let month = 1;
     let year = 2024;
     let remain_dist = user_info.level.max_distance - user_info.distance;
+    let age = null;
+    let sex = false;
+    let maleOpac = '50%';
+    let femaleOpac = '50%';
     if (user_info.birthday) {
         let year_month_day = user_info.birthday.split('-');
         year = parseInt(year_month_day[0]);
         month = parseInt(year_month_day[1]);
         day = parseInt(year_month_day[2]);
+        let birthday = new Date(year, month - 1, day);
+        age = getAge(birthday)
+        if (user_info.sex == "M"){
+            sex = 'male';
+            maleOpac = '100%';
+        } else {
+            sex = 'female';
+            femaleOpac = '100%'
+        }
     }
 
     const location = useLocation();
@@ -112,11 +132,11 @@ export default function Profile() {
     const [selectedMonth, setSelectedMonth] = useState(month);
     const [selectedYear, setSelectedYear] = useState(year);
     const [isDataСorrect, setIsDataСorrect] = useState(true);
-    const [fullYears, setFullYears] = useState(null);
+    const [fullYears, setFullYears] = useState(age);
     const [styleAgeAndSex, setStyleAgeAndSex] = useState({ display: 'none' });
-    const [selectedSex, setSelectedSex] = useState(false);
-    const [maleOpacity, setMaleOpacity] = useState('50%');
-    const [femaleOpacity, setFemaleOpacity] = useState('50%');
+    const [selectedSex, setSelectedSex] = useState(sex);
+    const [maleOpacity, setMaleOpacity] = useState(maleOpac);
+    const [femaleOpacity, setFemaleOpacity] = useState(femaleOpac);
     const [selectedFile, setSelectedFile] = useState(null);
     const [upDate, setUpDate] = useState(false);
     const [saveInfo, setSaveInfo] = useState(false);
@@ -205,13 +225,6 @@ export default function Profile() {
             setIsDataСorrect(true);
             setFullYears(getAge(selectedDate));
         }
-    };
-
-    const getAge = (birthday) => {
-        const today = new Date();
-        const diff = today - birthday;
-        const ageDate = new Date(diff);
-        return Math.abs(ageDate.getUTCFullYear() - 1970);
     };
 
     const handleButtonClick = () => {
@@ -360,7 +373,7 @@ export default function Profile() {
                             <div className='home_distanse_need'>Осталось {remain_dist} км</div>
                         </div>
                         <div className='home_progress'>
-                            <progress className='home_progress' value={0.2} defaultValue={0} />
+                            <progress className='home_progress' value={user_info.distance} max={user_info.level.max_distance} />
                         </div>
                     </div>
                     {!(location.pathname !== '/profile') && location.pathname.startsWith('/profile') ?

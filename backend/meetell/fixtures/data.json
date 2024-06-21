@@ -14,5 +14,26 @@
             "name": "2 Уровень",
             "max_distance": 5
         }
+    },
+    {
+        "model": "meetell.city",
+        "pk": 1,
+        "fields": {
+            "name": "Санкт-Петербург"
+        }
+    },
+    {
+        "model": "meetell.city",
+        "pk": 2,
+        "fields": {
+            "name": "Казань"
+        }
+    },
+    {
+        "model": "meetell.city",
+        "pk": 3,
+        "fields": {
+            "name": "Новосибирск"
+        }
     }
 ]

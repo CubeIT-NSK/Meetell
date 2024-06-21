@@ -24,4 +24,5 @@ urlpatterns = [
     path('api/user', views.get_user),
     path('api/profile', views.update_user),
     path('api/photo', views.photo_user),
+    path('api/trip', views.user_trip_registr),
 ]

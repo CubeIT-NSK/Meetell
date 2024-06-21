@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework import status
-from .models import FAQ, User, SexSelection, PhotoUser
-from .serializers import FAQSerializer, UserSerializer, PhotoUserSerializer
+from .models import FAQ, User, SexSelection, PhotoUser, Trip, City
+from .serializers import FAQSerializer, UserSerializer, PhotoUserSerializer, TripSerializer
 from django.http import JsonResponse
 from django.core.exceptions import BadRequest
 
@@ -34,24 +34,57 @@ def get_faq(request, format=None):
 @api_view(['POST'])
 def get_trips(request, format=None):
     data = request.data
-    start_date = datetime.datetime.strptime(f"{data['date']} {data['timeStart']}", '%Y-%m-%d %H:%M')
-    end_date = datetime.datetime.strptime(f"{data['date']} {data['timeEnd']}", '%Y-%m-%d %H:%M')
-    len_trips = random.randint(1, 10)
-    trips = []
-    for i in range(len_trips):
-        len_trip = random.randint(1, 10)
-        time_trip = len_trip * 6
-        trips.append({
-            'id' : f"000{i+1}",
-            'name' : random.choice(routes_novosibirsk),
-            'range' : len_trip,
-            'timeTrip' : time_trip,
-            'date' : random_date(start_date, end_date)
-        })
-    response = JsonResponse(trips, safe=False)
+    len_db_trips = Trip.objects.count()
+    
+    if len_db_trips == 0:
+        start_date = datetime.datetime.strptime(f"{data['date']} {data['timeStart']}", '%Y-%m-%d %H:%M')
+        end_date = datetime.datetime.strptime(f"{data['date']} {data['timeEnd']}", '%Y-%m-%d %H:%M')
+        # sex = random.choice(["M", "A", "W"])
+        len_trips = random.randint(10, 30)
+        trips = []
 
-    response["Access-Control-Allow-Origin"] = "*"
-    return response
+        for _ in range(len_trips):
+            age_start = random.randint(0, 65)
+            age_end = random.randint(age_start, 65)
+            sex = random.choice([SexSelection.MEN, SexSelection.ALL, SexSelection.WOMEN])
+            len_trip = random.randint(1, 15)
+            time_trip = len_trip * 8
+            trip_data = {
+                'date': random_date(start_date, end_date),
+                'name': random.choice(routes_novosibirsk),
+                'city': City.objects.get(pk=1).id,  # Предполагается, что город с pk=1 существует
+                'sex': sex,
+                'year_st': age_start,
+                'year_en': age_end,
+                'time_sp': time_trip,
+                'distance': len_trip,
+                'ratting': 0.0,
+                'chat_link': 'https://t.me/+ELbMppxWv3MyNGEy',
+            }
+            trips.append(trip_data)
+
+        serializer = TripSerializer(data=trips, many=True)
+        if serializer.is_valid():
+            serializer.save()
+    
+    
+    # Фильтрация существующих записей
+    user_age = data.get('userAge')
+    user_sex = data.get('userSex')
+    if user_age is None or user_sex is None:
+        trips = Trip.objects.all()
+        serializer = TripSerializer(trips, many=True)
+        return JsonResponse(serializer.data, safe=False)
+    
+    trips = Trip.objects.filter(
+        year_st__lte=user_age,
+        year_en__gte=user_age
+    ).filter(
+        sex__in=[user_sex, 'A']
+    )
+    
+    serializer = TripSerializer(trips, many=True)
+    return JsonResponse(serializer.data, safe=False)
 
 @api_view(['GET'])
 def get_user(request, format=None):
@@ -129,7 +162,10 @@ def photo_user(request, format=None):
         else:
             return JsonResponse({'error': 'User ID and file are required.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        
+@api_view(['POST'])
+def user_trip_registr(request, format=None):
+    data = request.data
+    pass    
 
 def random_date(start_date, end_date):
     """
@@ -143,6 +179,6 @@ def random_date(start_date, end_date):
     random_minutes = random.randint(0, minutes_total)
     rounded_minutes = round(random_minutes / 30) * 30
     random_datetime = start_date + datetime.timedelta(minutes=rounded_minutes)
-    formatted_datetime = random_datetime.strftime('%d.%m.%Y, %H:%M')
+    # formatted_datetime = random_datetime.strftime('%d.%m.%Y, %H:%M')
     
-    return formatted_datetime
+    return random_datetime

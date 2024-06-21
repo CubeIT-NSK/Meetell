@@ -11,6 +11,14 @@
             "program": "manage.py",
             "console": "integratedTerminal",
             "args": ["runserver"]
+        },
+        {
+            "name": "pyrogram",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "manage.py",
+            "console": "integratedTerminal",
+            "args": ["chats"]
         }
     ]
 }

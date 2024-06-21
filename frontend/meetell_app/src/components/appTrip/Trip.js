@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useFooter } from '../appFooter/FooterContext';
+import { loadTelegramWebApp } from "../telegram/telegram";
 
 import back from '../../img/back.svg';
 import settings from '../../img/settings_trip.svg';
 import add from '../../img/add_trip.svg';
 import phone from '../../img/trip_page.svg';
 import account from '../../img/account.svg';
+import { ReactComponent as Male } from '../../img/sex_male.svg';
+import { ReactComponent as Female } from '../../img/sex_female.svg';
 import './Trip.css';
 
 function Trip() {
@@ -271,7 +274,15 @@ function Trip() {
         setFooterVisible(true);
     };
 
+    const getAge = (birthday) => {
+        const today = new Date();
+        const diff = today - birthday;
+        const ageDate = new Date(diff);
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+    };
+
     const handleSave = () => {
+        const user_info = JSON.parse(localStorage.getItem('user_info'));
         const data = {
             city: 'spb',
             date: `${selectedYear}-${selectedMonth}-${selectedDay}`,
@@ -281,7 +292,18 @@ function Trip() {
             ageEnd: selectedAgeEn,
             sex: selectedSex,
             timeTrip: selectedTimeTrip,
+            userAge: null,
+            userSex: null
         };
+        if (user_info.birthday) {
+            let year_month_day = user_info.birthday.split('-');
+            let year = parseInt(year_month_day[0]);
+            let month = parseInt(year_month_day[1]);
+            let day = parseInt(year_month_day[2]);
+            let birthday = new Date(year, month - 1, day);
+            data.userAge = getAge(birthday);
+            data.userSex = user_info.sex;
+        }
         console.log(data);
         fetch('api/trips', {
             method: 'POST',
@@ -316,6 +338,27 @@ function Trip() {
         navigate('/profile');
     }
 
+    const handleJoinButton = (route) => {
+        const user_id = localStorage.getItem('user_id');
+        route.user_id = parseInt(user_id);
+        fetch('api/trip', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(route),
+        })
+            .then(response => {
+                loadTelegramWebApp().then(() => {
+                    if (window.Telegram && window.Telegram.WebApp) {
+                        const webApp = window.Telegram.WebApp;
+                        webApp.close()
+                    }
+                })
+
+            })
+    }
+
     return (
         <div ref={parrentRef} className="trip_body">
             <div className={`content ${showFilters ? 'blur-content' : ''}${selectedRoute ? 'block_none' : ''}`}>
@@ -335,7 +378,7 @@ function Trip() {
                                     <span className='result_item_id'>Маршрут №{item.id}</span>
                                     <p>{item.date}</p>
                                     <h4>{item.name}</h4>
-                                    <span className='result_item'>{item.range} км. {item.timeTrip} мин.</span>
+                                    <span className='result_item'>{item.distance} км. {item.time_sp} мин.</span>
                                 </div>
                                 <button className='trip_about_button' onClick={() => handleButtonClick(item)}>Подробнее</button>
                             </div>
@@ -568,9 +611,31 @@ function Trip() {
                             </div>
                         </div>
                         <div className='route_info_blocks'>
-                            <div className='route_info_block route_info_range'>{selectedRoute.range} <span className='route_info_small'>км.</span></div>
-                            <div className='route_info_block route_info_ages'>18-30</div>
-                            <div className='route_info_block route_info_time'>{selectedRoute.timeTrip} <span className='route_info_small'>мин.</span></div>
+                            <div className='route_info_block route_info_range'>{selectedRoute.distance} <span className='route_info_small'>км.</span></div>
+                            <div className='route_info_block route_info_ages'>
+                                {selectedRoute.year_st}-{selectedRoute.year_en}
+                                {selectedRoute.sex === 'A' ?
+                                    (
+                                        <div className='route_info_sex'>
+                                            <Male fill={'#0912DB'} />
+                                            <Female fill={'#0912DB'} />
+                                        </div>
+                                    ) : null}
+                                {selectedRoute.sex === 'M' ?
+                                    (
+                                        <div className='route_info_sex'>
+                                            <Male fill={'#0912DB'} />
+                                        </div>
+                                    ) : null}
+
+                                {selectedRoute.sex === 'W' ?
+                                    (
+                                        <div className='route_info_sex'>
+                                            <Female fill={'#0912DB'} />
+                                        </div>
+                                    ) : null}
+                            </div>
+                            <div className='route_info_block route_info_time'>{selectedRoute.time_sp} <span className='route_info_small'>мин.</span></div>
                         </div>
                     </div>
                     <div className='route_img'>
@@ -596,7 +661,7 @@ function Trip() {
                         </div>
                         {registr && (
                             <div className='route_button_chat'>
-                                <button className='button_chat'>Перейти в чат</button>
+                                <button className='button_chat' onClick={() => handleJoinButton(selectedRoute)}>Перейти в чат</button>
                             </div>
                         )}
                         {!registr && (
@@ -604,7 +669,7 @@ function Trip() {
                                 <button className='button_registr' onClick={handleRegistrButton}>Заполнить профиль</button>
                                 <p className='route_register_text'>Заполните небольшую анкету чтобы мы могли предлагать вам только подходящие маршруты.</p>
                             </div>
-                            
+
                         )}
                         <div className='route_share'>
                             Поделиться маршрутом

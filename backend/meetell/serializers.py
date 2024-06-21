@@ -1,4 +1,4 @@
-from .models import FAQ, User, Level, PhotoUser
+from .models import FAQ, User, Level, PhotoUser, Trip
 from rest_framework import serializers
 from datetime import datetime
 
@@ -44,3 +44,14 @@ class PhotoUserSerializer(serializers.ModelSerializer):
         instance.photo = validated_data.get('photo', instance.photo)
         instance.save()
         return instance
+    
+class TripSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trip
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        date_format = '%d.%m.%Y, %H:%M'
+        representation['date'] = instance.date.strftime(date_format)
+        return representation

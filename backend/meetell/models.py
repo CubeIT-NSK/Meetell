@@ -36,22 +36,21 @@ class Friend(models.Model):
     second_friend = models.ForeignKey('User', on_delete=models.CASCADE, related_name="second")
 
 class Trip(models.Model):
-    date = models.DateField()
-    name = models.CharField(max_length=100)
+    date = models.DateTimeField()
+    name = models.CharField(max_length=150)
     city = models.ForeignKey('City', on_delete=models.CASCADE)
-    time_st = models.TimeField()
-    time_en = models.TimeField()
     sex = models.CharField(max_length=1, choices=SexSelection.choices)
     year_st = models.PositiveSmallIntegerField()
     year_en = models.PositiveSmallIntegerField()
     time_sp = models.PositiveSmallIntegerField()
     distance = models.FloatField()
     ratting = models.FloatField(default=0.0)
+    chat_link = models.CharField(max_length=50, default=None, null=True)
 
 class TripUser(models.Model):
     trip = models.ForeignKey('Trip', on_delete=models.CASCADE)
     user = models.ForeignKey('User', on_delete=models.CASCADE)
-    rate_user = models.PositiveSmallIntegerField()
+    rate_user = models.PositiveSmallIntegerField(null=True)
     state = models.CharField(max_length=1, 
                              choices=StateSelection.choices, 
                              default=StateSelection.WAIT)
