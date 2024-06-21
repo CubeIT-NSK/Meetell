@@ -1,7 +1,8 @@
 from rest_framework.decorators import api_view
 from rest_framework import status
 from .models import FAQ, User, SexSelection, PhotoUser, Trip, City
-from .serializers import FAQSerializer, UserSerializer, PhotoUserSerializer, TripSerializer
+from .serializers import (FAQSerializer, UserSerializer, PhotoUserSerializer, TripSerializer,
+                          TripUserSerializer)
 from django.http import JsonResponse
 from django.core.exceptions import BadRequest
 
@@ -165,7 +166,18 @@ def photo_user(request, format=None):
 @api_view(['POST'])
 def user_trip_registr(request, format=None):
     data = request.data
-    pass    
+    user = User.objects.get(pk = data['user_id']).pk
+    trip = Trip.objects.get(pk = data['id']).pk
+    trip_user = {
+        'trip' : trip,
+        'user' : user,
+    }
+    serializer = TripUserSerializer(data=trip_user, many=False)
+    if serializer.is_valid():
+        serializer.save()
+        return JsonResponse({'message' : 'ok'}, safe=False, status=status.HTTP_201_CREATED)
+    
+    return JsonResponse({'message' : 'error'}, safe=False, status=status.HTTP_403_FORBIDDEN) 
 
 def random_date(start_date, end_date):
     """
