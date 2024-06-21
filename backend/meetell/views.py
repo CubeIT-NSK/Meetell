@@ -5,8 +5,9 @@ from .serializers import (FAQSerializer, UserSerializer, PhotoUserSerializer, Tr
                           TripUserSerializer)
 from django.http import JsonResponse
 from django.core.exceptions import BadRequest
+from django.conf import settings
 
-import time
+import requests
 import random
 import datetime
 
@@ -166,15 +167,24 @@ def photo_user(request, format=None):
 @api_view(['POST'])
 def user_trip_registr(request, format=None):
     data = request.data
-    user = User.objects.get(pk = data['user_id']).pk
-    trip = Trip.objects.get(pk = data['id']).pk
+    user = User.objects.get(pk = data['user_id'])
+    trip = Trip.objects.get(pk = data['id'])
     trip_user = {
-        'trip' : trip,
-        'user' : user,
+        'trip' : trip.pk,
+        'user' : user.pk,
     }
     serializer = TripUserSerializer(data=trip_user, many=False)
     if serializer.is_valid():
         serializer.save()
+        text_user = f"Ваш чат по маршруту:\n<b>{trip.name}</b>\n"
+        text_user += f"Нажмите на <a href='{trip.chat_link}'>ПЕРЕЙТИ</a>, чтобы присоединиться к вашим спутникам"
+        params = {
+            "chat_id" : user.pk,
+            "text" : text_user,
+            "parse_mode" : "HTML"
+        }
+        url = f"https://api.telegram.org/bot{settings.TOKEN}/sendMessage"
+        requests.get(url, params=params, timeout=10)
         return JsonResponse({'message' : 'ok'}, safe=False, status=status.HTTP_201_CREATED)
     
     return JsonResponse({'message' : 'error'}, safe=False, status=status.HTTP_403_FORBIDDEN) 
