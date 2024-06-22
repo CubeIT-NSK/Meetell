@@ -13,8 +13,8 @@ export const loadTelegramWebApp = () => {
           localStorage.setItem('username', window.Telegram.WebApp.initDataUnsafe.user.username);
           localStorage.setItem('user_id', window.Telegram.WebApp.initDataUnsafe.user.id);
         } else {
-          localStorage.setItem('username', 'user666');
-          localStorage.setItem('user_id', 666);
+          localStorage.setItem('username', 'userTest');
+          localStorage.setItem('user_id', 515551867);
         }
         resolve();
       } else {

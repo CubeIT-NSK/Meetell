@@ -109,7 +109,7 @@ export default function Profile() {
         day = parseInt(year_month_day[2]);
         let birthday = new Date(year, month - 1, day);
         age = getAge(birthday)
-        if (user_info.sex == "M"){
+        if (user_info.sex === "M"){
             sex = 'male';
             maleOpac = '100%';
         } else {
@@ -362,9 +362,9 @@ export default function Profile() {
                         <p className="telegram_username">@{user_info.user_name}</p>
                     </div>
                     <div className='profile_route_info_blocks'>
-                        <div className='route_info_block_profile route_info_range'>599 <span className='route_info_small'>кол.</span></div>
+                        <div className='route_info_block_profile route_info_range'>{user_info.trip_count} <span className='route_info_small'>кол.</span></div>
                         <div className='route_info_block_profile route_info_ages'>{user_info.distance} <span className='route_info_small span_small'>км.</span></div>
-                        <div className='route_info_block_profile route_info_time'>156 <span className='route_info_small'>ч.</span></div>
+                        <div className='route_info_block_profile route_info_time'>{user_info.total_time_sp} <span className='route_info_small'>ч.</span></div>
                     </div>
                     <div className='profile_stat'>
                         <div className='home_level'>{user_info.level.name}</div>

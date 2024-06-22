@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework import status
-from .models import FAQ, User, SexSelection, PhotoUser, Trip, City
+from .models import (FAQ, User, SexSelection, PhotoUser, Trip, City, TripUser)
 from .serializers import (FAQSerializer, UserSerializer, PhotoUserSerializer, TripSerializer,
                           TripUserSerializer)
 from django.http import JsonResponse
@@ -169,13 +169,15 @@ def user_trip_registr(request, format=None):
     data = request.data
     user = User.objects.get(pk = data['user_id'])
     trip = Trip.objects.get(pk = data['id'])
-    trip_user = {
-        'trip' : trip.pk,
-        'user' : user.pk,
-    }
-    serializer = TripUserSerializer(data=trip_user, many=False)
-    if serializer.is_valid():
-        serializer.save()
+    try:
+        is_created = TripUser.objects.get(trip=trip, user=user)
+        return JsonResponse({'error': 'User ID and file are required.'}, status=status.HTTP_400_BAD_REQUEST)
+    except TripUser.DoesNotExist:
+        trip_user = TripUser.objects.create(
+            trip = trip,
+            user = user
+        )
+        trip_user.save()
         text_user = f"Ваш чат по маршруту:\n<b>{trip.name}</b>\n"
         text_user += f"Нажмите на <a href='{trip.chat_link}'>ПЕРЕЙТИ</a>, чтобы присоединиться к вашим спутникам"
         params = {
@@ -186,8 +188,23 @@ def user_trip_registr(request, format=None):
         url = f"https://api.telegram.org/bot{settings.TOKEN}/sendMessage"
         requests.get(url, params=params, timeout=10)
         return JsonResponse({'message' : 'ok'}, safe=False, status=status.HTTP_201_CREATED)
-    
-    return JsonResponse({'message' : 'error'}, safe=False, status=status.HTTP_403_FORBIDDEN) 
+
+@api_view(['GET'])
+def get_user_history(request, format=None):
+    if 'id' in request.query_params:
+        try:
+            user_id = int(request.query_params['id'])
+            trips = TripUser.objects.filter(user__tg_id=user_id)
+            
+            if not trips.exists():
+                return JsonResponse([], safe=False, status=status.HTTP_404_NOT_FOUND)
+
+            serializer = TripUserSerializer(trips, many=True)
+            return JsonResponse(serializer.data, safe=False, status=status.HTTP_200_OK)
+        except ValueError: 
+            raise BadRequest('Invalid request.')
+    else:
+        raise BadRequest('Invalid request.')
 
 def random_date(start_date, end_date):
     """

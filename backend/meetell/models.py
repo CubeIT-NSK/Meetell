@@ -8,6 +8,7 @@ class SexSelection(models.TextChoices):
 
 class StateSelection(models.TextChoices):
     WAIT = 'W', 'Waiting'
+    QUEST = 'Q', 'Question'
     NO = 'N', 'No'
     YES = 'Y', 'Yes'
     RATE = 'R', 'Rate'
