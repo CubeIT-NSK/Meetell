@@ -149,3 +149,8 @@ CORS_ALLOW_HEADERS = [
     "x-csrftoken",
     "x-requested-with",
 ]
+
+# Bot Setting
+TOKEN = "7331447852:AAGrMx6GwqPywr0-YUDWptCQoklq8SEZe54"
+PHONE = "79952713905"
+PASSWORD = "mejbe2-fuhpaz-xaPpic"
