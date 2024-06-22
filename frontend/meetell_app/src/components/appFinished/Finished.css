@@ -1,0 +1,62 @@
+.Background {
+    background: #FFFFFF;
+    border-radius: 10px 10px 0 0;
+    padding: 0 10px;
+}
+
+.Feedback-content {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border-top: 1px solid black;
+    padding: 25px 0px 25px 0px;
+    gap: 15px;
+}
+
+.Title-text {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.Title-text h3{
+    font-weight: 500;
+    font-size: calc((100vw - 320px)/(425 - 320) * (15 - 13) + 13px);
+    line-height: 18.15px;
+    color: #0A0930;
+}
+
+.Title-text p {
+    font-weight: 500;
+    font-size: calc((100vw - 320px)/(425 - 320) * (10 - 8) + 8px);
+    line-height: 12.1px;
+    color: #616161;
+}
+
+.choose-feedback-message{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.choose-feedback-message button{
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 0;
+    font-size: calc((100vw - 320px)/(425 - 320) * (13 - 11) + 11px);
+}
+
+.choose-feedback-message .Yes{
+    background: #523DD8;
+    color: #FFFFFF;
+
+}
+
+.choose-feedback-message .No{
+    background: #D6D6D6;
+}
+
+.map {
+    padding: 0 50px;
+}

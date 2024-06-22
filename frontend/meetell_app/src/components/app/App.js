@@ -21,6 +21,7 @@ import question from '../../img/question.svg'
 import rules from '../../img/rules.svg'
 import manual from '../../img/manual.svg'
 import smartphone from '../../img/smartphone.svg'
+import Finished from '../appFinished/Finished.js';
 
 const preloadImages = (imageUrls) => {
   imageUrls.forEach((url) => {
@@ -81,6 +82,7 @@ function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path={`/profile/${user}`} element={<Profile />} />
           <Route path='/*' element={<Page404 />} />
+          <Route path='/finish' element={<Finished />} />
         </Routes>
         {!location.pathname.startsWith('/profile') && <Footer />}
       </FooterProvider>
