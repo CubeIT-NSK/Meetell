@@ -6,6 +6,7 @@ import Header from "../appHeader/Header";
 import Footer from '../appFooter/Footer';
 import { FooterProvider } from '../appFooter/FooterContext';
 import Trip from '../appTrip/Trip';
+import AddTripWalk from '../appAddTripWalk/AddTripWalk';
 import {
   Routes,
   Route,
@@ -83,6 +84,7 @@ function App() {
           <Route path={`/profile/${user}`} element={<Profile />} />
           <Route path='/*' element={<Page404 />} />
           <Route path='/finish' element={<Finished />} />
+          <Route path='/addTrip' element={<AddTripWalk />} />
         </Routes>
         {!location.pathname.startsWith('/profile') && <Footer />}
       </FooterProvider>

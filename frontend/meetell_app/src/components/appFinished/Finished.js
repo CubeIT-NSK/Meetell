@@ -8,6 +8,9 @@ import medium from '../../img/medium_grade.svg';
 import good from '../../img/good_grade.svg';
 import funny from '../../img/funny_grade.svg';
 import sex from '../../img/sex_male.svg';
+import back from '../../img/back.svg';
+import { ReactComponent as Male } from '../../img/sex_male.svg';
+import { ReactComponent as Female } from '../../img/sex_female.svg';
 
 
 export default function Finished() {
@@ -21,7 +24,34 @@ export default function Finished() {
 
     return (
         <div className="Background" ref={parrentRef}>
-            {/* <div className="Feedback-content">
+            <div className='route_head'>
+                <div className='route_header'>
+                    <div className='route_close'>
+                        <button className="close_button" onClick="">
+                            <img src={back} alt='' />
+                        </button>
+                    </div>
+                    <div className="route_info_content">
+                        <p className='route_info_id'>Маршрут № 0002</p>
+                        <p className='route_info_date'>11.04.2024, 18:00</p>
+                        <h4>Название данного маршрута настолько длинное что не помещается в одну строку</h4>
+                    </div>
+                </div>
+                <div className='route_info_blocks'>
+                    <div className='route_info_block route_info_range'>10<span className='route_info_small'>км.</span></div>
+                    <div className='route_info_block route_info_ages'>
+                        <p>0-18</p>
+                        <div className='route_info_sex'>
+                            <Male fill={'#0912DB'} />
+                            <Female fill={'#0912DB'} />
+                        </div>
+                    </div>
+                    <div className='route_info_block route_info_time'>40<span className='route_info_small'>мин.</span></div>
+                </div>
+            </div>
+
+            {/* посетил ли маршрут */}
+            <div className="Feedback-content">
                 <div className="Title-text">
                     <h3>Удалось ли посетить данный маршрут?</h3>
                     <p>Поделиться маршрутом</p>
@@ -31,14 +61,16 @@ export default function Finished() {
                     <button className="No">Нет</button>
                 </div>
                 <img className="map" src={phone} />
-            </div> */}
-
+            </div>
+            
+            {/* не посетил маршрут */}
             {/* <div className="no-walk">
                 <p>Этот маршрут не будет учитываться в вашем профиле</p>
                 <img className="map" src={phone} />
             </div> */}
 
-            <div className="walk-assessment">
+            {/* оценка в статусе */}
+            {/* <div className="walk-assessment">
                 <div className="title-text-assessment">
                     <p>Рады узнать!</p>
                     <p>Отметили этот маршрут в вашем профиле.</p>
@@ -70,15 +102,15 @@ export default function Finished() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
-            
+            {/* оценка не в статусе */}
             {/* <div className="walk-assessment">
                 <div className="title-text-assessment">
                     <p>Рады узнать!</p>
                     <p>Отметили этот маршрут в вашем профиле.</p>
-                </div> */}
-               {/* <div className="walk-grade">
+                </div>
+               <div className="walk-grade">
                     <h3>Оцените как всё прошло:</h3>
                     <div className="grade-faces-big">
                         <img src={bad} />
@@ -115,8 +147,10 @@ export default function Finished() {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div> */}           
+                </div> 
+            </div>       */}
+
+            
         </div>
     );
 

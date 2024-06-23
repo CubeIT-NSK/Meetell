@@ -14,7 +14,7 @@ function Footer() {
     }
 
     return (
-        <div className={`footer_block ${location.pathname === '/' || location.pathname === '/finish' ? 'active' : ''}`}>
+        <div className={`footer_block ${location.pathname === '/' || location.pathname === '/addTrip' || location.pathname === '/finish' ? 'active' : ''}`}>
             <Link to='/home' className="no_underline_footer">
                 <div className={`footer_main ${location.pathname === '/home' ? 'active' : ''}`}>
                     <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -258,5 +258,20 @@
     font-size: calc((100vw - 320px)/(425 - 320) * (12 - 10) + 10px);
     line-height: 14.52px;
     color: rgba(121, 121, 132, 1);
+}
 
+.route_head {
+    padding-bottom: 15px;
+}
+
+.route_info_content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: space-between;
+}
+
+.route_info_blocks {
+    display: flex;
+    gap: 15px;
 }
