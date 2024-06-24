@@ -1,20 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { useFooter } from '../appFooter/FooterContext';
 import './Home.css';
 
-const Home = () => {
+function Home({setRate}) {
     const parrentRef = useRef();
     const childrenRef = useRef();
     const scrollRef = useRef();
     const { setFooterVisible } = useFooter();
     const [history, setHistory] = useState([]);
+
+    const navigate = useNavigate();
+
     setFooterVisible(true);
 
     let user_info = JSON.parse(localStorage.getItem('user_info'));
     let remain_dist = user_info.level.max_distance - user_info.distance;
 
     useEffect(() => {
-
+        let user_info = JSON.parse(localStorage.getItem('user_info'));
         const fetchHistory = async () => {
             try {
                 const response = await fetch('/api/history?id=' + user_info.tg_id);
@@ -34,6 +38,11 @@ const Home = () => {
         let rectScroll = scrollRef.current.getBoundingClientRect();
         scrollRef.current.style.height = window.innerHeight - rectScroll.y - 20 + "px";
     }, []);
+
+    const handleEntry = (route) => {
+        setRate(route);
+        navigate('/rate_route');
+    }
     return (
         <div ref={parrentRef} className="home_body">
             <div className='home_stat'>
@@ -74,7 +83,7 @@ const Home = () => {
                                     null
                                 )}
                                 {item.state === 'Q' ? (
-                                    <button className='res_item_button result_rate_button'>Оценить</button>
+                                    <button className='res_item_button result_rate_button' onClick={() => handleEntry(item)}>Оценить</button>
                                 ) : (
                                     null
                                 )}
@@ -89,9 +98,7 @@ const Home = () => {
 
                     )}
                 </div>
-
             </div>
-
         </div>
     )
 }

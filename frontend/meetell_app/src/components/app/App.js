@@ -32,7 +32,6 @@ const preloadImages = (imageUrls) => {
 };
 
 function App() {
-
   const user = 'user';
   useEffect(() => {
     const imageUrls = [
@@ -57,6 +56,7 @@ function App() {
 
   const [hello, setHello] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [rateRoute, setRate] = useState(null);
   if (hello) {
     setTimeout(() => {
       setHello(false);
@@ -77,13 +77,13 @@ function App() {
             hello ? <HelloScreen /> :
               loading ? <PreLoader /> : <Carousel />
           } />
-          <Route path="/home" element={<Main />} />
+         <Route path="/home" element={<Main setRate={setRate} />} />
+         <Route path="/rate_route" element={<Finished rateRoute={rateRoute} />} />
           <Route path='/question' element={<Question />} />
           <Route path='/trips' element={<Trip />} />
           <Route path='/profile' element={<Profile />} />
           <Route path={`/profile/${user}`} element={<Profile />} />
           <Route path='/*' element={<Page404 />} />
-          <Route path='/finish' element={<Finished />} />
           <Route path='/addTrip' element={<AddTripWalk />} />
         </Routes>
         {!location.pathname.startsWith('/profile') && <Footer />}
