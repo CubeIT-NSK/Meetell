@@ -275,3 +275,23 @@
     display: flex;
     gap: 15px;
 }
+
+.grade-faces-big svg.rate-1 {
+    fill: #EB2427;
+}
+
+.grade-faces-big svg.rate-2 {
+    fill: #F05C34;
+}
+
+.grade-faces-big svg.rate-3 {
+    fill: #ECA42F;
+}
+
+.grade-faces-big svg.rate-4 {
+    fill: #7AD81B;
+}
+
+.grade-faces-big svg.rate-5 {
+    fill: #4DE8B3;
+}

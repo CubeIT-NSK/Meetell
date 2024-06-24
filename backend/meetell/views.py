@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework import status
-from .models import (FAQ, User, SexSelection, PhotoUser, Trip, City, TripUser)
+from .models import (FAQ, User, SexSelection, PhotoUser, Trip, City, TripUser, Level)
 from .serializers import (FAQSerializer, UserSerializer, PhotoUserSerializer, TripSerializer,
                           TripUserSerializer)
 from django.http import JsonResponse
@@ -205,6 +205,32 @@ def get_user_history(request, format=None):
             raise BadRequest('Invalid request.')
     else:
         raise BadRequest('Invalid request.')
+    
+@api_view(['PUT'])
+def update_state_trip(request, format=None):
+    data = request.data
+    trip_user = TripUser.objects.get(pk = data['trip_user_id'])
+    trip_user.state = data['state']
+    if 'rate_user' in data:
+        trip_user.rate_user = data['rate_user']
+    trip_user.save()
+    if data['state'] == 'Y':
+        user = User.objects.get(pk = trip_user.user_id)
+        trip = Trip.objects.get(pk = trip_user.trip_id)
+        user.distance += trip.distance
+        if user.distance > user.level.max_distance:
+            current_level = user.level_id + 1
+            check_level = True
+            while check_level:
+                level = Level.objects.get(pk = current_level)
+                if user.distance < level.max_distance:
+                    user.level_id = level.pk
+                    check_level = False
+                else:
+                    current_level += 1
+    
+        user.save()
+    return JsonResponse({'message': 'ok'}, status=status.HTTP_200_OK)
 
 def random_date(start_date, end_date):
     """

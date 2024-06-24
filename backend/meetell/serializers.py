@@ -31,11 +31,12 @@ class UserSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         # Annotate trip_count to each user instance
+        valid_states = [StateSelection.YES, StateSelection.RATE, StateSelection.END]
         instance.trip_count = TripUser.objects.filter(user=instance,
-                                                     state=StateSelection.END).count()
+                                                     state__in=valid_states).count()
         times_user = TripUser.objects.filter(
             user=instance, 
-            state=StateSelection.END).aggregate(total_time=Sum('trip__time_sp'))['total_time']
+            state__in=valid_states).aggregate(total_time=Sum('trip__time_sp'))['total_time']
         instance.total_time_sp = round(times_user / 60, 1) if times_user is not None else 0
 
         return super().to_representation(instance)

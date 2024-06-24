@@ -82,12 +82,12 @@ function Home({setRate}) {
                                 ) : (
                                     null
                                 )}
-                                {item.state === 'Q' ? (
+                                {item.state === 'Q' || item.state === 'Y' || item.state === 'R' ? (
                                     <button className='res_item_button result_rate_button' onClick={() => handleEntry(item)}>Оценить</button>
                                 ) : (
                                     null
                                 )}
-                                {item.state === 'E' ? (
+                                {item.state === 'E' || item.state === 'N' ? (
                                     <button className='res_item_button result_end_button'>Завершен</button>
                                 ) : (
                                     null

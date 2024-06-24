@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useFooter } from './FooterContext';
 import invite from '../../img/invite_footer.svg'
@@ -10,7 +10,7 @@ function Footer() {
     const { isFooterVisible } = useFooter();
 
     if (!isFooterVisible) {
-      return null;
+        return null;
     }
 
     return (
@@ -41,15 +41,57 @@ function Footer() {
                     <p>Маршруты</p>
                 </div>
             </Link>
-            <Link to='*' className="no_underline_footer">
-                <div className='footer_invite'>
-                    <img src={invite} alt='' />
-                    <p>Пригласить</p>
-                </div>
-            </Link>
+            <InviteLink />
         </div>
 
     );
+}
+
+function InviteLink() {
+    const [showNotification, setShowNotification] = useState(false);
+    
+    const copyInviteLink = async () => {
+        const user_info = JSON.parse(localStorage.getItem('user_info'));
+        const inviteLink = 'https://t.me/meetell_bot?start=' + user_info.tg_id;
+        try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                await navigator.clipboard.writeText(inviteLink);
+            } else {
+                // Фоллбэк для старых браузеров
+                const tempInput = document.createElement('textarea');
+                tempInput.style.zIndex = 100;
+                tempInput.style.position = 'absolute';
+                tempInput.style.top = '20px';
+                tempInput.value = inviteLink;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+            }
+            // Показать уведомление
+            setShowNotification(true);
+            setTimeout(() => {
+                setShowNotification(false);
+            }, 2000); // Уведомление будет отображаться в течение 2 секунд
+        } catch (err) {
+            console.error('Failed to copy the text to clipboard: ', err);
+        }
+    };
+return (
+    <div>
+        <div onClick={copyInviteLink} className="no_underline_footer">
+            <div className='footer_invite'>
+                <img src={invite} alt='Invite' />
+                <p>Пригласить</p>
+            </div>
+        </div>
+        {showNotification && (
+            <div className="notification">
+                Ссылка скопирована в буфер обмена!
+            </div>
+        )}
+    </div>
+);
 }
 
 export default Footer;
