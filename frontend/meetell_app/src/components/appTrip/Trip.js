@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useFooter } from '../appFooter/FooterContext';
 import { loadTelegramWebApp } from "../telegram/telegram";
 
@@ -364,10 +364,12 @@ function Trip() {
             <div className={`content ${showFilters ? 'blur-content' : ''}${selectedRoute ? 'block_none' : ''}`}>
                 <div className='trip_filters'>
                     <img src={settings} alt='' onClick={toggleFilters} style={{ cursor: 'pointer' }} />
-                    <button className='trip_add'>
-                        <span>Предложить маршрут</span>
-                        <img src={add} alt='' />
-                    </button>
+                    <Link to="/addTrip">
+                        <button className='trip_add'>
+                            <span>Предложить маршрут</span>
+                            <img src={add} alt='' />
+                        </button>
+                    </Link>
                 </div>
 
                 <div className='trip_search'>
