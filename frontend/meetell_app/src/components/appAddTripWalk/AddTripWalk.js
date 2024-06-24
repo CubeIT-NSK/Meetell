@@ -39,33 +39,35 @@ export default function AddTripWalk() {
                             <option value="sex-female">Женский</option>
                         </select>
                         <p>Город:</p>
-                        <select name="select-sex-data">
-                            <option value="sex-male">Мужской</option>
-                            <option value="sex-other" selected>Не имеет значения</option>
-                            <option value="sex-female">Женский</option>
+                        <select name="select-city-data">
+                            <option value="city-m">Москва</option>
+                            <option value="city-other" selected>Не имеет значения</option>
+                            <option value="city-p">Санкт-Петербург</option>
+                            <option value="city-k">Казань</option>
                         </select>
                         <p>Дата:</p>
                         <div className="date-settings">
-                            <select name="select-sex-data">
-                                <option value="sex-male">Мужской</option>
-                                <option value="sex-other" selected>Не имеет значения</option>
-                                <option value="sex-female">Женский</option>
+                            <select name="select-date-day">
+                                <option value="day-10">10</option>
+                                <option value="day-11" selected>11</option>
+                                <option value="day-12">12</option>
                             </select>
-                            <select name="select-sex-data">
-                                <option value="sex-male">Мужской</option>
-                                <option value="sex-other" selected>Не имеет значения</option>
-                                <option value="sex-female">Женский</option>
+                            <select name="select-date-month">
+                                <option value="date-n">Ноябрь</option>
+                                <option value="date-d" selected>Декабрь</option>
+                                <option value="date-ya">Январь</option>
                             </select>
-                            <select name="select-sex-data">
-                                <option value="sex-male">Мужской</option>
-                                <option value="sex-other" selected>Не имеет значения</option>
-                                <option value="sex-female">Женский</option>
+                            <select name="select-date-year">
+                                <option value="year-now">2024</option>
+                                <option value="year-other" selected>Не имеет значения</option>
+                                <option value="year-next">2025</option>
                             </select>
                         </div>
                         <p>Время встречи:</p>
                         <input className="time-data" placeholder="10:00" />
                     </div>
                 </div>
+                <button className="submit-build">Опубликовать</button>
             </div>
         </div>
 

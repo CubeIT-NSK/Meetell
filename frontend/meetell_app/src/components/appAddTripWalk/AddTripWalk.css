@@ -29,12 +29,6 @@ input {
     gap: 10px;
 }
 
-.large-frame {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-}
-
 .large-frame p {
     font-size: calc((100vw - 320px)/(425 - 320) * (10 - 8) + 8px);
     color: #797984;
@@ -120,4 +114,18 @@ select {
     font-size: calc((100vw - 320px)/(425 - 320) * (10 - 8) + 8px);
 }
 
-
+.submit-build {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    bottom: 20px;
+    padding: 10px 0;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    background-color: #523DD8;
+    width: calc(100% - 20px);
+    cursor: pointer;
+}
