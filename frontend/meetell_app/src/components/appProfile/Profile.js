@@ -85,8 +85,9 @@ function FileDisplay({ file, defaultImage }) {
 }
 
 export default function Profile() {
+    let user_photo = null;
     const { userId } = useParams();
-    console.log(userId);
+    // console.log(userId);
     const getAge = (birthday) => {
         const today = new Date();
         const diff = today - birthday;
@@ -310,25 +311,26 @@ export default function Profile() {
 
     // Горизонтальная прокрутка
     useEffect(() => {
-        var modifier = null;
-        document.getElementById("horizontal-scroller").addEventListener('wheel', function (event) {
-            if (event.deltaMode === event.DOM_DELTA_PIXEL) {
-                modifier = 1;
-                // иные режимы возможны в Firefox
-            } else if (event.deltaMode === event.DOM_DELTA_LINE) {
-                modifier = parseInt(getComputedStyle(this).lineHeight);
-            } else if (event.deltaMode === event.DOM_DELTA_PAGE) {
-                modifier = this.clientHeight;
-            }
-            if (event.deltaY !== 0) {
-                // замена вертикальной прокрутки горизонтальной
-                this.scrollLeft += modifier * event.deltaY;
-                event.preventDefault();
-            }
-        });
-    }, []);
+        if (selectedRoute) {
+            document.getElementById("horizontal-scroller").addEventListener('wheel', function(event) {
+                if (event.deltaMode === event.DOM_DELTA_PIXEL) {
+                    var modifier = 1;
+                    // иные режимы возможны в Firefox
+                } else if (event.deltaMode === event.DOM_DELTA_LINE) {
+                  var modifier = parseInt(getComputedStyle(this).lineHeight);
+                    } else if (event.deltaMode === event.DOM_DELTA_PAGE) {
+                    var modifier = this.clientHeight;
+                    }
+                
+                if (event.deltaY !== 0) {
+                    // замена вертикальной прокрутки горизонтальной
+                    this.scrollLeft += modifier * event.deltaY;
+                    event.preventDefault();
+                }
     
-    const user_photo = JSON.parse(localStorage.getItem('user_photo'));
+            })};
+    }, [selectedRoute]);
+
     return (
         <div className="profile">
             <div className="preview">
@@ -385,14 +387,14 @@ export default function Profile() {
                     }
                     <div className="friends_block" id="horizontal-scroller">
                         <div className="friends">
-                        {user_info.friends.map(item => (
-                            <Link to={`/profile/${item.tg_id}`} >
+                        {user_info.friends ? user_info.friends.map(item => (
+                            <Link to={`/profile/${item.tg_id}`} key={item.tg_id}>
                                 <div className="friend" id="#">
                                     <img className="friend_avatar" src={account} alt="avatar"></img>
                                     <div className="friend_level">{item.level}</div>
                                 </div>
                             </Link>
-                        ))}
+                        )) : null}
                         </div>
                     </div>
                     {!(location.pathname !== '/profile') && location.pathname.startsWith('/profile') ?
@@ -429,9 +431,10 @@ export default function Profile() {
                                     value={selectedDay}
                                     style={{ backgroundColor: isDataСorrect ? '#FFFFFF' : '#FFF4F4' }}
                                 >
-                                    {days.map(day => (
+                                    {days && days.map(day => (
                                         <option key={day} value={day}>{day}</option>
                                     ))}
+
                                 </select>
                                 <select
                                     className='filter_date_select_profile'
@@ -459,12 +462,11 @@ export default function Profile() {
                                     value={selectedYear}
                                     style={{ backgroundColor: isDataСorrect ? '#FFFFFF' : '#FFF4F4' }}
                                 >
-                                    {years.map(item => (
+                                    {years && years.map(item => (
                                         <option key={item} value={item}>
                                             {item}
                                         </option>
                                     ))}
-
                                 </select>
                             </div>
                             <p className="input_name">Пол*:</p>

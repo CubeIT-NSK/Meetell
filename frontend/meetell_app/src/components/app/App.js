@@ -33,7 +33,6 @@ const preloadImages = (imageUrls) => {
 };
 
 function App() {
-  const user = 'user';
   useEffect(() => {
     const imageUrls = [
       question,
