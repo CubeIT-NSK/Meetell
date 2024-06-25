@@ -45,8 +45,9 @@ function Trip({ content, setContent }) {
     const [selectedRoute, setSelectedRoute] = useState(null);
 
     const { setFooterVisible } = useFooter();
-
+    
     useEffect(() => {
+        setFooterVisible(true);
         let rectParrent = parrentRef.current.getBoundingClientRect();
         parrentRef.current.style.height = window.innerHeight - rectParrent.y + "px";
     }, []);
