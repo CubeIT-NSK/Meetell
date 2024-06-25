@@ -71,6 +71,8 @@ def get_trips(request, format=None):
     
     
     # Фильтрация существующих записей
+    date_st = datetime.datetime.strptime(f"{data['date']} {data['timeStart']}", '%Y-%m-%d %H:%M')
+    date_en = datetime.datetime.strptime(f"{data['date']} {data['timeEnd']}", '%Y-%m-%d %H:%M')
     user_age = data.get('userAge')
     user_sex = data.get('userSex')
     if user_age is None or user_sex is None:
@@ -80,7 +82,9 @@ def get_trips(request, format=None):
     
     trips = Trip.objects.filter(
         year_st__lte=user_age,
-        year_en__gte=user_age
+        year_en__gte=user_age,
+        date__gte=date_st,
+        date__lte=date_en
     ).filter(
         sex__in=[user_sex, 'A']
     )
