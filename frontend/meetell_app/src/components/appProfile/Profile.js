@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import BackButton from '../BackButton.js'
 import './Profile.css';
 import '../appTrip/Trip.css';
@@ -85,7 +85,8 @@ function FileDisplay({ file, defaultImage }) {
 }
 
 export default function Profile() {
-
+    const { userId } = useParams();
+    console.log(userId);
     const getAge = (birthday) => {
         const today = new Date();
         const diff = today - birthday;
@@ -376,6 +377,7 @@ export default function Profile() {
                             <progress className='home_progress' value={user_info.distance} max={user_info.level.max_distance} />
                         </div>
                     </div>
+                    
                     {!(location.pathname !== '/profile') && location.pathname.startsWith('/profile') ?
                         <p className="friends_text">Ваши друзья:</p>
                         :
@@ -383,12 +385,14 @@ export default function Profile() {
                     }
                     <div className="friends_block" id="horizontal-scroller">
                         <div className="friends">
-                            <Link to={`/profile/${user_info.tg_id}`} >
+                        {user_info.friends.map(item => (
+                            <Link to={`/profile/${item.tg_id}`} >
                                 <div className="friend" id="#">
                                     <img className="friend_avatar" src={account} alt="avatar"></img>
-                                    <div className="friend_level">123</div>
+                                    <div className="friend_level">{item.level}</div>
                                 </div>
                             </Link>
+                        ))}
                         </div>
                     </div>
                     {!(location.pathname !== '/profile') && location.pathname.startsWith('/profile') ?

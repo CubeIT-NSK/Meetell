@@ -16,6 +16,30 @@
         }
     },
     {
+        "model": "meetell.level",
+        "pk": 3,
+        "fields": {
+            "name": "3 Уровень",
+            "max_distance": 15
+        }
+    },
+    {
+        "model": "meetell.level",
+        "pk": 4,
+        "fields": {
+            "name": "4 Уровень",
+            "max_distance": 30
+        }
+    },
+    {
+        "model": "meetell.level",
+        "pk": 5,
+        "fields": {
+            "name": "5 Уровень",
+            "max_distance": 80
+        }
+    },
+    {
         "model": "meetell.city",
         "pk": 1,
         "fields": {

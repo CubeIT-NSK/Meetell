@@ -9,7 +9,7 @@ const Header = () => {
     user_info = JSON.parse(user_info);
     const user_photo = JSON.parse(localStorage.getItem('user_photo'));
     return (
-        <div className={`header_block ${location.pathname === '/' ? 'active' : ''}`}>
+        <div className={`header_block ${location.pathname === '/' || location.pathname === '/addTrip' ? 'active' : ''}`}>
             {location.pathname !== '/profile' && location.pathname.startsWith('/profile') ?
                 <BackButton className={'header_logo'} style={{ fill: '#fff' }} />
                 :

@@ -2,11 +2,11 @@ import {Fragment} from "react";
 import Home from "../appHome/Home";
 import Start from "../appStart/Start";
 
-function Main() {
+function Main({ setRate }) {
   return (
     <Fragment>
       <Start />
-      <Home />
+      <Home setRate={setRate}/>
     </Fragment>
   );
 }

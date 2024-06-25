@@ -13,6 +13,14 @@
             "args": ["runserver"]
         },
         {
+            "name": "bot",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "manage.py",
+            "console": "integratedTerminal",
+            "args": ["bot"]
+        },
+        {
             "name": "pyrogram",
             "type": "debugpy",
             "request": "launch",

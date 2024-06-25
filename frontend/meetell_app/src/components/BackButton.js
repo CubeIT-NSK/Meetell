@@ -20,7 +20,7 @@ export default function BackButton({ setSelectedRoute, className, style }) {
         width="20" 
         height="15" 
         viewBox=" 0 20 15" 
-        fill="#0A0930" 
+        fill={location.pathname === '/addTrip' ? "#FFF" : "#0A0930"}
         xmlns="http://www.w3.org/2000/svg" 
         >
         <path fill-rule="evenodd" 

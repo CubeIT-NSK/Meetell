@@ -93,8 +93,6 @@ function Trip() {
                     let rectParrent = parrentRef.current.getBoundingClientRect();
                     console.log(rectParrent);
                     tripRef.current.style.height = window.innerHeight - rectParrent.y + "px";
-                    // tripRef.current.style.top = rectParrent.y + "px"
-                    // tripRef.current.style.height = window.innerHeight - rectParrent.y + "px";
                     console.log("Элемент появился на экране");
                 }
             },
