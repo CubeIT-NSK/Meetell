@@ -257,7 +257,30 @@ def update_state_trip(request, format=None):
 @api_view(['POST'])
 def create_trip(request, format=None):
     data = request.data
-    
+    trip_data = {
+        'date': datetime.datetime.strptime(f"{data['date']} {data['time']}", '%Y-%m-%d %H:%M'),
+        'name': data['name'],
+        'city': City.objects.get(pk=1).id,  # Предполагается, что город с pk=1 существует
+        'sex': data['sex'],
+        'year_st': data['ageStart'],
+        'year_en': data['ageEnd'],
+        'time_sp': 45,
+        'distance': 3,
+        'ratting': 0.0,
+        'chat_link': 'https://t.me/+ELbMppxWv3MyNGEy',
+    }
+
+    serializer = TripSerializer(data=trip_data, many=False)
+    if serializer.is_valid():
+        serializer.save()
+        trip_user = TripUser.objects.create(
+            trip_id = serializer.data['id'],
+            user_id = data['user_id']
+        )
+        trip_user.save()
+        return JsonResponse({"message": "ok"}, status=status.HTTP_201_CREATED)
+    return JsonResponse({"message": "error"}, status=status.HTTP_400_BAD_REQUEST)
+
 
 def random_date(start_date, end_date):
     """
