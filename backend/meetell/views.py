@@ -75,19 +75,37 @@ def get_trips(request, format=None):
     date_en = datetime.datetime.strptime(f"{data['date']} {data['timeEnd']}", '%Y-%m-%d %H:%M')
     user_age = data.get('userAge')
     user_sex = data.get('userSex')
-    if user_age is None or user_sex is None:
-        trips = Trip.objects.all()
-        serializer = TripSerializer(trips, many=True)
-        return JsonResponse(serializer.data, safe=False)
     
-    trips = Trip.objects.filter(
-        year_st__lte=user_age,
-        year_en__gte=user_age,
-        date__gte=date_st,
-        date__lte=date_en
-    ).filter(
-        sex__in=[user_sex, 'A']
-    )
+    if data['timeTrip'] == 'under_60':
+        trips = Trip.objects.filter(
+            year_st__lte=user_age,
+            year_en__gte=user_age,
+            date__gte=date_st,
+            date__lte=date_en,
+            time_sp__lte=60
+        ).filter(
+            sex=data['sex']
+        )
+    elif data['timeTrip'] == 'under_120':
+        trips = Trip.objects.filter(
+            year_st__lte=user_age,
+            year_en__gte=user_age,
+            date__gte=date_st,
+            date__lte=date_en,
+            time_sp__lte=120
+        ).filter(
+            sex=data['sex']
+        )
+    else:
+        trips = Trip.objects.filter(
+            year_st__lte=user_age,
+            year_en__gte=user_age,
+            date__gte=date_st,
+            date__lte=date_en,
+            time_sp__gte=120
+        ).filter(
+            sex=data['sex']
+        )
     
     serializer = TripSerializer(trips, many=True)
     return JsonResponse(serializer.data, safe=False)
