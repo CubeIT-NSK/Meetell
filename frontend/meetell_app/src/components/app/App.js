@@ -85,7 +85,7 @@ function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path='/profile/:userId' element={<ProfileOther />} />
           <Route path='/*' element={<Page404 />} />
-          <Route path='/addTrip' element={<AddTripWalk />} />
+          <Route path='/add_trip' element={<AddTripWalk />} />
         </Routes>
         {!location.pathname.startsWith('/profile') && <Footer />}
       </FooterProvider>

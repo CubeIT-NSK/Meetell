@@ -2,6 +2,10 @@ input {
     border: none;
 }
 
+.header-trip {
+    background-color: #E9EEF4;
+}
+
 .background-trip {
     background-color: #E9EEF4;
     border-radius: 10px;
@@ -13,7 +17,7 @@ input {
     align-items: center;
     justify-content: center;
     padding: 15px 10px;
-    color: #FFFFFF;
+    color: #0A0930;
 }
 
 .header-trip-data p {

@@ -49,8 +49,9 @@ function Trip() {
     const [selectedRoute, setSelectedRoute] = useState(null);
 
     const { setFooterVisible } = useFooter();
-
+    
     useEffect(() => {
+        setFooterVisible(true);
         let rectParrent = parrentRef.current.getBoundingClientRect();
         parrentRef.current.style.height = window.innerHeight - rectParrent.y + "px";
     }, []);
@@ -362,7 +363,7 @@ function Trip() {
             <div className={`content ${showFilters ? 'blur-content' : ''}${selectedRoute ? 'block_none' : ''}`}>
                 <div className='trip_filters'>
                     <img src={settings} alt='' onClick={toggleFilters} style={{ cursor: 'pointer' }} />
-                    <Link to="/addTrip">
+                    <Link to="/add_trip">
                         <button className='trip_add'>
                             <span>Предложить маршрут</span>
                             <img src={add} alt='' />

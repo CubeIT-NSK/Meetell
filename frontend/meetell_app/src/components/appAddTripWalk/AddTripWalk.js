@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useFooter } from '../appFooter/FooterContext';
 import "./AddTripWalk.css";
 
 import BackButton from "../BackButton";
@@ -10,6 +11,8 @@ export default function AddTripWalk() {
     const childrenRef = useRef();
     const filterRef = useRef(null);
     const tripRef = useRef(null);
+    const { setFooterVisible } = useFooter();
+    setFooterVisible(false);
 
     const today = new Date();
     const years = [today.getFullYear(), today.getFullYear() + 1];
