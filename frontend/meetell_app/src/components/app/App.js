@@ -16,12 +16,13 @@ import React, { useState, useEffect } from 'react';
 import HelloScreen from '../appHelloScreen/HelloScreen.js';
 import Carousel from '../appCarousel/Carousel.js';
 import PreLoader from '../appPreLoader/PreLoader.js';
-import Profile from '../appProfile/Profile.js'
-import Page404 from '../appPage404/Page404'
-import question from '../../img/question.svg'
-import rules from '../../img/rules.svg'
-import manual from '../../img/manual.svg'
-import smartphone from '../../img/smartphone.svg'
+import Profile from '../appProfile/Profile.js';
+import ProfileOther from '../appProfile/ProfileOther.js';
+import Page404 from '../appPage404/Page404';
+import question from '../../img/question.svg';
+import rules from '../../img/rules.svg';
+import manual from '../../img/manual.svg';
+import smartphone from '../../img/smartphone.svg';
 import Finished from '../appFinished/Finished.js';
 
 const preloadImages = (imageUrls) => {
@@ -82,7 +83,7 @@ function App() {
           <Route path='/question' element={<Question />} />
           <Route path='/trips' element={<Trip />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path={`/profile/${user}`} element={<Profile />} />
+          <Route path='/profile/:userId' element={<ProfileOther />} />
           <Route path='/*' element={<Page404 />} />
           <Route path='/addTrip' element={<AddTripWalk />} />
         </Routes>

@@ -93,10 +93,10 @@ def get_user(request, format=None):
     if 'id' in request.query_params:
         try:
             user_id = int(request.query_params['id'])
-            user_name = request.query_params['username']
             try:
                 user = User.objects.get(pk = user_id)
             except User.DoesNotExist:
+                user_name = request.query_params['username']
                 user = User.objects.create(
                     tg_id = user_id,
                     user_name = user_name,
