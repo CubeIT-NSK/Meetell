@@ -6,7 +6,6 @@ input {
     background-color: #E9EEF4;
     border-radius: 10px;
     padding: 15px 10px 0 10px;
-
 }
 
 .header-trip-data {
@@ -29,14 +28,8 @@ input {
     gap: 10px;
 }
 
-.large-frame {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-}
-
 .large-frame p {
-    font-size: calc((100vw - 320px)/(425 - 320) * (10 - 8) + 8px);
+    font-size: calc((100vw - 320px)/(425 - 320) * (12 - 10) + 10px);
     color: #797984;
     font-weight: 400;
     line-height: 12.1px;
@@ -48,9 +41,14 @@ input {
     justify-content: left;
     padding: 10px;
     color: #0A0930;
-    font-size: calc((100vw - 320px)/(425 - 320) * (10 - 8) + 8px);
+    font-size: calc((100vw - 320px)/(425 - 320) * (12 - 10) + 10px);
     font-weight: 400;
     line-height: 12.1px;
+    font-size: 12px;
+}
+
+.large-frame-data::placeholder {
+    font-size: 12px;
 }
 
 .age-group {
@@ -60,7 +58,7 @@ input {
 }
 
 .age-group p {
-    font-size: calc((100vw - 320px)/(425 - 320) * (10 - 8) + 8px);
+    font-size: calc((100vw - 320px)/(425 - 320) * (12 - 10) + 10px);
     color: #797984;
     font-weight: 400;
     line-height: 12.1px;
@@ -77,7 +75,7 @@ select {
     border-radius: 10px;
     width: 100%;
     padding: 10px 18px 10px 10px;
-    font-size: 10px;
+    font-size: 12px;
     line-height: 12.1px;
     font-weight: 400;
     color: #0A0930;
@@ -99,8 +97,9 @@ select {
     display: grid;
     grid-template-columns: 1fr 4fr;
     align-items: center;
-    gap: 15px;
+    gap: 15px
 }
+
 
 .date-settings {
     display: flex;
@@ -111,13 +110,91 @@ select {
     width: 31%;
     border-radius: 10px;
     padding: 9px 0;
-
-
+    font-size: 12px;
+    text-align: center;
 }
 
 .time-data::placeholder {
     text-align: center;
-    font-size: calc((100vw - 320px)/(425 - 320) * (10 - 8) + 8px);
+    font-size: calc((100vw - 320px)/(425 - 320) * (12 - 10) + 10px);
 }
 
+.submit-build {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    bottom: 20px;
+    padding: 10px 0;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    background-color: #523DD8;
+    width: calc(100% - 20px);
+    cursor: pointer;
+}
+
+.sex-sex {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: #EAEAEA;
+    color: #797984;
+    padding: 10px 3px;
+    border-radius: 15px;
+    text-align: center;
+    align-items: center;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+}
+
+.filter_sex_btn_add_trip {
+    display: flex;
+    align-items: center;
+    width: 32%;
+}
+
+.filter_sex_btn_add_trip input[type=checkbox] {
+    display: none;
+}
+
+.filter_sex_btn_add_trip input[type=checkbox]:checked+label,
+.filter_sex_btn_add_trip input[type=checkbox]:checked+label svg path {
+    background: #CFDAFF;
+    color: #0912DB;
+    fill: #0912DB;
+}
+
+.filter_time_add_trip {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.filter_time_select_add_trip {
+    display: inline-block;
+    width: 49%;
+    padding: 10px;
+    font-size: 12px;
+    color: #797984;
+    /* Цвет текста */
+    border: none;
+    /* Цвет границы */
+    border-radius: 10px;
+    /* Радиус скругления */
+    appearance: none;
+    /* Убирает стандартный вид селекта */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+    /* background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="none" stroke="%232c2c2c" stroke-width="2" d="M6 9l6 6 6-6"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center; */
+    cursor: pointer;
+    text-align: center;
+    text-align-last: center;
+}
 
