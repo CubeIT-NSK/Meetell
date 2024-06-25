@@ -85,6 +85,7 @@ function FileDisplay({ file, defaultImage }) {
 }
 
 export default function Profile() {
+    let user_photo = null;
     const { userId } = useParams();
     // console.log(userId);
     const getAge = (birthday) => {
