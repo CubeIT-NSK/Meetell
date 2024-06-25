@@ -7,10 +7,6 @@ import back from '../../img/back.svg'
 
 export default function AddTripWalk() {
 
-    const [showFilters, setShowFilters] = useState(false);
-    const childrenRef = useRef();
-    const filterRef = useRef(null);
-    const tripRef = useRef(null);
     const { setFooterVisible } = useFooter();
     setFooterVisible(false);
 
@@ -21,20 +17,16 @@ export default function AddTripWalk() {
     const [selectedDay, setSelectedDay] = useState(today.getDate());
     const [selectedAgeSt, setselectedAgeSt] = useState(0);
     const [selectedAgeEn, setselectedAgeEn] = useState(100);
+    const [selectedTime, setselectedTime] = useState("12:00");
     const [days, setDays] = useState([]);
     const [ages, setAges] = useState([]);
 
     const [isDataIncorrect, setIsDataIncorrect] = useState(false);
-    const [isDataСorrect, setIsDataСorrect] = useState(true);
-
-    const [isAgeInCorrect, setIsAgeInCorrect] = useState(false);
     const [isAgeСorrect, setIsAgeСorrect] = useState(true);
-
     const [selectedSex, setSelectedSex] = useState('');
     const [selectedRoute, setSelectedRoute] = useState(null);
 
     const [SelectedNameTrip, setNameTrip] = useState('');
-    const [SelectedStartedTime, setStartTime] = useState('');
     const [SelectedCity, setCity] = useState('');
 
     const parrentRef = useRef();
@@ -50,7 +42,6 @@ export default function AddTripWalk() {
 
     const handleSexChange = (e) => {
         setSelectedSex(e.target.value);
-        console.log(e.target.value);
     };
 
     useEffect(() => {
@@ -72,65 +63,54 @@ export default function AddTripWalk() {
         const selectedDate = new Date(year, month - 1, day, 23, 59, 59);
         const isDateInvalid = selectedDate <= today;
         setIsDataIncorrect(isDateInvalid);
-        setIsDataСorrect(!isDateInvalid);
     };
 
     const handleYearChange = (e) => {
         setSelectedYear(parseInt(e.target.value, 10));
         checkValuesDate(parseInt(e.target.value, 10), selectedMonth, selectedDay);
-        console.log(e.target.value);
     };
 
     const handleMonthChange = (e) => {
         setSelectedMonth(parseInt(e.target.value, 10));
         checkValuesDate(selectedYear, parseInt(e.target.value, 10), selectedDay);
-        console.log(e.target.value);
     };
 
     const handleDayChange = (e) => {
         setSelectedDay(parseInt(e.target.value, 10));
         checkValuesDate(selectedYear, selectedMonth, parseInt(e.target.value, 10));
-        console.log(e.target.value);
     };
 
     const handleAgeStChange = (e) => {
         if (parseInt(e.target.value, 10) > parseInt(selectedAgeEn, 10)) {
             setIsAgeСorrect(false);
-            setIsAgeInCorrect(true);
         } else {
             setIsAgeСorrect(true);
-            setIsAgeInCorrect(false);
         }
         setselectedAgeSt(e.target.value);
-        console.log(e.target.value);
     };
 
     const handleAgeEnChange = (e) => {
         if (parseInt(selectedAgeSt, 10) > parseInt(e.target.value, 10)) {
             setIsAgeСorrect(false);
-            setIsAgeInCorrect(true);
         } else {
             setIsAgeСorrect(true);
-            setIsAgeInCorrect(false);
         }
         setselectedAgeEn(e.target.value);
-        console.log(e.target.value);
     };
 
     const handleNameTripChange = (e) => {
         setNameTrip(e.target.value);
-        console.log(e.target.value);
     };
     
-    const handleStartTimeChange = (e) => {
-        setStartTime(e.target.value);
-        console.log(e.target.value);
+    const handleTimeChange = (e) => {
+        setselectedTime(e.target.value);
     };
     
     const handleCityChange = (e) => {
         setCity(e.target.value);
-        console.log(e.target.value);
     };
+
+    const times = Array.from({ length: 48 }, (_, i) => Math.floor(i / 2) + ":" + (i % 2 === 0 ? "00" : "30"));
 
     return (
         <div className="header-trip">
@@ -230,16 +210,12 @@ export default function AddTripWalk() {
                                 </label>
                             </div>
                         </div>
-                        <p>Город:</p>
-                        <select name="select-city-data" onChange={handleCityChange}>
-                            <option value="city-m">Москва</option>
-                            <option value="city-p" selected>Санкт-Петербург</option>
-                        </select>
                         <p>Дата:</p>
                         <div className="date-settings">
                             <select name="select-date-day"
                                 onChange={handleDayChange}
                                 value={selectedDay}
+                                className={`${isDataIncorrect ? 'disabled_date' : ''}`}
                             >
                                 {days.map(day => (
                                     <option key={day} value={day}>{day}</option>
@@ -248,6 +224,7 @@ export default function AddTripWalk() {
                             <select name="select-date-month"
                                 onChange={handleMonthChange}
                                 value={selectedMonth}
+                                className={`${isDataIncorrect ? 'disabled_date' : ''}`}
                             >
                                 <option value={1}>Январь</option>
                                 <option value={2}>Февраль</option>
@@ -265,6 +242,7 @@ export default function AddTripWalk() {
                             <select name="select-date-year"
                                 onChange={handleYearChange}
                                 value={selectedYear}
+                                className={`${isDataIncorrect ? 'disabled_date' : ''}`}
                             >
                                 {years.map(item => (
                                     <option key={item} value={item}>
@@ -274,7 +252,15 @@ export default function AddTripWalk() {
                             </select>
                         </div>
                         <p>Время встречи:</p>
-                        <input className="time-data" placeholder="Время" onChange={handleStartTimeChange}/>
+                        <select
+                        className='filter_time_select'
+                        onChange={handleTimeChange}
+                        value={selectedTime}
+                    >
+                        {times.map(time => (
+                            <option key={time} value={time}>{time}</option>
+                        ))}
+                    </select>
                     </div>
                 </div>
                 <button className="submit-build">Опубликовать</button>

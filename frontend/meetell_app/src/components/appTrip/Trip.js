@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useFooter } from '../appFooter/FooterContext';
-
+import { Link } from 'react-router-dom';
 import settings from '../../img/settings_trip.svg';
 import add from '../../img/add_trip.svg';
 import TripRun from './TripRun';
@@ -44,7 +44,7 @@ function Trip() {
     const [selectedRoute, setSelectedRoute] = useState(null);
 
     const { setFooterVisible } = useFooter();
-    
+
     useEffect(() => {
         setFooterVisible(true);
         let rectParrent = parrentRef.current.getBoundingClientRect();
@@ -321,6 +321,7 @@ function Trip() {
 
     let user_info = localStorage.getItem('user_info');
     user_info = JSON.parse(user_info);
+    const isDisabled = user_info.level.id === 1;
 
     // const handleJoinButton = (route) => {
     //     const user_id = localStorage.getItem('user_id');
@@ -348,8 +349,8 @@ function Trip() {
             <div className={`content ${showFilters ? 'blur-content' : ''}${selectedRoute ? 'block_none' : ''}`}>
                 <div className='trip_filters'>
                     <img src={settings} alt='' onClick={toggleFilters} style={{ cursor: 'pointer' }} />
-                    <Link to="/add_trip">
-                        <button className='trip_add'>
+                    <Link to={isDisabled ? '#' : '/add_trip'}>
+                        <button className={`trip_add ${isDisabled ? 'disabled' : ''}`} disabled={isDisabled}>
                             <span>Предложить маршрут</span>
                             <img src={add} alt='' />
                         </button>
