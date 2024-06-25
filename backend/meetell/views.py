@@ -254,6 +254,11 @@ def update_state_trip(request, format=None):
         user.save()
     return JsonResponse({'message': 'ok'}, status=status.HTTP_200_OK)
 
+@api_view(['POST'])
+def create_trip(request, format=None):
+    data = request.data
+    
+
 def random_date(start_date, end_date):
     """
     Возвращает случайную дату и время между датами start и end.

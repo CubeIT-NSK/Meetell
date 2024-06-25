@@ -17,18 +17,17 @@ export default function AddTripWalk() {
     const [selectedDay, setSelectedDay] = useState(today.getDate());
     const [selectedAgeSt, setselectedAgeSt] = useState(0);
     const [selectedAgeEn, setselectedAgeEn] = useState(100);
-    const [selectedTime, setselectedTime] = useState("12:00");
+    const [selectedTime, setselectedTime] = useState((today.getHours() + 1) + ':00');
     const [days, setDays] = useState([]);
     const [ages, setAges] = useState([]);
 
     const [isDataIncorrect, setIsDataIncorrect] = useState(false);
     const [isAgeСorrect, setIsAgeСorrect] = useState(true);
+    const [isTimeСorrect, setIsTimeСorrect] = useState(true);
     const [selectedSex, setSelectedSex] = useState('');
     const [selectedRoute, setSelectedRoute] = useState(null);
 
     const [SelectedNameTrip, setNameTrip] = useState('');
-    const [SelectedCity, setCity] = useState('');
-
     const parrentRef = useRef();
 
     useEffect(() => {
@@ -104,11 +103,18 @@ export default function AddTripWalk() {
     
     const handleTimeChange = (e) => {
         setselectedTime(e.target.value);
+
+        const selectedDateTime = new Date(selectedYear, selectedMonth - 1, selectedDay, 
+            parseInt(e.target.value.split(":")[0]), 
+            parseInt(e.target.value.split(":")[1]), 0);
+        const today = new Date();
+        if (today >= selectedDateTime) {
+            setIsTimeСorrect(false);
+        } else {
+            setIsTimeСorrect(true);
+        }
     };
     
-    const handleCityChange = (e) => {
-        setCity(e.target.value);
-    };
 
     const times = Array.from({ length: 48 }, (_, i) => Math.floor(i / 2) + ":" + (i % 2 === 0 ? "00" : "30"));
 
@@ -263,7 +269,10 @@ export default function AddTripWalk() {
                     </select>
                     </div>
                 </div>
-                <button className="submit-build">Опубликовать</button>
+                {(isDataIncorrect || !isAgeСorrect || !isTimeСorrect) && (
+                    <button className='fail_button' id='fail_settings'>Некорректные данные маршрута</button>
+                )}
+                <button className="submit-build" >Опубликовать</button>
             </div>
         </div>
 
