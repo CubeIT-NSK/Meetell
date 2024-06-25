@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useFooter } from '../appFooter/FooterContext';
+import { useNavigate } from 'react-router-dom';
 import "./AddTripWalk.css";
 
 import BackButton from "../BackButton";
@@ -9,6 +10,7 @@ export default function AddTripWalk() {
 
     const { setFooterVisible } = useFooter();
     setFooterVisible(false);
+    const navigate = useNavigate();
 
     const today = new Date();
     const years = [today.getFullYear(), today.getFullYear() + 1];
@@ -114,6 +116,36 @@ export default function AddTripWalk() {
             setIsTimeСorrect(true);
         }
     };
+
+    const handleSave = () => {
+        if (isDataIncorrect || !isAgeСorrect || !isTimeСorrect) {
+            return;
+        }
+        const user_info = JSON.parse(localStorage.getItem('user_info'));
+        const data = {
+            city: 'spb',
+            date: `${selectedYear}-${selectedMonth}-${selectedDay}`,
+            time: selectedTime,
+            ageStart: selectedAgeSt,
+            ageEnd: selectedAgeEn,
+            sex: selectedSex,
+            name: SelectedNameTrip,
+            user_id: user_info.tg_id
+        };
+        fetch('api/create_trip', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(
+                navigate('/home')
+            )
+            .catch(error => {
+                console.log(error);
+            });
+    };
     
 
     const times = Array.from({ length: 48 }, (_, i) => Math.floor(i / 2) + ":" + (i % 2 === 0 ? "00" : "30"));
@@ -158,8 +190,8 @@ export default function AddTripWalk() {
                                 <input
                                     id='sex_men'
                                     type='checkbox'
-                                    value='men'
-                                    checked={selectedSex === 'men'}
+                                    value='M'
+                                    checked={selectedSex === 'M'}
                                     onChange={handleSexChange} />
                                 <label htmlFor="sex_men" className="sex-sex">
                                     <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -172,8 +204,8 @@ export default function AddTripWalk() {
                                 <input
                                     id='sex_women'
                                     type='checkbox'
-                                    value='women'
-                                    checked={selectedSex === 'women'}
+                                    value='W'
+                                    checked={selectedSex === 'W'}
                                     onChange={handleSexChange} />
                                 <label htmlFor="sex_women" className="sex-sex">
                                     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -193,8 +225,8 @@ export default function AddTripWalk() {
                                 <input
                                     id='sex_all'
                                     type='checkbox'
-                                    value='all'
-                                    checked={selectedSex === 'all'}
+                                    value='A'
+                                    checked={selectedSex === 'A'}
                                     onChange={handleSexChange} />
                                 <label htmlFor="sex_all">
                                     <div className="two-sex-imgs">
@@ -259,7 +291,7 @@ export default function AddTripWalk() {
                         </div>
                         <p>Время встречи:</p>
                         <select
-                        className='filter_time_select'
+                        className={`filter_time_select ${!isTimeСorrect ? 'disabled_date' : ''}`}
                         onChange={handleTimeChange}
                         value={selectedTime}
                     >
@@ -272,7 +304,7 @@ export default function AddTripWalk() {
                 {(isDataIncorrect || !isAgeСorrect || !isTimeСorrect) && (
                     <button className='fail_button' id='fail_settings'>Некорректные данные маршрута</button>
                 )}
-                <button className="submit-build" >Опубликовать</button>
+                <button className="submit-build" onClick={handleSave} >Опубликовать</button>
             </div>
         </div>
 
