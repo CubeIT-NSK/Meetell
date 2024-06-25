@@ -86,7 +86,7 @@ function FileDisplay({ file, defaultImage }) {
 
 export default function Profile() {
     const { userId } = useParams();
-    console.log(userId);
+    // console.log(userId);
     const getAge = (birthday) => {
         const today = new Date();
         const diff = today - birthday;
@@ -386,14 +386,14 @@ export default function Profile() {
                     }
                     <div className="friends_block" id="horizontal-scroller">
                         <div className="friends">
-                        {user_info.friends.map(item => (
-                            <Link to={`/profile/${item.tg_id}`} >
+                        {user_info.friends ? user_info.friends.map(item => (
+                            <Link to={`/profile/${item.tg_id}`} key={item.tg_id}>
                                 <div className="friend" id="#">
                                     <img className="friend_avatar" src={account} alt="avatar"></img>
                                     <div className="friend_level">{item.level}</div>
                                 </div>
                             </Link>
-                        ))}
+                        )) : null}
                         </div>
                     </div>
                     {!(location.pathname !== '/profile') && location.pathname.startsWith('/profile') ?
@@ -430,9 +430,10 @@ export default function Profile() {
                                     value={selectedDay}
                                     style={{ backgroundColor: isDataСorrect ? '#FFFFFF' : '#FFF4F4' }}
                                 >
-                                    {days.map(day => (
+                                    {days && days.map(day => (
                                         <option key={day} value={day}>{day}</option>
                                     ))}
+
                                 </select>
                                 <select
                                     className='filter_date_select_profile'
@@ -460,12 +461,11 @@ export default function Profile() {
                                     value={selectedYear}
                                     style={{ backgroundColor: isDataСorrect ? '#FFFFFF' : '#FFF4F4' }}
                                 >
-                                    {years.map(item => (
+                                    {years && years.map(item => (
                                         <option key={item} value={item}>
                                             {item}
                                         </option>
                                     ))}
-
                                 </select>
                             </div>
                             <p className="input_name">Пол*:</p>

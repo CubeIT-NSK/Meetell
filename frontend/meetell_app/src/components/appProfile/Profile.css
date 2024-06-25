@@ -138,6 +138,7 @@
 .friends_text {
     font-size: 13px;
     color: #0A0930;
+    width: 100%;
 }
 .friends {
     display: flex;
