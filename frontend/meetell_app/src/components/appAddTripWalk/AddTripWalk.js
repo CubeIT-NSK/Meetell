@@ -10,32 +10,29 @@ export default function AddTripWalk() {
     const childrenRef = useRef();
     const filterRef = useRef(null);
     const tripRef = useRef(null);
-    // const navigate = useNavigate();
 
     const today = new Date();
     const years = [today.getFullYear(), today.getFullYear() + 1];
     const [selectedYear, setSelectedYear] = useState(today.getFullYear());
     const [selectedMonth, setSelectedMonth] = useState(today.getMonth() + 1);
     const [selectedDay, setSelectedDay] = useState(today.getDate());
-    // const [selectedTimeSt, setselectedTimeSt] = useState(today.getHours() + ":00");
-    // const [selectedTimeEn, setselectedTimeEn] = useState("23:30");
     const [selectedAgeSt, setselectedAgeSt] = useState(0);
     const [selectedAgeEn, setselectedAgeEn] = useState(100);
     const [days, setDays] = useState([]);
-    // const [times, setTimes] = useState([]);
     const [ages, setAges] = useState([]);
 
     const [isDataIncorrect, setIsDataIncorrect] = useState(false);
     const [isDataСorrect, setIsDataСorrect] = useState(true);
-
-    // const [isTimeInCorrect, setIsTimeInCorrect] = useState(false);
-    // const [isTimeСorrect, setIsTimeСorrect] = useState(true);
 
     const [isAgeInCorrect, setIsAgeInCorrect] = useState(false);
     const [isAgeСorrect, setIsAgeСorrect] = useState(true);
 
     const [selectedSex, setSelectedSex] = useState('');
     const [selectedRoute, setSelectedRoute] = useState(null);
+
+    const [SelectedNameTrip, setNameTrip] = useState('');
+    const [SelectedStartedTime, setStartTime] = useState('');
+    const [SelectedCity, setCity] = useState('');
 
     const parrentRef = useRef();
 
@@ -50,6 +47,7 @@ export default function AddTripWalk() {
 
     const handleSexChange = (e) => {
         setSelectedSex(e.target.value);
+        console.log(e.target.value);
     };
 
     useEffect(() => {
@@ -77,16 +75,19 @@ export default function AddTripWalk() {
     const handleYearChange = (e) => {
         setSelectedYear(parseInt(e.target.value, 10));
         checkValuesDate(parseInt(e.target.value, 10), selectedMonth, selectedDay);
+        console.log(e.target.value);
     };
 
     const handleMonthChange = (e) => {
         setSelectedMonth(parseInt(e.target.value, 10));
         checkValuesDate(selectedYear, parseInt(e.target.value, 10), selectedDay);
+        console.log(e.target.value);
     };
 
     const handleDayChange = (e) => {
         setSelectedDay(parseInt(e.target.value, 10));
         checkValuesDate(selectedYear, selectedMonth, parseInt(e.target.value, 10));
+        console.log(e.target.value);
     };
 
     const handleAgeStChange = (e) => {
@@ -98,6 +99,7 @@ export default function AddTripWalk() {
             setIsAgeInCorrect(false);
         }
         setselectedAgeSt(e.target.value);
+        console.log(e.target.value);
     };
 
     const handleAgeEnChange = (e) => {
@@ -109,8 +111,23 @@ export default function AddTripWalk() {
             setIsAgeInCorrect(false);
         }
         setselectedAgeEn(e.target.value);
+        console.log(e.target.value);
     };
 
+    const handleNameTripChange = (e) => {
+        setNameTrip(e.target.value);
+        console.log(e.target.value);
+    };
+    
+    const handleStartTimeChange = (e) => {
+        setStartTime(e.target.value);
+        console.log(e.target.value);
+    };
+    
+    const handleCityChange = (e) => {
+        setCity(e.target.value);
+        console.log(e.target.value);
+    };
 
     return (
         <div className="header-trip">
@@ -122,7 +139,7 @@ export default function AddTripWalk() {
                 <div className="settings-data-trip">
                     <div className="large-frame">
                         <p>Название<br />маршрута:</p>
-                        <input className="large-frame-data" placeholder="Название" />
+                        <input className="large-frame-data" placeholder="Название" onChange={handleNameTripChange} />
                         <p>Возрастная<br />группа:</p>
                         <div className='filter_time_add_trip'>
                             <select
@@ -146,7 +163,7 @@ export default function AddTripWalk() {
                                 ))}
                             </select>
                         </div>
-                        <p>Пол:</p>
+                        <p>Компания:</p>
                         <div className='filter_sex_trip'>
                             <div className='filter_sex_btn_add_trip'>
                                 <input
@@ -211,7 +228,7 @@ export default function AddTripWalk() {
                             </div>
                         </div>
                         <p>Город:</p>
-                        <select name="select-city-data">
+                        <select name="select-city-data" onChange={handleCityChange}>
                             <option value="city-m">Москва</option>
                             <option value="city-p" selected>Санкт-Петербург</option>
                         </select>
@@ -254,7 +271,7 @@ export default function AddTripWalk() {
                             </select>
                         </div>
                         <p>Время встречи:</p>
-                        <input className="time-data" placeholder="Время" />
+                        <input className="time-data" placeholder="Время" onChange={handleStartTimeChange}/>
                     </div>
                 </div>
                 <button className="submit-build">Опубликовать</button>
