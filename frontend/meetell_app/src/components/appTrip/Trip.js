@@ -37,8 +37,8 @@ function Trip({ content, setContent }) {
     const [isAgeInCorrect, setIsAgeInCorrect] = useState(false);
     const [isAgeСorrect, setIsAgeСorrect] = useState(true);
 
-    const [selectedSex, setSelectedSex] = useState('');
-    const [selectedTimeTrip, setSelectedTimeTrip] = useState('');
+    const [selectedSex, setSelectedSex] = useState('A');
+    const [selectedTimeTrip, setSelectedTimeTrip] = useState('under_60');
 
     const [searchResult, setSearchResult] = useState(null);
     const [selectedRoute, setSelectedRoute] = useState(null);
@@ -459,8 +459,8 @@ function Trip({ content, setContent }) {
                         <input
                             id='sex_men'
                             type='checkbox'
-                            value='men'
-                            checked={selectedSex === 'men'}
+                            value='M'
+                            checked={selectedSex === 'M'}
                             onChange={handleSexChange} />
                         <label htmlFor="sex_men">
                             <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -473,8 +473,8 @@ function Trip({ content, setContent }) {
                         <input
                             id='sex_women'
                             type='checkbox'
-                            value='women'
-                            checked={selectedSex === 'women'}
+                            value='W'
+                            checked={selectedSex === 'W'}
                             onChange={handleSexChange} />
                         <label htmlFor="sex_women">
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -494,8 +494,8 @@ function Trip({ content, setContent }) {
                         <input
                             id='sex_all'
                             type='checkbox'
-                            value='all'
-                            checked={selectedSex === 'all'}
+                            value='A'
+                            checked={selectedSex === 'A'}
                             onChange={handleSexChange} />
                         <label htmlFor="sex_all">
                             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
