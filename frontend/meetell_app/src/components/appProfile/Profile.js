@@ -142,6 +142,7 @@ export default function Profile() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [upDate, setUpDate] = useState(false);
     const [saveInfo, setSaveInfo] = useState(false);
+    const [days, setDays] = useState([]);
 
     // Для передачи файла с загрузки 
     const handleFileSelect = (file) => {
@@ -200,7 +201,7 @@ export default function Profile() {
         }
     }, [fullYears]);
 
-    const days = Array.from({ length: 31 }, (_, i) => i + 1);
+    // const days = Array.from({ length: 31 }, (_, i) => i + 1);
     const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i);
 
     const handleDayChange = (e) => {
@@ -330,6 +331,16 @@ export default function Profile() {
     
             })};
     }, [selectedRoute]);
+
+    useEffect(() => {
+        updateDays(selectedYear, selectedMonth);
+    }, [selectedYear, selectedMonth]);
+
+    const updateDays = (year, month) => {
+        const daysInMonth = new Date(year, month, 0).getDate();
+        const newDays = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+        setDays(newDays);
+    };
 
     return (
         <div className="profile">
