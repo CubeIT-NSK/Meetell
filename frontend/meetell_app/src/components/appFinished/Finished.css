@@ -2,6 +2,10 @@
     background: #FFFFFF;
     border-radius: 10px 10px 0 0;
     padding: 0 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
 }
 
 .Feedback-content {
@@ -125,6 +129,7 @@
     flex-direction: column;
     gap: 15px;
     border-top: 1px solid #E9EEF4;
+    margin-bottom: 10px;
 }
 
 .header-grade-companions {

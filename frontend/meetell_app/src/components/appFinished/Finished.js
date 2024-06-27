@@ -152,21 +152,21 @@ export default function Finished({ rateRoute }) {
                             {rateRoute.trip.sex === 'A' ?
                                 (
                                     <div className='route_info_sex'>
-                                        <Male fill={'#0912DB'} />
-                                        <Female fill={'#0912DB'} />
+                                        <Male fill={'#0912DB'} width={'16px'} />
+                                        <Female fill={'#0912DB'} width={'16px'} />
                                     </div>
                                 ) : null}
                             {rateRoute.trip.sex === 'M' ?
                                 (
                                     <div className='route_info_sex'>
-                                        <Male fill={'#0912DB'} />
+                                        <Male fill={'#0912DB'}  width={'16px'} />
                                     </div>
                                 ) : null}
 
                             {rateRoute.trip.sex === 'W' ?
                                 (
                                     <div className='route_info_sex'>
-                                        <Female fill={'#0912DB'} />
+                                        <Female fill={'#0912DB'}  width={'16px'} />
                                     </div>
                                 ) : null}
                         </div>
