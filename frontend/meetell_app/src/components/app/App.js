@@ -84,7 +84,7 @@ function App() {
           <Route path='/question' element={<Question />} />
           <Route path='/trips' element={<Trip setContent={setContent} content={content}/>} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='/profile/userId' element={<ProfileOther />} />
+          <Route path='/profile/:userId' element={<ProfileOther />} />
           <Route path='/*' element={<Page404 />} />
           {/* <Route path='/addTrip' element={<AddTripWalk />} /> */}
         </Routes>

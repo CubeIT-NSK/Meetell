@@ -4,7 +4,7 @@ import { useFooter } from '../appFooter/FooterContext';
 import TripRun from '../appTrip/TripRun';
 import './Home.css';
 
-function Home({ setRate, handleClick, style, handleTouchStart, handleTouchEnd }) {
+function Home({ setRate }) {
     const parrentRef = useRef();
     const childrenRef = useRef();
     const scrollRef = useRef();
@@ -13,8 +13,6 @@ function Home({ setRate, handleClick, style, handleTouchStart, handleTouchEnd })
     const [selectedRoute, setSelectedRoute] = useState(null);
 
     const navigate = useNavigate();
-
-    
 
     let user_info = JSON.parse(localStorage.getItem('user_info'));
     let remain_dist = user_info.level.max_distance - user_info.distance;
@@ -33,29 +31,13 @@ function Home({ setRate, handleClick, style, handleTouchStart, handleTouchEnd })
 
         fetchHistory();
         setFooterVisible(true);
-
-        const updateHeights = () => {
-            if (parrentRef.current) {
-                let rectParrent = parrentRef.current.getBoundingClientRect();
-                parrentRef.current.style.height = window.innerHeight - rectParrent.y + "px";
-            }
-            if (childrenRef.current) {
-                let rectChildren = childrenRef.current.getBoundingClientRect();
-                childrenRef.current.style.height = window.innerHeight - rectChildren.y - 20 + "px";
-            }
-            if (scrollRef.current) {
-                let rectScroll = scrollRef.current.getBoundingClientRect();
-                scrollRef.current.style.height = window.innerHeight - rectScroll.y - 20 + "px";
-            }
-        };
-
-        updateHeights();
-
-        window.addEventListener('resize', updateHeights);
-        return () => {
-            window.removeEventListener('resize', updateHeights);
-        };
-    }, [style]);
+        let rectParrent = parrentRef.current.getBoundingClientRect();
+        parrentRef.current.style.height = window.innerHeight - rectParrent.y + "px";
+        let rectChildren = childrenRef.current.getBoundingClientRect();
+        childrenRef.current.style.height = window.innerHeight - rectChildren.y - 20 + "px";
+        let rectScroll = scrollRef.current.getBoundingClientRect();
+        scrollRef.current.style.height = window.innerHeight - rectScroll.y - 20 + "px";
+    }, []);
 
     const handleEntry = (route) => {
         setRate(route);
@@ -74,8 +56,8 @@ function Home({ setRate, handleClick, style, handleTouchStart, handleTouchEnd })
     };
 
     return (
-        <div ref={parrentRef} className="home_body" onClick={handleClick} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
-            <div className='home_stat' style={style}>
+        <div ref={parrentRef} className="home_body">
+            <div className='home_stat' >
                 <div className='home_level'>{user_info.level.name}</div>
                 <div className='home_done'>
                     <div className='home_distanse_user'>{user_info.distance} км</div>

@@ -51,49 +51,49 @@ export default function TripRun({ selectedRoute, user_info, handleCloseClick, cu
             })
     }
 
-    // Горизонтальная прокрутка
-    useEffect(() => {
-        if (selectedRoute) {
-            document.getElementById("horizontal-scroller").addEventListener('wheel', function(event) {
-                if (event.deltaMode === event.DOM_DELTA_PIXEL) {
-                    // let modifier = 1;
-                    // иные режимы возможны в Firefox
-                } else if (event.deltaMode === event.DOM_DELTA_LINE) {
-                  var modifier = parseInt(getComputedStyle(this).lineHeight);
-                    } else if (event.deltaMode === event.DOM_DELTA_PAGE) {
-                    modifier = this.clientHeight;
-                    }
+    // // Горизонтальная прокрутка
+    // useEffect(() => {
+    //     if (selectedRoute) {
+    //         document.getElementById("horizontal-scroller").addEventListener('wheel', function(event) {
+    //             if (event.deltaMode === event.DOM_DELTA_PIXEL) {
+    //                 // let modifier = 1;
+    //                 // иные режимы возможны в Firefox
+    //             } else if (event.deltaMode === event.DOM_DELTA_LINE) {
+    //               var modifier = parseInt(getComputedStyle(this).lineHeight);
+    //                 } else if (event.deltaMode === event.DOM_DELTA_PAGE) {
+    //                 modifier = this.clientHeight;
+    //                 }
                 
-                if (event.deltaY !== 0) {
-                    // замена вертикальной прокрутки горизонтальной
-                    this.scrollLeft += modifier * event.deltaY;
-                    event.preventDefault();
-                }
+    //             if (event.deltaY !== 0) {
+    //                 // замена вертикальной прокрутки горизонтальной
+    //                 this.scrollLeft += modifier * event.deltaY;
+    //                 event.preventDefault();
+    //             }
     
-            })};
-    }, [selectedRoute]);
+    //         })};
+    // }, [selectedRoute]);
 
-    // Горизонтальная прокрутка
-    useEffect(() => {
-        if (selectedRoute) {
-            document.getElementById("horizontal-scroller").addEventListener('wheel', function(event) {
-                if (event.deltaMode === event.DOM_DELTA_PIXEL) {
-                    // let modifier = 1;
-                    // иные режимы возможны в Firefox
-                } else if (event.deltaMode === event.DOM_DELTA_LINE) {
-                  var modifier = parseInt(getComputedStyle(this).lineHeight);
-                    } else if (event.deltaMode === event.DOM_DELTA_PAGE) {
-                    modifier = this.clientHeight;
-                    }
+    // // Горизонтальная прокрутка
+    // useEffect(() => {
+    //     if (selectedRoute) {
+    //         document.getElementById("horizontal-scroller").addEventListener('wheel', function(event) {
+    //             if (event.deltaMode === event.DOM_DELTA_PIXEL) {
+    //                 // let modifier = 1;
+    //                 // иные режимы возможны в Firefox
+    //             } else if (event.deltaMode === event.DOM_DELTA_LINE) {
+    //               var modifier = parseInt(getComputedStyle(this).lineHeight);
+    //                 } else if (event.deltaMode === event.DOM_DELTA_PAGE) {
+    //                 modifier = this.clientHeight;
+    //                 }
                 
-                if (event.deltaY !== 0) {
-                    // замена вертикальной прокрутки горизонтальной
-                    this.scrollLeft += modifier * event.deltaY;
-                    event.preventDefault();
-                }
+    //             if (event.deltaY !== 0) {
+    //                 // замена вертикальной прокрутки горизонтальной
+    //                 this.scrollLeft += modifier * event.deltaY;
+    //                 event.preventDefault();
+    //             }
     
-            })};
-    }, [selectedRoute]);
+    //         })};
+    // }, [selectedRoute]);
 
     console.log(selectedRoute);
     return (
