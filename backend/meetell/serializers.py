@@ -75,6 +75,8 @@ class PhotoUserSerializer(serializers.ModelSerializer):
         return instance
     
 class TripSerializer(serializers.ModelSerializer):
+    registered_users = serializers.SerializerMethodField()
+
     class Meta:
         model = Trip
         fields = '__all__'
@@ -85,6 +87,10 @@ class TripSerializer(serializers.ModelSerializer):
         representation['date'] = instance.date.strftime(date_format)
         return representation
     
+    def get_registered_users(self, obj):
+        trip_users = TripUser.objects.filter(trip=obj)
+        return TripUserSimpleSerializer(trip_users, many=True).data
+
 class TripUserSerializer(serializers.ModelSerializer):
     trip = TripSerializer(read_only=True)
     class Meta:
@@ -99,4 +105,11 @@ class FriendSerializer(serializers.ModelSerializer):
 class UserSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = "__all__"
+        fields = ['tg_id', 'level']
+
+class TripUserSimpleSerializer(serializers.ModelSerializer):
+    user = UserSimpleSerializer(read_only=True)
+
+    class Meta:
+        model = TripUser
+        fields = ['user']

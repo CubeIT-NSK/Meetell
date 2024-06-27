@@ -22,12 +22,12 @@ class Command(BaseCommand):
             await app.sign_in(settings.PHONE, send_code.__dict__['phone_code_hash'], code)
         except SessionPasswordNeeded:
             await app.check_password(settings.PASSWORD)
-        return
+        return app
 
 
     async def create_group(self):
-        api_id = API.TelegramIOS.Generate().api_id
-        api_hash = API.TelegramIOS.Generate().api_hash
+        api_id = API.TelegramDesktop.Generate().api_id
+        api_hash = API.TelegramDesktop.Generate().api_hash
         session = False
         for file in os.listdir(os.path.abspath(os.curdir)):
             if file == "meetell_work.session":
@@ -37,6 +37,6 @@ class Command(BaseCommand):
         await app.connect()
         
         if not session:
-            await self.auth_account(app)
+            app = await self.auth_account(app)
         ids = [5947766690]
-        await app.create_group(title="Маршрут №00001", users=ids)
+        await app.create_group(title="Маршрут №00001")

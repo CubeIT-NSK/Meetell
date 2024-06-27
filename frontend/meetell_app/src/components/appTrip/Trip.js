@@ -583,7 +583,7 @@ function Trip() {
                 </div>
             </div>
             {selectedRoute && (
-                <TripRun selectedRoute={selectedRoute} user_info={user_info} handleCloseClick={handleCloseClick} />
+                <TripRun selectedRoute={selectedRoute} user_info={user_info} handleCloseClick={handleCloseClick} customClass=""/>
             )}
         </div >
     );
