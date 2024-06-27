@@ -74,7 +74,6 @@ def get_trips(request, format=None):
     date_st = datetime.datetime.strptime(f"{data['date']} {data['timeStart']}", '%Y-%m-%d %H:%M')
     date_en = datetime.datetime.strptime(f"{data['date']} {data['timeEnd']}", '%Y-%m-%d %H:%M')
     user_age = data.get('userAge')
-    user_sex = data.get('userSex')
     
     if data['timeTrip'] == 'under_60':
         trips = Trip.objects.filter(

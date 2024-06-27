@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useFooter } from '../appFooter/FooterContext';
+import TripRun from '../appTrip/TripRun';
 import './Home.css';
 
 function Home({ setRate, handleClick, style, handleTouchStart, handleTouchEnd }) {
@@ -9,10 +10,11 @@ function Home({ setRate, handleClick, style, handleTouchStart, handleTouchEnd })
     const scrollRef = useRef();
     const { setFooterVisible } = useFooter();
     const [history, setHistory] = useState([]);
+    const [selectedRoute, setSelectedRoute] = useState(null);
 
     const navigate = useNavigate();
 
-    setFooterVisible(true);
+    
 
     let user_info = JSON.parse(localStorage.getItem('user_info'));
     let remain_dist = user_info.level.max_distance - user_info.distance;
@@ -30,7 +32,7 @@ function Home({ setRate, handleClick, style, handleTouchStart, handleTouchEnd })
         };
 
         fetchHistory();
-
+        setFooterVisible(true);
         const updateHeights = () => {
             if (parrentRef.current) {
                 let rectParrent = parrentRef.current.getBoundingClientRect();
@@ -57,7 +59,18 @@ function Home({ setRate, handleClick, style, handleTouchStart, handleTouchEnd })
     const handleEntry = (route) => {
         setRate(route);
         navigate('/rate_route');
-    }
+    };
+
+    const handleButtonClick = (route) => {
+        setFooterVisible(false);
+        setSelectedRoute(route.trip);
+    };
+
+    const handleCloseClick = () => {
+        setSelectedRoute(null);
+        setFooterVisible(true);
+    };
+
     return (
         <div ref={parrentRef} className="home_body" onClick={handleClick} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
             <div className='home_stat' style={style}>
@@ -93,7 +106,7 @@ function Home({ setRate, handleClick, style, handleTouchStart, handleTouchEnd })
                                     <span className='result_item'>{item.trip.distance} км. {item.trip.time_sp} мин.</span>
                                 </div>
                                 {item.state === 'W' ? (
-                                    <button className='res_item_button result_about_button'>Подробнее</button>
+                                    <button className='res_item_button result_about_button' onClick={() => handleButtonClick(item)}>Подробнее</button>
                                 ) : (
                                     null
                                 )}
@@ -114,6 +127,9 @@ function Home({ setRate, handleClick, style, handleTouchStart, handleTouchEnd })
                     )}
                 </div>
             </div>
+            {selectedRoute && (
+                <TripRun selectedRoute={selectedRoute} user_info={user_info} handleCloseClick={handleCloseClick} customClass="custom-top-style"/>
+            )}
         </div>
     )
 }

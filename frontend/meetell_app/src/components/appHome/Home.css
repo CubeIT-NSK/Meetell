@@ -154,3 +154,8 @@
 .result_end_button {
   background: #AFAFB5;
 }
+
+.custom-top-style {
+  top: 80px;
+  z-index: 3;
+}

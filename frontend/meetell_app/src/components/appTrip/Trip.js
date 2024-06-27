@@ -588,7 +588,7 @@ function Trip({ content, setContent }) {
                 </div>
             </div>
             {selectedRoute && (
-                <TripRun selectedRoute={selectedRoute} user_info={user_info} handleCloseClick={handleCloseClick} setContent={setContent} content={content} />
+                <TripRun selectedRoute={selectedRoute} user_info={user_info} handleCloseClick={handleCloseClick} customClass=""/>
             )}
         </div >
     );
