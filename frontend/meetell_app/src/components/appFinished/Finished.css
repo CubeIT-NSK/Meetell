@@ -96,6 +96,11 @@
     justify-content: center;
 }
 
+.feedback {
+    font-size: 12px;
+    color: #797984;
+}
+
 .walk-grade h3 {
     font-size: calc((100vw - 320px)/(425 - 320) * (15 - 13) + 13px);
     line-height: 18.15px;

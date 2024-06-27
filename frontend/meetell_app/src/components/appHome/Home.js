@@ -73,7 +73,7 @@ function Home({ setRate, handleClick, style, handleTouchStart, handleTouchEnd })
     };
 
     return (
-        <div ref={parrentRef} className="home_body" onClick={handleClick} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+        <div ref={parrentRef} className="home_body" >
             <div className='home_stat' style={style}>
                 <div className='home_level'>{user_info.level.name}</div>
                 <div className='home_done'>

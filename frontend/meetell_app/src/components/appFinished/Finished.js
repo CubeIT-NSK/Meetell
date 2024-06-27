@@ -12,16 +12,22 @@ import { ReactComponent as GoodIcon } from '../../img/good_grade.svg';
 import { ReactComponent as FunnyIcon } from '../../img/funny_grade.svg';
 import { ReactComponent as Male } from '../../img/sex_male.svg';
 import { ReactComponent as Female } from '../../img/sex_female.svg';
+import Feedback from './Feedback.jsx';
 
 
 export default function Finished({ rateRoute }) {
 
+    const [userRate, setUserRate] = useState(false);
     const parrentRef = useRef();
     const navigate = useNavigate();
     const { setFooterVisible } = useFooter();
     const [selectedRoute, setSelectedRoute] = useState(null);
     const [selectedRateTrip, setSelectedRateTrip] = useState(null);
     setFooterVisible(false);
+
+    const handleUserRate = () => {
+        setUserRate(true);
+    }
     useEffect(() => {
         let rectParrent = parrentRef.current.getBoundingClientRect();
         parrentRef.current.style.height = window.innerHeight - rectParrent.y + "px";
@@ -242,18 +248,7 @@ export default function Finished({ rateRoute }) {
                                                 }
                                             </div>
                                         </div>
-                                        <div className="grade-faces">
-                                            <BadIcon className="icon_small"
-                                            />
-                                            <SadIcon className="icon_small"
-                                            />
-                                            <MediumIcon className="icon_small"
-                                            />
-                                            <GoodIcon className="icon_small"
-                                            />
-                                            <FunnyIcon className="icon_small"
-                                            />
-                                        </div>
+                                        <Feedback />
                                     </div>
                                 </div>
                             ))}
