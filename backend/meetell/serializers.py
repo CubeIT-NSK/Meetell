@@ -105,7 +105,7 @@ class FriendSerializer(serializers.ModelSerializer):
 class UserSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['tg_id', 'level']
+        fields = ['tg_id', 'level', 'user_name', 'name', 'birthday', 'sex']
 
 class TripUserSimpleSerializer(serializers.ModelSerializer):
     user = UserSimpleSerializer(read_only=True)
