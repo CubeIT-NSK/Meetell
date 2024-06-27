@@ -221,18 +221,19 @@ function ProfileOther() {
                         </div>
                     </div>
                 )}
-
-                <p className="friends_text">Друзья:</p>
-                <div className="friends_block" id="horizontal-scroller">
-                    <div className="friends">
-                        {friend && friend.friends ? friend.friends.map(item => (
-                            <Link to={`/profile/${item.tg_id}`} key={item.tg_id}>
-                                <div className="friend" id="#">
-                                    <img className="friend_avatar" src={account} alt="avatar" />
-                                    <div className="friend_level">{item.level}</div>
-                                </div>
-                            </Link>
-                        )) : null}
+                <div className='friends_contain'>
+                    <p className="friends_text">Друзья:</p>
+                    <div className="friends_block" id="horizontal-scroller">
+                        <div className="friends">
+                            {friend && friend.friends ? friend.friends.map(item => (
+                                <Link to={`/profile/${item.tg_id}`} key={item.tg_id}>
+                                    <div className="friend" id="#">
+                                        <img className="friend_avatar" src={account} alt="avatar" />
+                                        <div className="friend_level">{item.level}</div>
+                                    </div>
+                                </Link>
+                            )) : null}
+                        </div>
                     </div>
                 </div>
                 <div
@@ -242,15 +243,13 @@ function ProfileOther() {
                         position: 'inherit',
                         padding: '0'
                     }}>
-                    <h3>История маршрутов:</h3>
-                    <div className='home_scroll'>
-                        {history.length === 0 ? (
-                            <div className='home_search_result'>
-
-                                <h2>Ничего не найдено</h2>
-                                <p>Посмотрите ближайшие маршруты во вкладке ниже</p>
-                            </div>
-                        ) : (
+                <h3>История маршрутов:</h3>
+                <div  className='home_scroll'>
+                    {history.length === 0 ? (
+                        <div className='home_search_result'>
+                            <h2>Ничего не найдено</h2>
+                        </div>
+                    ) : (
 
                             history.map(item => (
                                 <div key={item.id} className="search_result_item">
