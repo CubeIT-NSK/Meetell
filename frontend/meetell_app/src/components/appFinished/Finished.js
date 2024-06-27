@@ -38,6 +38,18 @@ export default function Finished({ rateRoute }) {
         window.history.back();
     }
 
+    const getAge = (birthday) => {
+        let year_month_day = birthday.split('-');
+        let year = parseInt(year_month_day[0]);
+        let month = parseInt(year_month_day[1]);
+        let day = parseInt(year_month_day[2]);
+        const birthdat_date = new Date(year, month - 1, day);
+        const today = new Date();
+        const diff = today - birthdat_date;
+        const ageDate = new Date(diff);
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+    };
+
     const handleUpdateTrip = (rateRoute, state) => {
         const updateTrip = async () => {
             try {
@@ -110,6 +122,7 @@ export default function Finished({ rateRoute }) {
         updateTrip();
     }
 
+    console.log(rateRoute);
     return (
 
         <div className="Background" ref={parrentRef}>
@@ -171,7 +184,7 @@ export default function Finished({ rateRoute }) {
                 </div>
             )}
 
-            {rateRoute && (rateRoute.state === 'Y' || rateRoute.state === 'R')  && (
+            {rateRoute && (rateRoute.state === 'Y' || rateRoute.state === 'R') && (
 
                 <div className="walk-assessment">
                     <div className="title-text-assessment">
@@ -204,38 +217,49 @@ export default function Finished({ rateRoute }) {
                         </div>
                         <button className="grade-submit" onClick={() => handleUpdateRate(rateRoute)}>Оценить</button>
                     </div>
-                    {/* <div className="grade-companions">
-                        <p className="header-grade-companions">Оцените своих спутников :)</p>
-                        <div className="full-data-companion">
-                            <div className="grade-companions-faces">
-                                <div className="grade-companions-logo" id="#">
-                                    <img className="companions-avatar" src={account} alt="avatar"></img>
-                                    <div className="companions-level">123</div>
-                                </div>
-                            </div>
-                            <div className="user-data-position">
-                                <div className="user-data-companion">
-                                    <p>Красный рейнджер</p>
-                                    <div className="user-age-sex">
-                                        <p>15</p>
-                                        <img src={sex} alt=""/>
+                    {rateRoute.trip.registered_users.length !== 0 && (
+                        <div className="grade-companions">
+                            <p className="header-grade-companions">Оцените своих спутников :)</p>
+                            {rateRoute.trip.registered_users.map(item => (
+                                <div className="full-data-companion">
+                                    <div className="grade-companions-faces">
+                                        <div className="grade-companions-logo" id="#">
+                                            <img className="companions-avatar" src={account} alt="avatar"></img>
+                                            <div className="companions-level">{item.user.level}</div>
+                                        </div>
+                                    </div>
+                                    <div className="user-data-position">
+                                        <div className="user-data-companion">
+                                            <p>{item.user.name}</p>
+                                            <div className="user-age-sex">
+                                                <p>{getAge(item.user.birthday)}</p>
+                                                {item.user.sex === 'M' ?
+                                                    (
+                                                        <Male fill={'#0912DB'} width={'10px'} />
+                                                    ) :
+                                                    (
+                                                        <Female fill={'#0912DB'} width={'10px'}/>
+                                                    )
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="grade-faces">
+                                            <BadIcon className="icon_small"
+                                            />
+                                            <SadIcon className="icon_small"
+                                            />
+                                            <MediumIcon className="icon_small"
+                                            />
+                                            <GoodIcon className="icon_small"
+                                            />
+                                            <FunnyIcon className="icon_small"
+                                            />
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="grade-faces">
-                                    <BadIcon
-                                    />
-                                    <SadIcon
-                                    />
-                                    <MediumIcon
-                                    />
-                                    <GoodIcon
-                                    />
-                                    <FunnyIcon
-                                    />
-                                </div>
-                            </div>
+                            ))}
                         </div>
-                    </div> */}
+                    )}
                 </div>
 
             )
