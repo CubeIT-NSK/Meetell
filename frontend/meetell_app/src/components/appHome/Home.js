@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useFooter } from '../appFooter/FooterContext';
 import './Home.css';
 
-function Home({setRate}) {
+function Home({ setRate, handleClick, style, handleTouchStart, handleTouchEnd }) {
     const parrentRef = useRef();
     const childrenRef = useRef();
     const scrollRef = useRef();
@@ -31,21 +31,36 @@ function Home({setRate}) {
 
         fetchHistory();
 
-        let rectParrent = parrentRef.current.getBoundingClientRect();
-        parrentRef.current.style.height = window.innerHeight - rectParrent.y + "px";
-        let rectChildren = childrenRef.current.getBoundingClientRect();
-        childrenRef.current.style.height = window.innerHeight - rectChildren.y - 20 + "px";
-        let rectScroll = scrollRef.current.getBoundingClientRect();
-        scrollRef.current.style.height = window.innerHeight - rectScroll.y - 20 + "px";
-    }, []);
+        const updateHeights = () => {
+            if (parrentRef.current) {
+                let rectParrent = parrentRef.current.getBoundingClientRect();
+                parrentRef.current.style.height = window.innerHeight - rectParrent.y + "px";
+            }
+            if (childrenRef.current) {
+                let rectChildren = childrenRef.current.getBoundingClientRect();
+                childrenRef.current.style.height = window.innerHeight - rectChildren.y - 20 + "px";
+            }
+            if (scrollRef.current) {
+                let rectScroll = scrollRef.current.getBoundingClientRect();
+                scrollRef.current.style.height = window.innerHeight - rectScroll.y - 20 + "px";
+            }
+        };
+
+        updateHeights();
+
+        window.addEventListener('resize', updateHeights);
+        return () => {
+            window.removeEventListener('resize', updateHeights);
+        };
+    }, [style]);
 
     const handleEntry = (route) => {
         setRate(route);
         navigate('/rate_route');
     }
     return (
-        <div ref={parrentRef} className="home_body">
-            <div className='home_stat'>
+        <div ref={parrentRef} className="home_body" onClick={handleClick} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+            <div className='home_stat' style={style}>
                 <div className='home_level'>{user_info.level.name}</div>
                 <div className='home_done'>
                     <div className='home_distanse_user'>{user_info.distance} км</div>

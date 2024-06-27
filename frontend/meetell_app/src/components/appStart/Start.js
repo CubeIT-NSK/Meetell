@@ -6,10 +6,10 @@ import rules from '../../img/rules.svg'
 import manual from '../../img/manual.svg'
 import smartphone from '../../img/smartphone.svg'
 
-const Start = () => {
+const Start = ({ style }) => {
     let username = localStorage.getItem('username');
     return (
-        <div className="start_body">
+        <div className="start_body" style={style}>
             <div className="start_hello">Привет, @{username}</div>
                 <div className="start_menu">
                     <Link to='/question' className="no-underline">

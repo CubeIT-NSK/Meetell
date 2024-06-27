@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useFooter } from '../appFooter/FooterContext';
 
 import settings from '../../img/settings_trip.svg';
-import add from '../../img/add_trip.svg';
+// import add from '../../img/add_trip.svg';
 import TripRun from './TripRun';
 import './Trip.css';
 
 
 
-function Trip() {
+function Trip({ content, setContent }) {
     const [showFilters, setShowFilters] = useState(false);
     const parrentRef = useRef();
     const childrenRef = useRef();
@@ -347,10 +347,10 @@ function Trip() {
             <div className={`content ${showFilters ? 'blur-content' : ''}${selectedRoute ? 'block_none' : ''}`}>
                 <div className='trip_filters'>
                     <img src={settings} alt='' onClick={toggleFilters} style={{ cursor: 'pointer' }} />
-                    <button className='trip_add'>
+                    {/* <button className='trip_add'>
                         <span>Предложить маршрут</span>
                         <img src={add} alt='' />
-                    </button>
+                    </button> */}
                 </div>
 
                 <div className='trip_search'>
@@ -579,7 +579,7 @@ function Trip() {
                 </div>
             </div>
             {selectedRoute && (
-                <TripRun selectedRoute={selectedRoute} user_info={user_info} handleCloseClick={handleCloseClick} />
+                <TripRun selectedRoute={selectedRoute} user_info={user_info} handleCloseClick={handleCloseClick} setContent={setContent} content={content} />
             )}
         </div >
     );
