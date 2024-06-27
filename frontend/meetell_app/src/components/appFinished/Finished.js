@@ -10,7 +10,6 @@ import { ReactComponent as SadIcon } from '../../img/sad_grade.svg';
 import { ReactComponent as MediumIcon } from '../../img/medium_grade.svg';
 import { ReactComponent as GoodIcon } from '../../img/good_grade.svg';
 import { ReactComponent as FunnyIcon } from '../../img/funny_grade.svg';
-import sex from '../../img/sex_male.svg';
 import { ReactComponent as Male } from '../../img/sex_male.svg';
 import { ReactComponent as Female } from '../../img/sex_female.svg';
 
