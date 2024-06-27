@@ -23,6 +23,7 @@ export default function Finished({ rateRoute }) {
     const { setFooterVisible } = useFooter();
     const [selectedRoute, setSelectedRoute] = useState(null);
     const [selectedRateTrip, setSelectedRateTrip] = useState(null);
+    const [rate_done, setRateDone] = useState(false);
     setFooterVisible(false);
 
     const handleUserRate = () => {
@@ -81,6 +82,7 @@ export default function Finished({ rateRoute }) {
                     } else {
                         setSelectedRoute(state);
                         rateRoute.state = state;
+                        
                     }
                 }
             } catch (error) {
@@ -117,7 +119,9 @@ export default function Finished({ rateRoute }) {
                 const data = await response.json();
                 console.log(data);
                 if (data.message === 'ok') {
-                    navigate('/home');
+                    // navigate('/home');
+                    rateRoute.state = "E";
+                    setRateDone(true);
                 }
             } catch (error) {
                 console.error('Error fetching history:', error);
@@ -160,14 +164,14 @@ export default function Finished({ rateRoute }) {
                             {rateRoute.trip.sex === 'M' ?
                                 (
                                     <div className='route_info_sex'>
-                                        <Male fill={'#0912DB'}  width={'16px'} />
+                                        <Male fill={'#0912DB'} width={'16px'} />
                                     </div>
                                 ) : null}
 
                             {rateRoute.trip.sex === 'W' ?
                                 (
                                     <div className='route_info_sex'>
-                                        <Female fill={'#0912DB'}  width={'16px'} />
+                                        <Female fill={'#0912DB'} width={'16px'} />
                                     </div>
                                 ) : null}
                         </div>
@@ -176,53 +180,66 @@ export default function Finished({ rateRoute }) {
                 </div>
             )
             }
-            {rateRoute && rateRoute.state === 'Q' && (
-                <div className="Feedback-content">
-                    <div className="Title-text">
-                        <h3>Удалось ли посетить данный маршрут?</h3>
-                        <p>Поделиться маршрутом</p>
+            {rate_done === true ? (
+                <></>
+            ) : (
+                rateRoute && rateRoute.state === 'Q' && (
+                    <div className="Feedback-content">
+                        <div className="Title-text">
+                            <h3>Удалось ли посетить данный маршрут?</h3>
+                            <p>Поделиться маршрутом</p>
+                        </div>
+                        <div className="choose-feedback-message">
+                            <button className="Yes" onClick={() => handleUpdateTrip(rateRoute, 'Y')}>Да</button>
+                            <button className="No" onClick={() => handleUpdateTrip(rateRoute, 'N')}>Нет</button>
+                        </div>
+                        <img className="map" src={phone} alt="" />
                     </div>
-                    <div className="choose-feedback-message">
-                        <button className="Yes" onClick={() => handleUpdateTrip(rateRoute, 'Y')}>Да</button>
-                        <button className="No" onClick={() => handleUpdateTrip(rateRoute, 'N')}>Нет</button>
-                    </div>
-                    <img className="map" src={phone} alt="" />
-                </div>
+                )
             )}
 
-            {rateRoute && (rateRoute.state === 'Y' || rateRoute.state === 'R') && (
+
+            {rateRoute && (rateRoute.state === 'Y' || rateRoute.state === 'R' || rateRoute.state === 'E') && (
 
                 <div className="walk-assessment">
                     <div className="title-text-assessment">
                         <p>Рады узнать!</p>
                         <p>Отметили этот маршрут в вашем профиле.</p>
                     </div>
-                    <div className="walk-grade">
-                        <h3>Оцените как всё прошло:</h3>
-                        <div className="grade-faces-big">
-                            <BadIcon
-                                onClick={() => handleImageClick(1)}
-                                className={selectedRateTrip === 1 ? 'rate-1' : ''}
-                            />
-                            <SadIcon
-                                onClick={() => handleImageClick(2)}
-                                className={selectedRateTrip === 2 ? 'rate-2' : ''}
-                            />
-                            <MediumIcon
-                                onClick={() => handleImageClick(3)}
-                                className={selectedRateTrip === 3 ? 'rate-3' : ''}
-                            />
-                            <GoodIcon
-                                onClick={() => handleImageClick(4)}
-                                className={selectedRateTrip === 4 ? 'rate-4' : ''}
-                            />
-                            <FunnyIcon
-                                onClick={() => handleImageClick(5)}
-                                className={selectedRateTrip === 5 ? 'rate-5' : ''}
-                            />
+                    {rateRoute.state !== "E" && (
+                        <div className="walk-grade">
+                            <h3>Оцените как всё прошло:</h3>
+                            <div className="grade-faces-big">
+                                <BadIcon
+                                    onClick={() => handleImageClick(1)}
+                                    className={selectedRateTrip === 1 ? 'rate-1' : ''}
+                                />
+                                <SadIcon
+                                    onClick={() => handleImageClick(2)}
+                                    className={selectedRateTrip === 2 ? 'rate-2' : ''}
+                                />
+                                <MediumIcon
+                                    onClick={() => handleImageClick(3)}
+                                    className={selectedRateTrip === 3 ? 'rate-3' : ''}
+                                />
+                                <GoodIcon
+                                    onClick={() => handleImageClick(4)}
+                                    className={selectedRateTrip === 4 ? 'rate-4' : ''}
+                                />
+                                <FunnyIcon
+                                    onClick={() => handleImageClick(5)}
+                                    className={selectedRateTrip === 5 ? 'rate-5' : ''}
+                                />
+                            </div>
+                            <button className="grade-submit" onClick={() => handleUpdateRate(rateRoute)}>Оценить</button>
                         </div>
-                        <button className="grade-submit" onClick={() => handleUpdateRate(rateRoute)}>Оценить</button>
+                    )}
+                    {rateRoute.state === 'E' && (
+                        <div className="thanks-for-gread">
+                        <p>Спасибо за обратную связь!</p>
+                        <p>Мы учтём вашу оченку при построении следующих маршрутов.</p>
                     </div>
+                    )}
                     {rateRoute.trip.registered_users.length !== 0 && (
                         <div className="grade-companions">
                             <p className="header-grade-companions">Оцените своих спутников :)</p>
@@ -244,7 +261,7 @@ export default function Finished({ rateRoute }) {
                                                         <Male fill={'#0912DB'} width={'10px'} />
                                                     ) :
                                                     (
-                                                        <Female fill={'#0912DB'} width={'10px'}/>
+                                                        <Female fill={'#0912DB'} width={'10px'} />
                                                     )
                                                 }
                                             </div>
