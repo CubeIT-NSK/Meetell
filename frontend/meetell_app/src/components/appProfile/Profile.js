@@ -390,12 +390,7 @@ export default function Profile() {
                             <progress className='home_progress' value={user_info.distance} max={user_info.level.max_distance} />
                         </div>
                     </div>
-                    
-                    {!(location.pathname !== '/profile') && location.pathname.startsWith('/profile') ?
                         <p className="friends_text">Ваши друзья:</p>
-                        :
-                        <p className="friends_text">Друзья:</p>
-                    }
                     <div className="friends_block" id="horizontal-scroller">
                         <div className="friends">
                         {user_info.friends ? user_info.friends.map(item => (

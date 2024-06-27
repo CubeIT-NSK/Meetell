@@ -1,5 +1,4 @@
 .trip_body {
-    margin-top: 20px;
     width: 94%;
     background: rgb(233,238,244);
     background: -moz-linear-gradient(180deg, rgba(233,238,244,1) 0%, rgba(245,245,245,1) 100%);
@@ -353,9 +352,13 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: white;
+    background: #fff;
     border-radius: 15px 15px 0px 0px;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     /* transform: translateY(100%);
     animation: slideIn 0.5s forwards; */
 }
@@ -428,7 +431,6 @@
     border-radius: 10px;
     text-align: center;
     width: 100%;
-    font-size: 20px;
 }
 
 .route_info_ages {
@@ -451,15 +453,73 @@
     color: #797984;
 }
 
-.route_img {
-    width: 100%;
+.attractions {
+    font-size: 9px;
+    font-weight: 300;
     text-align: center;
-    height: 250px;
+    padding-bottom: 5px;
 }
 
-.route_img img {
+.phone_map {
     width: 100%;
-    height: 100%;
+    height: 30%;
+    cursor: pointer;
+}
+
+.route_articles {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    margin-top: 5px;
+    gap: 5px;
+    align-items: center;
+    margin-bottom: 5px;
+    overflow: hidden;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.article {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    background: #E9EEF4;
+    border-radius: 10px;
+    align-items: center;
+}
+
+.article_name {
+    font-size: 15px;
+    margin: 10px;
+    font-weight: 400;
+}
+
+.article_about {
+    border: none;
+    background-color: #523DD8;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+    margin: 10px;
+}
+
+.yandex_map {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.yandex_map a {
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+}
+.yandex_map a img {
+    width: 85%;
+    border-radius: 15px;
 }
 
 .route_bottom {
@@ -474,7 +534,7 @@
 .route_travelers h4 {
     margin: 0;
     padding: 0;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     font-size: 13px;
     font-weight: 400;
 }

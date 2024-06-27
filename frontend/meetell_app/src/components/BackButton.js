@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation } from 'react-router-dom';
 import './appProfile/Profile.css';
 
-export default function BackButton({ setSelectedRoute, className, style }) {
+export default function BackButton({ setSelectedRoute, className, style, content, setContent }) {
 
     const location = useLocation();
     // Кнопка назад

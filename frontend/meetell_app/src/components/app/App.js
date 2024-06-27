@@ -6,7 +6,7 @@ import Header from "../appHeader/Header";
 import Footer from '../appFooter/Footer';
 import { FooterProvider } from '../appFooter/FooterContext';
 import Trip from '../appTrip/Trip';
-import AddTripWalk from '../appAddTripWalk/AddTripWalk';
+// import AddTripWalk from '../appAddTripWalk/AddTripWalk';
 import {
   Routes,
   Route,
@@ -17,7 +17,7 @@ import HelloScreen from '../appHelloScreen/HelloScreen.js';
 import Carousel from '../appCarousel/Carousel.js';
 import PreLoader from '../appPreLoader/PreLoader.js';
 import Profile from '../appProfile/Profile.js';
-import ProfileOther from '../appProfile/ProfileOther.js';
+import ProfileOther from '../appProfile/ProfileOther.jsx';
 import Page404 from '../appPage404/Page404';
 import question from '../../img/question.svg';
 import rules from '../../img/rules.svg';
@@ -33,6 +33,8 @@ const preloadImages = (imageUrls) => {
 };
 
 function App() {
+  const [content, setContent] = useState(false);
+
   useEffect(() => {
     const imageUrls = [
       question,
@@ -71,7 +73,7 @@ function App() {
   return (
     <Fragment>
       <FooterProvider>
-        <Header />
+        <Header content={content} setContent={setContent}/>
         <Routes>
           <Route path='/' element={
             hello ? <HelloScreen /> :
@@ -80,11 +82,11 @@ function App() {
          <Route path="/home" element={<Main setRate={setRate} />} />
          <Route path="/rate_route" element={<Finished rateRoute={rateRoute} />} />
           <Route path='/question' element={<Question />} />
-          <Route path='/trips' element={<Trip />} />
+          <Route path='/trips' element={<Trip setContent={setContent} content={content}/>} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='/profile/:userId' element={<ProfileOther />} />
+          <Route path='/profile/userId' element={<ProfileOther />} />
           <Route path='/*' element={<Page404 />} />
-          <Route path='/add_trip' element={<AddTripWalk />} />
+          {/* <Route path='/addTrip' element={<AddTripWalk />} /> */}
         </Routes>
         {!location.pathname.startsWith('/profile') && <Footer />}
       </FooterProvider>
