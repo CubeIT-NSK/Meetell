@@ -98,7 +98,7 @@ export default function TripRun({
   // }, [selectedRoute]);
 
     return (
-    <div ref={tripRef} className="route_info_slide_in">
+        <div ref={tripRef} className={`route_info_slide_in ${customClass}`}>
         {/* {!content ? (
         <> */}
         <div className='route_head'>

@@ -55,18 +55,6 @@ export default function Finished({ rateRoute }) {
         return Math.abs(ageDate.getUTCFullYear() - 1970);
     };
 
-    const getAge = (birthday) => {
-        let year_month_day = birthday.split('-');
-        let year = parseInt(year_month_day[0]);
-        let month = parseInt(year_month_day[1]);
-        let day = parseInt(year_month_day[2]);
-        const birthdat_date = new Date(year, month - 1, day);
-        const today = new Date();
-        const diff = today - birthdat_date;
-        const ageDate = new Date(diff);
-        return Math.abs(ageDate.getUTCFullYear() - 1970);
-    };
-
     const handleUpdateTrip = (rateRoute, state) => {
         const updateTrip = async () => {
             try {
@@ -117,7 +105,7 @@ export default function Finished({ rateRoute }) {
                     user_id: user_info.tg_id,
                     trip_id: rateRoute.trip.id,
                     trip_user_id: rateRoute.id,
-                    state: 'R'
+                    state: 'E'
                 }
                 const response = await fetch('api/update_trip', {
                     method: 'PUT',
@@ -202,7 +190,6 @@ export default function Finished({ rateRoute }) {
                 </div>
             )}
 
-            {rateRoute && (rateRoute.state === 'Y' || rateRoute.state === 'R') && (
             {rateRoute && (rateRoute.state === 'Y' || rateRoute.state === 'R') && (
 
                 <div className="walk-assessment">

@@ -54,7 +54,7 @@ function Home({ setRate }) {
         return () => {
             window.removeEventListener('resize', updateHeights);
         };
-    }, [style]);
+    }, []);
 
     const handleEntry = (route) => {
         setRate(route);
@@ -62,7 +62,6 @@ function Home({ setRate }) {
     };
 
     const handleButtonClick = (route) => {
-        console.log(route);
         setFooterVisible(false);
         setSelectedRoute(route.trip);
     };
@@ -74,7 +73,7 @@ function Home({ setRate }) {
 
     return (
         <div ref={parrentRef} className="home_body" >
-            <div className='home_stat' style={style}>
+            <div className='home_stat'>
                 <div className='home_level'>{user_info.level.name}</div>
                 <div className='home_done'>
                     <div className='home_distanse_user'>{user_info.distance} км</div>
