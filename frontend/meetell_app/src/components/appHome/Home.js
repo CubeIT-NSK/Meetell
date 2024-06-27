@@ -14,6 +14,8 @@ function Home({ setRate }) {
 
     const navigate = useNavigate();
 
+    setFooterVisible(true);
+
     let user_info = JSON.parse(localStorage.getItem('user_info'));
     let remain_dist = user_info.level.max_distance - user_info.distance;
 
@@ -31,13 +33,28 @@ function Home({ setRate }) {
 
         fetchHistory();
         setFooterVisible(true);
-        let rectParrent = parrentRef.current.getBoundingClientRect();
-        parrentRef.current.style.height = window.innerHeight - rectParrent.y + "px";
-        let rectChildren = childrenRef.current.getBoundingClientRect();
-        childrenRef.current.style.height = window.innerHeight - rectChildren.y - 20 + "px";
-        let rectScroll = scrollRef.current.getBoundingClientRect();
-        scrollRef.current.style.height = window.innerHeight - rectScroll.y - 20 + "px";
-    }, []);
+        const updateHeights = () => {
+            if (parrentRef.current) {
+                let rectParrent = parrentRef.current.getBoundingClientRect();
+                parrentRef.current.style.height = window.innerHeight - rectParrent.y + "px";
+            }
+            if (childrenRef.current) {
+                let rectChildren = childrenRef.current.getBoundingClientRect();
+                childrenRef.current.style.height = window.innerHeight - rectChildren.y - 20 + "px";
+            }
+            if (scrollRef.current) {
+                let rectScroll = scrollRef.current.getBoundingClientRect();
+                scrollRef.current.style.height = window.innerHeight - rectScroll.y - 20 + "px";
+            }
+        };
+
+        updateHeights();
+
+        window.addEventListener('resize', updateHeights);
+        return () => {
+            window.removeEventListener('resize', updateHeights);
+        };
+    }, [style]);
 
     const handleEntry = (route) => {
         setRate(route);
@@ -56,8 +73,8 @@ function Home({ setRate }) {
     };
 
     return (
-        <div ref={parrentRef} className="home_body">
-            <div className='home_stat' >
+        <div ref={parrentRef} className="home_body" >
+            <div className='home_stat' style={style}>
                 <div className='home_level'>{user_info.level.name}</div>
                 <div className='home_done'>
                     <div className='home_distanse_user'>{user_info.distance} км</div>

@@ -12,16 +12,22 @@ import { ReactComponent as GoodIcon } from '../../img/good_grade.svg';
 import { ReactComponent as FunnyIcon } from '../../img/funny_grade.svg';
 import { ReactComponent as Male } from '../../img/sex_male.svg';
 import { ReactComponent as Female } from '../../img/sex_female.svg';
+import Feedback from './Feedback.jsx';
 
 
 export default function Finished({ rateRoute }) {
 
+    const [userRate, setUserRate] = useState(false);
     const parrentRef = useRef();
     const navigate = useNavigate();
     const { setFooterVisible } = useFooter();
     const [selectedRoute, setSelectedRoute] = useState(null);
     const [selectedRateTrip, setSelectedRateTrip] = useState(null);
     setFooterVisible(false);
+
+    const handleUserRate = () => {
+        setUserRate(true);
+    }
     useEffect(() => {
         let rectParrent = parrentRef.current.getBoundingClientRect();
         parrentRef.current.style.height = window.innerHeight - rectParrent.y + "px";
@@ -36,6 +42,18 @@ export default function Finished({ rateRoute }) {
     const handleCloseClick = () => {
         window.history.back();
     }
+
+    const getAge = (birthday) => {
+        let year_month_day = birthday.split('-');
+        let year = parseInt(year_month_day[0]);
+        let month = parseInt(year_month_day[1]);
+        let day = parseInt(year_month_day[2]);
+        const birthdat_date = new Date(year, month - 1, day);
+        const today = new Date();
+        const diff = today - birthdat_date;
+        const ageDate = new Date(diff);
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+    };
 
     const getAge = (birthday) => {
         let year_month_day = birthday.split('-');
@@ -122,6 +140,7 @@ export default function Finished({ rateRoute }) {
     }
 
     console.log(rateRoute);
+    console.log(rateRoute);
     return (
 
         <div className="Background" ref={parrentRef}>
@@ -146,21 +165,21 @@ export default function Finished({ rateRoute }) {
                             {rateRoute.trip.sex === 'A' ?
                                 (
                                     <div className='route_info_sex'>
-                                        <Male fill={'#0912DB'} />
-                                        <Female fill={'#0912DB'} />
+                                        <Male fill={'#0912DB'} width={'16px'} />
+                                        <Female fill={'#0912DB'} width={'16px'} />
                                     </div>
                                 ) : null}
                             {rateRoute.trip.sex === 'M' ?
                                 (
                                     <div className='route_info_sex'>
-                                        <Male fill={'#0912DB'} />
+                                        <Male fill={'#0912DB'}  width={'16px'} />
                                     </div>
                                 ) : null}
 
                             {rateRoute.trip.sex === 'W' ?
                                 (
                                     <div className='route_info_sex'>
-                                        <Female fill={'#0912DB'} />
+                                        <Female fill={'#0912DB'}  width={'16px'} />
                                     </div>
                                 ) : null}
                         </div>
@@ -183,6 +202,7 @@ export default function Finished({ rateRoute }) {
                 </div>
             )}
 
+            {rateRoute && (rateRoute.state === 'Y' || rateRoute.state === 'R') && (
             {rateRoute && (rateRoute.state === 'Y' || rateRoute.state === 'R') && (
 
                 <div className="walk-assessment">
@@ -242,18 +262,7 @@ export default function Finished({ rateRoute }) {
                                                 }
                                             </div>
                                         </div>
-                                        <div className="grade-faces">
-                                            <BadIcon className="icon_small"
-                                            />
-                                            <SadIcon className="icon_small"
-                                            />
-                                            <MediumIcon className="icon_small"
-                                            />
-                                            <GoodIcon className="icon_small"
-                                            />
-                                            <FunnyIcon className="icon_small"
-                                            />
-                                        </div>
+                                        <Feedback />
                                     </div>
                                 </div>
                             ))}

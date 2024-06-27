@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+// import { useNavigate, Link } from "react-router-dom";
 import { useFooter } from '../appFooter/FooterContext';
 import { Link } from 'react-router-dom';
 import settings from '../../img/settings_trip.svg';
@@ -353,6 +354,12 @@ function Trip({ content, setContent }) {
                         <span>Предложить маршрут</span>
                         <img src={add} alt='' />
                     </button> */}
+                    {/* <Link to="/addTrip">
+                        <button className='trip_add'>
+                            <span>Предложить маршрут</span>
+                            <img src={add} alt='' />
+                        </button>
+                    </Link> */}
                 </div>
 
                 <div className='trip_search'>
