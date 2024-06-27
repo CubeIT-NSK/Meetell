@@ -62,6 +62,7 @@ function Home({ setRate, handleClick, style, handleTouchStart, handleTouchEnd })
     };
 
     const handleButtonClick = (route) => {
+        console.log(route);
         setFooterVisible(false);
         setSelectedRoute(route.trip);
     };
