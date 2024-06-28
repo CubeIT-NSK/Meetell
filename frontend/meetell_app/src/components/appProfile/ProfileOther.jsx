@@ -16,6 +16,7 @@ function ProfileOther() {
     const [stat, setStat] = useState(null);
     const [styleAgeAndSex, setStyleAgeAndSex] = useState({ display: 'none' });
     const [selectedSex, setSelectedSex] = useState("M");
+    const [photo, setPhoto] = useState(null);
 
     const getAge = (birthday) => {
         let year_month_day = birthday.split('-');
@@ -58,7 +59,8 @@ function ProfileOther() {
                         time: data.total_time_sp,
                     }
                     setStat(stat_data);
-                    setStyleAgeAndSex({display: 'flex'})
+                    setStyleAgeAndSex({ display: 'flex' })
+                    setPhoto(data.photo);
                 }
 
             })
@@ -75,7 +77,7 @@ function ProfileOther() {
     const [style, setStyle] = useState({ display: 'none' });
 
 
-    
+
 
 
     // Не ебу мне это надо или нет, спиздил у тебя Никит для высоты блока
@@ -161,10 +163,18 @@ function ProfileOther() {
         <div className="profile">
             <div className="preview">
                 <div className="ton"></div>
-                {user_photo && user_photo.photo ?
-                    <FileDisplay file={user_photo.photo} /> :
-                    null
-                }
+                    {photo ?
+                        <img
+                            className="avatar"
+                            src={photo}
+                            alt="avatar"
+                            style={{
+                                width: '100%',
+                            }}
+                        /> :
+                        null
+                    }
+                
                 <div className="ageAndSex" style={styleAgeAndSex}>
                     <p className="age">
                         {fullYears}
@@ -187,16 +197,16 @@ function ProfileOther() {
                 </div>
                 {stat === null ? (
                     <div className='profile_route_info_blocks'>
-                    <div className='route_info_block_profile route_info_range'>0 <span className='route_info_small'>кол.</span></div>
-                    <div className='route_info_block_profile route_info_ages'>0 <span className='route_info_small span_small'>км.</span></div>
-                    <div className='route_info_block_profile route_info_time'>0 <span className='route_info_small'>ч.</span></div>
-                </div>
-                ):(
+                        <div className='route_info_block_profile route_info_range'>0 <span className='route_info_small'>кол.</span></div>
+                        <div className='route_info_block_profile route_info_ages'>0 <span className='route_info_small span_small'>км.</span></div>
+                        <div className='route_info_block_profile route_info_time'>0 <span className='route_info_small'>ч.</span></div>
+                    </div>
+                ) : (
                     <div className='profile_route_info_blocks'>
-                    <div className='route_info_block_profile route_info_range'>{stat.count} <span className='route_info_small'>кол.</span></div>
-                    <div className='route_info_block_profile route_info_ages'>{stat.dist} <span className='route_info_small span_small'>км.</span></div>
-                    <div className='route_info_block_profile route_info_time'>{stat.time} <span className='route_info_small'>ч.</span></div>
-                </div>
+                        <div className='route_info_block_profile route_info_range'>{stat.count} <span className='route_info_small'>кол.</span></div>
+                        <div className='route_info_block_profile route_info_ages'>{stat.dist} <span className='route_info_small span_small'>км.</span></div>
+                        <div className='route_info_block_profile route_info_time'>{stat.time} <span className='route_info_small'>ч.</span></div>
+                    </div>
                 )}
                 {level === null ? (
                     <div className='profile_stat'>
@@ -243,13 +253,13 @@ function ProfileOther() {
                         position: 'inherit',
                         padding: '0'
                     }}>
-                <h3>История маршрутов:</h3>
-                <div  className='home_scroll'>
-                    {history.length === 0 ? (
-                        <div className='home_search_result'>
-                            <h2>Ничего не найдено</h2>
-                        </div>
-                    ) : (
+                    <h3>История маршрутов:</h3>
+                    <div className='home_scroll'>
+                        {history.length === 0 ? (
+                            <div className='home_search_result'>
+                                <h2>Ничего не найдено</h2>
+                            </div>
+                        ) : (
 
                             history.map(item => (
                                 <div key={item.id} className="search_result_item">

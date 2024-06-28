@@ -25,6 +25,7 @@ class UserSerializer(serializers.ModelSerializer):
     trip_count = serializers.IntegerField(read_only=True)
     total_time_sp = serializers.FloatField(read_only=True)
     friends = serializers.SerializerMethodField()
+    photo = serializers.SerializerMethodField()
 
     class Meta:
         model = User
@@ -53,6 +54,10 @@ class UserSerializer(serializers.ModelSerializer):
             friends.add(friendship.first_friend)
         
         return UserSimpleSerializer(friends, many=True).data
+    
+    def get_photo(self, obj):
+        photo_user = PhotoUser.objects.filter(user=obj).first()
+        return photo_user.photo if photo_user else None
 
 class PhotoUserSerializer(serializers.ModelSerializer):
     class Meta:
