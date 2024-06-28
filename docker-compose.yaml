@@ -44,6 +44,8 @@ services:
     container_name: bot
     command: python3 manage.py bot
     restart: unless-stopped
+    depends_on:
+      - pgdb
 
   pgdb:
     image: postgres
