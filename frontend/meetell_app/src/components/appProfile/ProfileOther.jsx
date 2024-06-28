@@ -158,8 +158,6 @@ function ProfileOther() {
     }, [selectedRoute]);
 
     return (
-        // <>{friend && (
-        //     <>
         <div className="profile">
             <div className="preview">
                 <div className="ton"></div>
