@@ -30,7 +30,8 @@ class User(models.Model):
 
 class PhotoUser(models.Model):
     user = models.ForeignKey('User', on_delete=models.CASCADE)
-    photo = models.TextField()
+    photo = models.TextField(default=None, null=True)
+    photo_low = models.TextField(default=None, null=True)
 
 class Friend(models.Model):
     first_friend = models.ForeignKey('User', on_delete=models.CASCADE, related_name="first")

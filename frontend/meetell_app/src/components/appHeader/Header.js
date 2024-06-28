@@ -34,8 +34,8 @@ const Header = ({ content, setContent }) => {
                         <span className="header_bold">{user_info.level.id}</span><br />Уровень
                     </div>
                     <div className='second'>
-                        {user_photo && user_photo.photo ?
-                            <img src={user_photo.photo} alt="user" className='account_photo'/> :
+                        {user_photo && user_photo.photo_low ?
+                            <img src={user_photo.photo_low} alt="user" className='account_photo'/> :
                             <img src={account} alt="user" />
                         }
 

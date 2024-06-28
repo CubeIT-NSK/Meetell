@@ -57,20 +57,23 @@ class UserSerializer(serializers.ModelSerializer):
 class PhotoUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = PhotoUser
-        fields = ['user', 'photo']
+        fields = ['user', 'photo', 'photo_low']
 
     def create(self, validated_data):
         user = validated_data.get('user')
         photo = validated_data.get('photo')
+        photo_low = validated_data.get('photo_low')
 
         # Пытаемся найти существующую запись PhotoUser для данного user
-        photo_user, created = PhotoUser.objects.update_or_create(user=user, defaults={'photo': photo})
+        photo_user, created = PhotoUser.objects.update_or_create(
+            user=user, defaults={'photo': photo, 'photo_low': photo_low})
 
         return photo_user
 
     def update(self, instance, validated_data):
         instance.user = validated_data.get('user', instance.user)
         instance.photo = validated_data.get('photo', instance.photo)
+        instance.photo_low = validated_data.get('photo_low', instance.photo_low)
         instance.save()
         return instance
     
@@ -103,9 +106,15 @@ class FriendSerializer(serializers.ModelSerializer):
         fields = ['first_friend', 'second_friend']
 
 class UserSimpleSerializer(serializers.ModelSerializer):
+    photo_low = serializers.SerializerMethodField()
+
     class Meta:
         model = User
-        fields = ['tg_id', 'level', 'user_name', 'name', 'birthday', 'sex']
+        fields = ['tg_id', 'level', 'user_name', 'name', 'birthday', 'sex', 'photo_low']
+
+    def get_photo_low(self, obj):
+        photo_user = PhotoUser.objects.filter(user=obj).first()
+        return photo_user.photo_low if photo_user else None
 
 class TripUserSimpleSerializer(serializers.ModelSerializer):
     user = UserSimpleSerializer(read_only=True)

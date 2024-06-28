@@ -6,10 +6,15 @@ from .serializers import (FAQSerializer, UserSerializer, PhotoUserSerializer, Tr
 from django.http import JsonResponse
 from django.core.exceptions import BadRequest
 from django.conf import settings
+from django.db.models import Q
 
 import requests
 import random
 import datetime
+from PIL import Image
+from pillow_heif import register_heif_opener
+from io import BytesIO
+import base64
 
 routes_novosibirsk = [
     "Исторический центр Новосибирска",
@@ -73,37 +78,35 @@ def get_trips(request, format=None):
     # Фильтрация существующих записей
     date_st = datetime.datetime.strptime(f"{data['date']} {data['timeStart']}", '%Y-%m-%d %H:%M')
     date_en = datetime.datetime.strptime(f"{data['date']} {data['timeEnd']}", '%Y-%m-%d %H:%M')
-    user_age = data.get('userAge')
+    age_start = int(data['ageStart'])
+    age_end = int(data['ageEnd'])
     
     if data['timeTrip'] == 'under_60':
         trips = Trip.objects.filter(
-            year_st__lte=user_age,
-            year_en__gte=user_age,
             date__gte=date_st,
             date__lte=date_en,
-            time_sp__lte=60
-        ).filter(
+            time_sp__lte=60,
             sex=data['sex']
+        ).filter(
+            Q(year_st__lte=age_end) & Q(year_en__gte=age_start)
         )
     elif data['timeTrip'] == 'under_120':
         trips = Trip.objects.filter(
-            year_st__lte=user_age,
-            year_en__gte=user_age,
             date__gte=date_st,
             date__lte=date_en,
-            time_sp__lte=120
-        ).filter(
+            time_sp__lte=120,
             sex=data['sex']
+        ).filter(
+            Q(year_st__lte=age_end) & Q(year_en__gte=age_start)
         )
     else:
         trips = Trip.objects.filter(
-            year_st__lte=user_age,
-            year_en__gte=user_age,
             date__gte=date_st,
             date__lte=date_en,
-            time_sp__gte=120
-        ).filter(
+            time_sp__gte=120,
             sex=data['sex']
+        ).filter(
+            Q(year_st__lte=age_end) & Q(year_en__gte=age_start)
         )
     
     serializer = TripSerializer(trips, many=True)
@@ -165,7 +168,8 @@ def photo_user(request, format=None):
         except User.DoesNotExist:
             return JsonResponse({'error': 'User does not exist.'}, status=status.HTTP_404_NOT_FOUND)
 
-        photo_user, created = PhotoUser.objects.update_or_create(user=user, defaults={'photo': photo})
+        data_full, data_low = resize_photo(photo, user)
+        photo_user, created = PhotoUser.objects.update_or_create(user=user, defaults={'photo': data_full, 'photo_low': data_low})
 
         serializer = PhotoUserSerializer(photo_user)
         if created:
@@ -296,3 +300,29 @@ def random_date(start_date, end_date):
     # formatted_datetime = random_datetime.strftime('%d.%m.%Y, %H:%M')
     
     return random_datetime
+
+def resize_photo(image_base: str, user: User):
+    image_base = image_base[image_base.find("base64,")+7:]
+    register_heif_opener()
+    
+    fixed_width = 500
+    img = Image.open(BytesIO(base64.b64decode(image_base)))
+
+    width_percent = (fixed_width / float(img.size[0]))
+    height_size = int((float(img.size[1]) * float(width_percent)))
+
+    new_image = img.resize((fixed_width, height_size))
+    new_image.convert("RGB")
+    data_full = save_to_base_64(new_image)
+
+    new_image_low = img.resize((50, 50))
+    new_image_low.convert("RGB")
+    data_low = save_to_base_64(new_image_low)
+
+    return data_full, data_low
+
+def save_to_base_64(img: Image):
+    buffered = BytesIO()
+    img.save(buffered, format="JPEG", quality=90, optimize=True)
+    data_url = 'data:image/jpeg;base64,' + base64.b64encode(buffered.getvalue()).decode("utf-8")
+    return data_url

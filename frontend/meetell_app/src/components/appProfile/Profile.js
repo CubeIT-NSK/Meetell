@@ -16,10 +16,6 @@ function FileUploader({ onFileSelect }) {
     const handleFileUpload = (event) => {
         const user_info = JSON.parse(localStorage.getItem('user_info'));
         let file = event.target.files[0];
-        if (file.size> 2100000) {
-            alert("Слишком большой размер фото");
-            return
-        }
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function () {
@@ -85,7 +81,7 @@ function FileDisplay({ file, defaultImage }) {
 }
 
 export default function Profile() {
-    let user_photo = null;
+    let user_photo = JSON.parse(localStorage.getItem('user_photo'));
     const { userId } = useParams();
     // console.log(userId);
     const getAge = (birthday) => {
