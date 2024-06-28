@@ -10,6 +10,8 @@ services:
     expose:
       - 8000
     restart: unless-stopped
+    depends_on:
+      - pgdb
 
   frontend:
     build: 
@@ -42,3 +44,16 @@ services:
     container_name: bot
     command: python3 manage.py bot
     restart: unless-stopped
+
+  pgdb:
+    image: postgres
+    environment:
+      - POSTGRES_DB=meetell
+      - POSTGRES_USER=postgres_meetell
+      - POSTGRES_PASSWORD=meecv32tell
+    container_name: pgdb
+    volumes:
+      - pgdbdata:/var/lib/postgresql/data/
+
+volumes:
+  pgdbdata: null
