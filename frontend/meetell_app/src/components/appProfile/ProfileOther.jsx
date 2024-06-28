@@ -70,7 +70,6 @@ function ProfileOther() {
             });
     }, [userId]);
 
-    let user_photo = null;
     const [history, setHistory] = useState([]);
 
     const [selectedRoute, setSelectedRoute] = useState(true);
@@ -236,7 +235,11 @@ function ProfileOther() {
                             {friend && friend.friends ? friend.friends.map(item => (
                                 <Link to={`/profile/${item.tg_id}`} key={item.tg_id}>
                                     <div className="friend" id="#">
-                                        <img className="friend_avatar" src={account} alt="avatar" />
+                                        {item.photo_low ? (
+                                            <img className="friend_avatar" src={item.photo_low} alt="avatar" />
+                                        ): (
+                                            <img className="friend_avatar" src={account} alt="avatar" />
+                                        )}
                                         <div className="friend_level">{item.level}</div>
                                     </div>
                                 </Link>

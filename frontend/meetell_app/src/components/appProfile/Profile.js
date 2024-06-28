@@ -107,7 +107,7 @@ export default function Profile() {
         day = parseInt(year_month_day[2]);
         let birthday = new Date(year, month - 1, day);
         age = getAge(birthday)
-        if (user_info.sex === "M"){
+        if (user_info.sex === "M") {
             sex = 'male';
             maleOpac = '100%';
         } else {
@@ -309,23 +309,24 @@ export default function Profile() {
     // Горизонтальная прокрутка
     useEffect(() => {
         if (selectedRoute) {
-            document.getElementById("horizontal-scroller").addEventListener('wheel', function(event) {
+            document.getElementById("horizontal-scroller").addEventListener('wheel', function (event) {
                 if (event.deltaMode === event.DOM_DELTA_PIXEL) {
                     var modifier = 1;
                     // иные режимы возможны в Firefox
                 } else if (event.deltaMode === event.DOM_DELTA_LINE) {
-                  var modifier = parseInt(getComputedStyle(this).lineHeight);
-                    } else if (event.deltaMode === event.DOM_DELTA_PAGE) {
+                    var modifier = parseInt(getComputedStyle(this).lineHeight);
+                } else if (event.deltaMode === event.DOM_DELTA_PAGE) {
                     var modifier = this.clientHeight;
-                    }
-                
+                }
+
                 if (event.deltaY !== 0) {
                     // замена вертикальной прокрутки горизонтальной
                     this.scrollLeft += modifier * event.deltaY;
                     event.preventDefault();
                 }
-    
-            })};
+
+            })
+        };
     }, [selectedRoute]);
 
     useEffect(() => {
@@ -386,17 +387,21 @@ export default function Profile() {
                             <progress className='home_progress' value={user_info.distance} max={user_info.level.max_distance} />
                         </div>
                     </div>
-                        <p className="friends_text">Ваши друзья:</p>
+                    <p className="friends_text">Ваши друзья:</p>
                     <div className="friends_block" id="horizontal-scroller">
                         <div className="friends">
-                        {user_info.friends ? user_info.friends.map(item => (
-                            <Link to={`/profile/${item.tg_id}`} key={item.tg_id}>
-                                <div className="friend" id="#">
-                                    <img className="friend_avatar" src={account} alt="avatar"></img>
-                                    <div className="friend_level">{item.level}</div>
-                                </div>
-                            </Link>
-                        )) : null}
+                            {user_info.friends ? user_info.friends.map(item => (
+                                <Link to={`/profile/${item.tg_id}`} key={item.tg_id}>
+                                    <div className="friend" id="#">
+                                        {item.photo_low ? (
+                                            <img className="friend_avatar" src={item.photo_low} alt="avatar" />
+                                        ) : (
+                                            <img className="friend_avatar" src={account} alt="avatar" />
+                                        )}
+                                        <div className="friend_level">{item.level}</div>
+                                    </div>
+                                </Link>
+                            )) : null}
                         </div>
                     </div>
                     {!(location.pathname !== '/profile') && location.pathname.startsWith('/profile') ?

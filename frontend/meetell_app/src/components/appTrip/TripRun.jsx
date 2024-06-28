@@ -91,12 +91,8 @@ export default function TripRun({
                 </div>
             </div>
             <div className="yandex_map">
-                <a
-                    href="https://yandex.ru/maps/?um=constructor%3A6e3dca864c766510bf6e3faf979864e2734079597aae16e2ce7cadd8f0ffd821&amp;source=constructorStatic"
-                >
-                    <img src="https://api-maps.yandex.ru/services/constructor/1.0/static/?um=constructor%3A6e3dca864c766510bf6e3faf979864e2734079597aae16e2ce7cadd8f0ffd821&amp;width=500&amp;height=400&amp;lang=ru_RU"
-                        alt=""
-                    />
+                <a href="https://yandex.ru/maps/?um=constructor%3A514f31a88a692695f13e427c70a3d02e5d04f96eca6e3a41450eb11d7a1ddc0f&amp;source=constructorStatic" target="_blank">
+                    <img src="https://api-maps.yandex.ru/services/constructor/1.0/static/?um=constructor%3A514f31a88a692695f13e427c70a3d02e5d04f96eca6e3a41450eb11d7a1ddc0f&amp;width=430&amp;height=430&amp;lang=ru_RU" alt=""/>
                 </a>
             </div>
             <div className='route_bottom'>
@@ -110,7 +106,7 @@ export default function TripRun({
                                         <div className="friend" id="#">
                                             {item.user.photo_low !== null ? (
                                                 <img className="friend_avatar" src={item.user.photo_low} alt="avatar"></img>
-                                            ):(
+                                            ) : (
                                                 <img className="friend_avatar" src={account} alt="avatar"></img>
                                             )}
                                             <div className="friend_level">{item.user.level}</div>
