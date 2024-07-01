@@ -47,6 +47,16 @@ services:
     depends_on:
       - pgdb
 
+  checker:
+    build: 
+      context: .
+      dockerfile: docker/python/DockerFile
+    container_name: bot
+    command: python3 manage.py backend
+    restart: unless-stopped
+    depends_on:
+      - pgdb
+
   pgdb:
     image: postgres
     environment:
