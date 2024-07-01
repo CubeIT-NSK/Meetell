@@ -2,15 +2,27 @@ import { Link, useLocation } from 'react-router-dom';
 import BackButton from '../BackButton.js'
 import './Header.css';
 import account from '../../img/account.svg'
+import React, { useState } from 'react';
 
 const Header = ({ content, setContent }) => {
     const location = useLocation();
     let user_info = localStorage.getItem('user_info');
     user_info = JSON.parse(user_info);
     const user_photo = JSON.parse(localStorage.getItem('user_photo'));
+    // const [city, setCity] = useState(localStorage.getItem('city'));
+    // if (!city) {
+    //     localStorage.setItem('city', 'spb');
+    //     setCity('spb');
+    // }
+
+    // const handleCityChange = (e) => {
+    //     localStorage.setItem('city', e.target.value);
+    //     setCity(e.target.value);
+    // };
+
     return (
         <div className={`header_block ${location.pathname === '/' || location.pathname === '/addTrip' ? 'active' : ''}`}>
-            {(location.pathname !== '/profile' && location.pathname.startsWith('/profile')) ||  content  ?
+            {(location.pathname !== '/profile' && location.pathname.startsWith('/profile')) || content ?
                 <BackButton className={'header_logo'} style={{ fill: '#fff' }} setContent={setContent} content={content} />
                 :
                 <Link to='/home'>
@@ -21,13 +33,15 @@ const Header = ({ content, setContent }) => {
                     </div>
                 </Link>
             }
-            <div className='filter_city'>
-                <select className='filter_city_select' value="spb">
+            {/* <div className='filter_city'>
+                <select
+                    className='filter_city_select'
+                    onChange={handleCityChange}
+                    value={city}>
                     <option value="spb">Санкт-Петербург</option>
-                    <option value="kzn">Казань</option>
-                    <option value="nsk">Новосибирск</option>
+                    <option value="msk">Москва</option>
                 </select>
-            </div>
+            </div> */}
             <Link to='/profile'>
                 <div className="header_user">
                     <div className='first'>
@@ -35,7 +49,7 @@ const Header = ({ content, setContent }) => {
                     </div>
                     <div className='second'>
                         {user_photo && user_photo.photo_low ?
-                            <img src={user_photo.photo_low} alt="user" className='account_photo'/> :
+                            <img src={user_photo.photo_low} alt="user" className='account_photo' /> :
                             <img src={account} alt="user" />
                         }
 

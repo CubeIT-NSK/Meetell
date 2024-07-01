@@ -41,41 +41,11 @@ def get_faq(request, format=None):
 @api_view(['POST'])
 def get_trips(request, format=None):
     data = request.data
-    len_db_trips = Trip.objects.count()
+    if data['city'] == 'spb':
+        city = 1
+    else:
+        city = 2
     
-    if len_db_trips == 0:
-        start_date = datetime.datetime.strptime(f"{data['date']} {data['timeStart']}", '%Y-%m-%d %H:%M')
-        end_date = datetime.datetime.strptime(f"{data['date']} {data['timeEnd']}", '%Y-%m-%d %H:%M')
-        # sex = random.choice(["M", "A", "W"])
-        len_trips = random.randint(10, 30)
-        trips = []
-
-        for _ in range(len_trips):
-            age_start = random.randint(0, 65)
-            age_end = random.randint(age_start, 65)
-            sex = random.choice([SexSelection.MEN, SexSelection.ALL, SexSelection.WOMEN])
-            len_trip = random.randint(1, 15)
-            time_trip = len_trip * 8
-            trip_data = {
-                'date': random_date(start_date, end_date),
-                'name': random.choice(routes_novosibirsk),
-                'city': City.objects.get(pk=1).id,  # Предполагается, что город с pk=1 существует
-                'sex': sex,
-                'year_st': age_start,
-                'year_en': age_end,
-                'time_sp': time_trip,
-                'distance': len_trip,
-                'ratting': 0.0,
-                'chat_link': 'https://t.me/+ELbMppxWv3MyNGEy',
-            }
-            trips.append(trip_data)
-
-        serializer = TripSerializer(data=trips, many=True)
-        if serializer.is_valid():
-            serializer.save()
-    
-    
-    # Фильтрация существующих записей
     date_st = datetime.datetime.strptime(f"{data['date']} {data['timeStart']}", '%Y-%m-%d %H:%M')
     date_en = datetime.datetime.strptime(f"{data['date']} {data['timeEnd']}", '%Y-%m-%d %H:%M')
     age_start = int(data['ageStart'])
@@ -83,6 +53,7 @@ def get_trips(request, format=None):
     
     if data['timeTrip'] == 'under_60':
         trips = Trip.objects.filter(
+            city_id = city,
             date__gte=date_st,
             date__lte=date_en,
             time_sp__lte=60,
@@ -92,6 +63,7 @@ def get_trips(request, format=None):
         )
     elif data['timeTrip'] == 'under_120':
         trips = Trip.objects.filter(
+            city_id = city,
             date__gte=date_st,
             date__lte=date_en,
             time_sp__lte=120,
@@ -101,6 +73,7 @@ def get_trips(request, format=None):
         )
     else:
         trips = Trip.objects.filter(
+            city_id = city,
             date__gte=date_st,
             date__lte=date_en,
             time_sp__gte=120,
@@ -196,7 +169,7 @@ def user_trip_registr(request, format=None):
     trip = Trip.objects.get(pk = data['id'])
     try:
         is_created = TripUser.objects.get(trip=trip, user=user)
-        return JsonResponse({'error': 'User ID and file are required.'}, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({'error': 'User ID'}, status=status.HTTP_400_BAD_REQUEST)
     except TripUser.DoesNotExist:
         trip_user = TripUser.objects.create(
             trip = trip,

@@ -48,6 +48,7 @@ class Trip(models.Model):
     distance = models.FloatField()
     ratting = models.FloatField(default=0.0)
     chat_link = models.CharField(max_length=50, default=None, null=True)
+    map_block = models.TextField(null=True, default=None)
 
 class TripUser(models.Model):
     trip = models.ForeignKey('Trip', on_delete=models.CASCADE)

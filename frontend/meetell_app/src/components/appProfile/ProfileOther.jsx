@@ -83,10 +83,9 @@ function ProfileOther() {
     const childrenRef = useRef(null);
 
     useEffect(() => {
-        let user_info = JSON.parse(localStorage.getItem('user_info'));
         const fetchHistory = async () => {
             try {
-                const response = await fetch('/api/history?id=' + user_info.tg_id);
+                const response = await fetch('/api/history?id=' + userId);
                 const data = await response.json();
                 setHistory(data);
             } catch (error) {

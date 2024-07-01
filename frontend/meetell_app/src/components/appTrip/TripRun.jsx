@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loadTelegramWebApp } from "../telegram/telegram";
 import "./Trip.css";
@@ -16,6 +16,7 @@ export default function TripRun({
 }) {
     const tripRef = useRef(null);
     const navigate = useNavigate();
+    const [right, setRigth] = useState(true);
     let registr = false;
 
     if (user_info.birthday) {
@@ -28,23 +29,40 @@ export default function TripRun({
         navigate("/profile");
     };
 
+    const getAge = (birthday) => {
+        let year_month_day = birthday.split('-');
+        let year = parseInt(year_month_day[0]);
+        let month = parseInt(year_month_day[1]);
+        let day = parseInt(year_month_day[2]);
+        const birthdat_date = new Date(year, month - 1, day);
+        const today = new Date();
+        const diff = today - birthdat_date;
+        const ageDate = new Date(diff);
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+    };
+
     const handleJoinButton = (route) => {
-        const user_id = localStorage.getItem("user_id");
-        route.user_id = parseInt(user_id);
-        fetch("api/trip", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(route),
-        }).then((response) => {
-            loadTelegramWebApp().then(() => {
-                if (window.Telegram && window.Telegram.WebApp) {
-                    const webApp = window.Telegram.WebApp;
-                    webApp.close();
-                }
+        const user_info = JSON.parse(localStorage.getItem("user_info"));
+        let ageUser = getAge(user_info.birthday);
+        if (ageUser >= route.year_st && ageUser <= route.year_en && (user_info.sex === route.sex || route.sex === "A")) {
+            route.user_id = parseInt(user_info.tg_id);
+            fetch("api/trip", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(route),
+            }).then((response) => {
+                loadTelegramWebApp().then(() => {
+                    if (window.Telegram && window.Telegram.WebApp) {
+                        const webApp = window.Telegram.WebApp;
+                        webApp.close();
+                    }
+                });
             });
-        });
+        } else {
+            setRigth(false);
+        }
     };
 
     return (
@@ -90,11 +108,9 @@ export default function TripRun({
                     <div className='route_info_block route_info_time'>{selectedRoute.time_sp} <span className='route_info_small'>мин.</span></div>
                 </div>
             </div>
-            <div className="yandex_map">
-                <a href="https://yandex.ru/maps/?um=constructor%3A514f31a88a692695f13e427c70a3d02e5d04f96eca6e3a41450eb11d7a1ddc0f&amp;source=constructorStatic" target="_blank">
-                    <img src="https://api-maps.yandex.ru/services/constructor/1.0/static/?um=constructor%3A514f31a88a692695f13e427c70a3d02e5d04f96eca6e3a41450eb11d7a1ddc0f&amp;width=430&amp;height=430&amp;lang=ru_RU" alt=""/>
-                </a>
-            </div>
+
+            <YandexMap mapHtml={selectedRoute.map_block} />
+
             <div className='route_bottom'>
                 {selectedRoute.registered_users.length !== 0 ? (
                     <div className='route_travelers'>
@@ -121,6 +137,9 @@ export default function TripRun({
                     {registr && (
                         <div className='route_button_chat'>
                             <button className='button_chat' onClick={() => handleJoinButton(selectedRoute)}>Перейти в чат</button>
+                            {!right && (
+                                <p className='route_register_text'>Вы не можете зарегистрироваться на этот маршрут</p>
+                            )}
                         </div>
                     )}
                     {!registr && (
@@ -128,8 +147,8 @@ export default function TripRun({
                             <button className='button_registr' onClick={handleRegistrButton}>Заполнить профиль</button>
                             <p className='route_register_text'>Заполните небольшую анкету чтобы мы могли предлагать вам только подходящие маршруты.</p>
                         </div>
-
                     )}
+
                     <div className='route_share'>
                         <img src={share} alt='share' />
                         Поделиться маршрутом
@@ -157,4 +176,18 @@ export default function TripRun({
         )}  */}
         </div>
     )
+}
+
+function YandexMap({ mapHtml }) {
+    const [html, setHtml] = useState("");
+
+    useEffect(() => {
+        setHtml(mapHtml);
+    }, [mapHtml]);
+
+    return (
+        <div className="yandex_map">
+            <div className="yandex_map" dangerouslySetInnerHTML={{ __html: html }}></div>
+        </div>
+    );
 }

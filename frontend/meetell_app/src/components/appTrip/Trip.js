@@ -46,6 +46,17 @@ function Trip({ content, setContent }) {
 
     const { setFooterVisible } = useFooter();
 
+    const [city, setCity] = useState(localStorage.getItem('city'));
+    if (!city) {
+        localStorage.setItem('city', 'spb');
+        setCity('spb');
+    }
+
+    const handleCityChange = (e) => {
+        localStorage.setItem('city', e.target.value);
+        setCity(e.target.value);
+    };
+
     useEffect(() => {
         setFooterVisible(true);
         let rectParrent = parrentRef.current.getBoundingClientRect();
@@ -279,7 +290,7 @@ function Trip({ content, setContent }) {
     const handleSave = () => {
         const user_info = JSON.parse(localStorage.getItem('user_info'));
         const data = {
-            city: 'spb',
+            city: city,
             date: `${selectedYear}-${selectedMonth}-${selectedDay}`,
             timeStart: selectedTimeSt,
             timeEnd: selectedTimeEn,
@@ -386,10 +397,12 @@ function Trip({ content, setContent }) {
             <div ref={filterRef} className={`filter_options ${showFilters ? 'slide-down' : 'slide-up'}`}>
                 <div className='filter_header'>
                     <div className='filter_city'>
-                        <select className='filter_city_select' value="spb">
+                        <select
+                            className='filter_city_select'
+                            onChange={handleCityChange}
+                            value={city}>
                             <option value="spb">Санкт-Петербург</option>
-                            <option value="kzn">Казань</option>
-                            <option value="nsk">Новосибирск</option>
+                            <option value="msk">Москва</option>
                         </select>
                     </div>
                 </div>
@@ -588,7 +601,7 @@ function Trip({ content, setContent }) {
                 </div>
             </div>
             {selectedRoute && (
-                <TripRun selectedRoute={selectedRoute} user_info={user_info} handleCloseClick={handleCloseClick} customClass=""/>
+                <TripRun selectedRoute={selectedRoute} user_info={user_info} handleCloseClick={handleCloseClick} customClass="" />
             )}
         </div >
     );

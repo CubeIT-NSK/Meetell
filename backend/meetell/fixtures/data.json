@@ -50,14 +50,7 @@
         "model": "meetell.city",
         "pk": 2,
         "fields": {
-            "name": "Казань"
-        }
-    },
-    {
-        "model": "meetell.city",
-        "pk": 3,
-        "fields": {
-            "name": "Новосибирск"
+            "name": "Москва"
         }
     }
 ]
