@@ -203,16 +203,19 @@ export default function Profile() {
     const handleDayChange = (e) => {
         setSelectedDay(e.target.value);
         validateDate(selectedMonth, e.target.value, selectedYear);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const handleMonthChange = (e) => {
         setSelectedMonth(e.target.value);
         validateDate(e.target.value, selectedDay, selectedYear);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const handleYearChange = (e) => {
         setSelectedYear(e.target.value);
         validateDate(selectedMonth, selectedDay, e.target.value);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const validateDate = (month, day, year) => {

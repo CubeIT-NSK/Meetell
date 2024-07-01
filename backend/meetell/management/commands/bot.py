@@ -11,6 +11,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 import pandas as pd
 import io
+import pytz
 
 dp = Dispatcher()
 bot = Bot(settings.TOKEN)
@@ -66,7 +67,7 @@ async def handle_document(message: Message):
       # Сохранение данных в базу
       for index, row in df.iterrows():
          trip = await Trip.objects.acreate(
-               date=row['Дата'],
+               date=pytz.timezone('Europe/Moscow').localize(row['Дата']),
                name=row['Название'],
                sex=row['Пол'],
                year_st=row['Возраст от'],

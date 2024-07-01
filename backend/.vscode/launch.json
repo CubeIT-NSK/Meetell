@@ -21,12 +21,12 @@
             "args": ["bot"]
         },
         {
-            "name": "pyrogram",
+            "name": "back",
             "type": "debugpy",
             "request": "launch",
             "program": "manage.py",
             "console": "integratedTerminal",
-            "args": ["chats"]
+            "args": ["backend"]
         }
     ]
 }
