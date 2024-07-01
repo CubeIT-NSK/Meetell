@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 // import { useNavigate, Link } from "react-router-dom";
 import { useFooter } from '../appFooter/FooterContext';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import settings from '../../img/settings_trip.svg';
 // import add from '../../img/add_trip.svg';
 import TripRun from './TripRun';
@@ -50,7 +50,7 @@ function Trip({ content, setContent }) {
         setFooterVisible(true);
         let rectParrent = parrentRef.current.getBoundingClientRect();
         parrentRef.current.style.height = window.innerHeight - rectParrent.y + "px";
-    }, []);
+    }, [setFooterVisible]);
 
     useEffect(() => {
         if (!childrenRef.current) return;
@@ -322,7 +322,6 @@ function Trip({ content, setContent }) {
 
     let user_info = localStorage.getItem('user_info');
     user_info = JSON.parse(user_info);
-    const isDisabled = user_info.level.id === 1;
 
     // const handleJoinButton = (route) => {
     //     const user_id = localStorage.getItem('user_id');

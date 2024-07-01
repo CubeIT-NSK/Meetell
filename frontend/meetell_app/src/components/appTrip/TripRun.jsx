@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loadTelegramWebApp } from "../telegram/telegram";
 import "./Trip.css";
