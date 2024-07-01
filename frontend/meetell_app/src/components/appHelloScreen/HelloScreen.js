@@ -1,11 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import './HelloScreen.css';
 import { loadTelegramWebApp } from '../telegram/telegram';
 
 export default function HelloScreen() {
-  const { setItem, getItem } = useStore();
-  const parrentRef = useRef();
-
   useEffect(() => {
     loadTelegramWebApp().then(() => {
       if (window.Telegram && window.Telegram.WebApp) {
