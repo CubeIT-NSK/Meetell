@@ -51,7 +51,7 @@ services:
     build: 
       context: .
       dockerfile: docker/python/DockerFile
-    container_name: bot
+    container_name: checker
     command: python3 manage.py backend
     restart: unless-stopped
     depends_on:
