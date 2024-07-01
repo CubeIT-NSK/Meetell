@@ -30,7 +30,7 @@ const Start = ({ style }) => {
                             <p>Инструкция</p>
                         </div>
                     </Link>
-                    <Link to='/info' className="no-underline">
+                    <Link to='/about' className="no-underline">
                         <div className="start_btn_info">
                             <img src={smartphone} alt='' />
                             <p>О приложении</p>

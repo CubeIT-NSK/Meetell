@@ -23,7 +23,7 @@
   .closeSlider {
     position: absolute;
     top: 20px;
-    right: 10%;
+    right: 7%;
     width: 20px;
     height: 20px;
     background-image: url('../../img/close.svg');
@@ -43,7 +43,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 30px 30px 50px 30px;
+    padding: 30px;
     border-radius: 10px;
     width: 70%;
     text-align: center;
@@ -74,8 +74,8 @@
   }
 
   .carouselSvg {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
   }
   .navDots {
     display: flex;

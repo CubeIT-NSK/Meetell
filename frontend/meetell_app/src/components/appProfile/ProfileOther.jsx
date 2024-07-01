@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useParams, useNavigate, Link, useLocation } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import FileDisplay from './Profile.js';
 import account from '../../img/account.svg';
 import { ReactComponent as Male } from '../../img/sex_male.svg';
