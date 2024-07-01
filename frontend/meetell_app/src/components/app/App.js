@@ -2,6 +2,7 @@ import './App.css';
 import { Fragment } from "react";
 import Main from '../appMain/Main';
 import Question from '../appQuestion/Question';
+import About from '../appStart/appAbout/About.jsx';
 import Header from "../appHeader/Header";
 import Footer from '../appFooter/Footer';
 import { FooterProvider } from '../appFooter/FooterContext';
@@ -82,6 +83,7 @@ function App() {
          <Route path="/home" element={<Main setRate={setRate} />} />
          <Route path="/rate_route" element={<Finished rateRoute={rateRoute} />} />
           <Route path='/question' element={<Question />} />
+          <Route path='/about' element={<About />} />
           <Route path='/trips' element={<Trip setContent={setContent} content={content}/>} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/profile/:userId' element={<ProfileOther />} />

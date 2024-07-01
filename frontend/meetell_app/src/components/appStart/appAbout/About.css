@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+.about {
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100vh;
+  font-family: inter, sans-serif;
+  text-align: center;
+  color: #fff;
+  font-size: 20px;
+}
+
+.created {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: shadow-pulse 2s infinite;
+}
+
+.created p {
+    font-weight: 600;
+}
+.created h1 {
+    font-weight: 700; 
+}
+.created span {
+    color: #8374e9;
+}
+
+@keyframes flicker {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+@keyframes shadow-pulse {
+    0%, 100% {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 10px rgb(255, 255, 255);
+    }
+}
